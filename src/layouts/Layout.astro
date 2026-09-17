@@ -1,23 +1,117 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Volume Calculator - 3D Geometric Shapes & Tank Volume (Instant Online Tool)',
+  description = 'Calculate volume for 16 3D geometric shapes including cube, box, cylinder, sphere, cone, capsule, and horizontal tanks with liquid fill depth. Instant multi-unit conversions into m³, liters, gallons, cubic feet, and barrels.',
+} = Astro.props;
+
+const canonicalUrl = 'https://thevolumecalculator.com/';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SoftwareApplication',
+      'name': 'The Volume Calculator',
+      'applicationCategory': 'EducationalApplication',
+      'operatingSystem': 'Any',
+      'offers': {
+        '@type': 'Offer',
+        'price': '0',
+        'priceCurrency': 'USD',
+      },
+      'description': description,
+      'url': canonicalUrl,
+    },
+    {
+      '@type': 'FAQPage',
+      'mainEntity': [
+        {
+          '@type': 'Question',
+          'name': 'How do you calculate the volume of a 3D shape?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Volume measures 3D space occupied by an object. For a rectangular box, V = length × width × height. For a cylinder, V = π × radius² × height. For a sphere, V = (4/3) × π × radius³.',
+          },
+        },
+        {
+          '@type': 'Question',
+          'name': 'What is the SI unit for volume?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'The official SI unit of volume is the cubic meter (m³). Commonly used metric sub-units include the liter (1,000 L = 1 m³) and cubic centimeter (cm³).',
+          },
+        },
+        {
+          '@type': 'Question',
+          'name': 'How do you calculate liquid volume in a horizontal cylindrical tank?',
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': 'Use the circular segment formula: V = [r² arccos((r-d)/r) - (r-d)√(2rd - d²)] × L, where r is radius, d is liquid depth, and L is tank length.',
+          },
+        },
+      ],
+    },
+  ],
+};
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="generator" content={Astro.generator} />
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+    <!-- Dark Mode Initializer (Zero Flash of Unstyled Content) -->
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (stored === 'dark' || (!stored && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (_) {}
+      })();
+    </script>
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="volume calculator, calculate volume, 3d volume calculator, cylinder volume, sphere volume, tank volume calculator, box volume, cubic feet calculator, gallons calculator" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="thevolumecalculator.com" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="bg-canvas-soft text-ink min-h-screen flex flex-col selection:bg-primary/20 selection:text-primary">
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,113 @@
+---
+// CommonPresets.astro - 1-Click Popular Real-World Presets
+import { ICONS } from '../scripts/icons';
+
+const PRESET_EXAMPLES = [
+  {
+    name: '12 oz Soda Can',
+    shape: 'cylinder',
+    shapeName: 'Cylinder',
+    desc: '3.3 cm radius × 12.2 cm height',
+    iconKey: 'can',
+    badge: 'Beverage',
+  },
+  {
+    name: '55 Gallon Steel Drum',
+    shape: 'cylinder',
+    shapeName: 'Cylinder',
+    desc: '11.25 in radius × 33.5 in height',
+    iconKey: 'drum',
+    badge: 'Industrial',
+  },
+  {
+    name: '20ft Shipping Container',
+    shape: 'rectangular_prism',
+    shapeName: 'Rectangular Box',
+    desc: '5.9m × 2.35m × 2.39m freight',
+    iconKey: 'container',
+    badge: 'Logistics',
+  },
+  {
+    name: 'Olympic Swimming Pool',
+    shape: 'rectangular_prism',
+    shapeName: 'Rectangular Box',
+    desc: '50m × 25m × 2m (2.5M Liters)',
+    iconKey: 'pool',
+    badge: 'Aquatics',
+  },
+  {
+    name: '5-Gal Utility Bucket',
+    shape: 'conical_frustum',
+    shapeName: 'Conical Frustum',
+    desc: '6" top r × 5.2" bottom r × 14.5" h',
+    iconKey: 'bucket',
+    badge: 'Construction',
+  },
+  {
+    name: 'Horizontal Fuel Tank (Half Full)',
+    shape: 'horizontal_tank_fill',
+    shapeName: 'Horizontal Tank',
+    desc: '2 ft radius × 10.6 ft length (2 ft depth)',
+    iconKey: 'fuel',
+    badge: 'Fuel & Tanks',
+  },
+  {
+    name: 'Official NBA Basketball',
+    shape: 'sphere',
+    shapeName: 'Sphere',
+    desc: '12.1 cm radius regulation ball',
+    iconKey: 'ball',
+    badge: 'Sports',
+  },
+  {
+    name: 'Planet Earth',
+    shape: 'sphere',
+    shapeName: 'Sphere',
+    desc: '6,371 km mean radius sphere',
+    iconKey: 'globe',
+    badge: 'Astronomy',
+  },
+];
+---
+
+<section id="presets" class="w-full bg-white rounded-xl border border-hairline p-5 sm:p-6 shadow-xs">
+  <div class="flex items-center justify-between mb-4 pb-3 border-b border-hairline">
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <div class="w-6 h-6 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0" set:html={ICONS.lightning} />
+        <h3 class="text-lg font-bold text-ink tracking-tight">Popular Real-World Presets</h3>
+      </div>
+      <p class="text-xs text-ink-muted">1-click to pre-fill verified dimensions for everyday objects and industrial standards</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+    {PRESET_EXAMPLES.map((item) => (
+      <a
+        href={`#calculator`}
+        class="group p-3.5 rounded-lg bg-canvas-soft border border-hairline hover:border-primary hover:bg-white transition-all cursor-pointer flex flex-col justify-between"
+        onclick={`
+          const card = document.querySelector('[data-shape-id="${item.shape}"]');
+          if (card) { card.click(); }
+        `}
+      >
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div class="w-8 h-8 rounded-lg bg-white border border-hairline flex items-center justify-center text-primary shrink-0 shadow-2xs" set:html={ICONS[item.iconKey]} />
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white border border-hairline text-ink-muted">
+              {item.badge}
+            </span>
+          </div>
+          <h4 class="font-bold text-xs sm:text-sm text-ink group-hover:text-primary transition-colors">
+            {item.name}
+          </h4>
+          <p class="text-[11px] text-ink-muted mt-0.5">{item.desc}</p>
+        </div>
+        <div class="mt-2 pt-2 border-t border-hairline/60 flex items-center justify-between text-[11px]">
+          <span class="text-ink-faint">{item.shapeName}</span>
+          <span class="font-semibold text-primary group-hover:translate-x-0.5 transition-transform">Load →</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

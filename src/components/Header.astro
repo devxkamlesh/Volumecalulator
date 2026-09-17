@@ -1,0 +1,211 @@
+---
+// Header.astro - Notion-inspired clean minimalist navigation
+---
+
+<header class="sticky top-0 z-40 w-full border-b border-hairline bg-surface/95 backdrop-blur-md">
+  <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+    <!-- Brand Logo -->
+    <a href="/" class="flex items-center gap-2 sm:gap-2.5 group min-w-0 shrink-0">
+      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white border border-hairline shadow-xs flex items-center justify-center p-1 transition-transform group-hover:scale-105 shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full" viewBox="0 0 64 64" fill="none">
+          <polygon points="32,9 51,20 32,31 13,20" fill="#7DD3FC" opacity="0.9" stroke="#0284C7" stroke-width="2" />
+          <polygon points="13,20 32,31 32,53 13,42" fill="#0075DE" stroke="#0052A3" stroke-width="2" />
+          <polygon points="32,31 51,20 51,42 32,53" fill="#0284C7" stroke="#0369A1" stroke-width="2" />
+          <polygon points="32,23 45,30.5 32,38 19,30.5" fill="#E0F2FE" stroke="#38BDF8" stroke-width="1.2" />
+          <line x1="29.5" y1="36" x2="34.5" y2="36" stroke="#FFFFFF" stroke-width="1.8" />
+          <line x1="29" y1="41.5" x2="35" y2="41.5" stroke="#FFFFFF" stroke-width="2.2" />
+          <line x1="29.5" y1="47" x2="34.5" y2="47" stroke="#FFFFFF" stroke-width="1.8" />
+          <line x1="32" y1="31" x2="32" y2="53" stroke="#FFFFFF" stroke-width="1.8" opacity="0.4" />
+          <polyline points="13,20 32,31 51,20" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" opacity="0.8" />
+        </svg>
+      </div>
+      <div class="flex items-center gap-1.5 whitespace-nowrap">
+        <span class="font-bold text-sm sm:text-base md:text-lg tracking-tight text-ink">
+          The Volume Calculator
+        </span>
+        <span class="text-[10px] sm:text-xs font-semibold px-1.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary">
+          .com
+        </span>
+      </div>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <nav class="hidden md:flex items-center gap-5 lg:gap-6 text-sm text-ink-secondary">
+      <a href="/" class="hover:text-primary transition-colors font-medium">Quick Calculator</a>
+      <a href="/calculators" class="hover:text-primary transition-colors font-medium flex items-center gap-1">
+        <span>All Calculators</span>
+        <span class="text-[10px] px-1.5 py-0.2 rounded bg-primary/10 text-primary font-bold">16 Tools</span>
+      </a>
+      <a href="/calculators#hub-grid" class="hover:text-primary transition-colors font-medium">Formulas</a>
+      <a href="/calculators#faq" class="hover:text-primary transition-colors font-medium">FAQ</a>
+    </nav>
+
+    <!-- Right Controls -->
+    <div class="flex items-center gap-2 shrink-0">
+      <!-- Hub Page CTA -->
+      <a
+        href="/calculators"
+        class="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold rounded-full bg-primary text-white hover:bg-primary-active active:scale-95 transition-all shadow-xs whitespace-nowrap"
+      >
+        <span class="sm:hidden">All Tools (16)</span>
+        <span class="hidden sm:inline">All 16 Calculators Hub →</span>
+      </a>
+
+      <!-- Dark / Light Mode Toggle Button -->
+      <button
+        type="button"
+        id="theme-toggle-btn"
+        class="p-1.5 sm:p-2 rounded-lg text-ink-secondary hover:text-ink hover:bg-canvas-soft border border-hairline transition-colors cursor-pointer flex items-center justify-center"
+        aria-label="Toggle dark and light theme"
+        title="Toggle dark mode"
+      >
+        <!-- Sun icon (shown in dark mode) -->
+        <svg class="w-4 h-4 hidden dark:block text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path>
+          <path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path>
+          <path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg class="w-4 h-4 block dark:hidden text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </button>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button
+        type="button"
+        id="mobile-menu-toggle"
+        class="md:hidden p-1.5 rounded-lg text-ink-secondary hover:text-ink hover:bg-canvas-soft border border-hairline transition-colors cursor-pointer"
+        aria-label="Toggle Navigation Menu"
+        aria-expanded="false"
+      >
+        <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Collapsible Menu Dropdown -->
+  <div id="mobile-nav-menu" class="hidden md:hidden border-t border-hairline bg-surface px-4 py-3 shadow-sm transition-all">
+    <nav class="flex flex-col space-y-2.5 text-sm font-medium text-ink-secondary">
+      <a href="/" class="mobile-nav-link py-1.5 px-2.5 rounded-md hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>Quick Everyday Calculator</span>
+        </span>
+        <span class="text-xs text-ink-faint">Home →</span>
+      </a>
+      <a href="/calculators" class="mobile-nav-link py-1.5 px-2.5 rounded-md hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          <span>All 16 Calculators Hub</span>
+        </span>
+        <span class="text-xs text-primary font-bold">16 Tools →</span>
+      </a>
+      <a href="/calculators#hub-grid" class="mobile-nav-link py-1.5 px-2.5 rounded-md hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          <span>Formulas & Reference Table</span>
+        </span>
+        <span class="text-xs text-ink-faint">Guide →</span>
+      </a>
+      <a href="#faq" class="mobile-nav-link py-1.5 px-2.5 rounded-md hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span>Frequently Asked Questions</span>
+        </span>
+        <span class="text-xs text-ink-faint">FAQ →</span>
+      </a>
+
+      <!-- Mobile Theme Toggle -->
+      <div class="pt-2 border-t border-hairline">
+        <button
+          type="button"
+          id="mobile-theme-toggle-btn"
+          class="w-full text-left py-2 px-2.5 rounded-md hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between text-sm font-medium text-ink-secondary cursor-pointer"
+        >
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4 hidden dark:block text-amber-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg class="w-4 h-4 block dark:hidden text-ink-muted shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+            <span>Theme Appearance</span>
+          </span>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-canvas-soft border border-hairline text-ink">
+            <span class="dark:hidden">Light</span>
+            <span class="hidden dark:inline">Dark</span>
+          </span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Mobile navigation drawer toggle
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileNav = document.getElementById('mobile-nav-menu');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+  const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (menuToggle && mobileNav && hamburgerIcon && closeIcon) {
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      mobileNav.classList.toggle('hidden');
+      hamburgerIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // Dark / Light Theme Toggle Handler
+  const toggleTheme = () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    try {
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    } catch (_) {}
+  };
+
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', toggleTheme);
+  }
+
+  const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle-btn');
+  if (mobileThemeToggleBtn) {
+    mobileThemeToggleBtn.addEventListener('click', toggleTheme);
+  }
+</script>

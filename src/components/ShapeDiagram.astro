@@ -1,0 +1,13 @@
+---
+// ShapeDiagram.astro - Visual isometric SVG illustrations with dimension markings
+---
+
+<div id="shape-diagram-container" class="relative w-full aspect-[4/3] max-w-[340px] mx-auto flex items-center justify-center p-4 bg-canvas-soft rounded-xl border border-hairline overflow-hidden">
+  <!-- Interactive SVG injected or updated dynamically -->
+  <div id="diagram-svg-target" class="w-full h-full flex items-center justify-center">
+    <!-- SVG will be dynamically updated by client script based on selected shape -->
+  </div>
+  <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded text-[11px] font-mono text-ink-muted bg-white/80 border border-hairline backdrop-blur-xs">
+    Dimension Guide
+  </div>
+</div>

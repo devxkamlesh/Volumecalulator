@@ -1,0 +1,40 @@
+---
+// Equivalents.astro - Fun and tangible real-world volume analogies
+---
+
+<div id="equivalents-section" class="w-full bg-white rounded-xl border border-hairline p-5 shadow-xs">
+  <div class="flex items-center justify-between mb-3 pb-2 border-b border-hairline">
+    <div class="flex items-center gap-2">
+      <div class="w-6 h-6 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 3c-3 4-4.5 7-4.5 9s1.5 5 4.5 9"></path>
+          <path d="M12 3c3 4 4.5 7 4.5 9s-1.5 5-4.5 9"></path>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+        </svg>
+      </div>
+      <h3 class="text-sm font-bold text-ink tracking-tight">Real-World Volume Equivalents</h3>
+    </div>
+    <span class="text-[11px] px-2 py-0.5 rounded-full bg-canvas-soft border border-hairline text-ink-muted">
+      Everyday Scale
+    </span>
+  </div>
+
+  <p class="text-xs text-ink-muted mb-3">
+    To help visualize this volume in everyday terms, here is what it roughly equals:
+  </p>
+
+  <div id="equivalents-cards-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+    <!-- Populated by client script -->
+    <div class="p-4 rounded-lg bg-canvas-soft border border-hairline text-center flex flex-col items-center justify-center">
+      <div class="w-9 h-9 rounded-lg bg-white border border-hairline flex items-center justify-center text-primary mb-2 shadow-xs">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="3" width="12" height="18" rx="3"></rect>
+          <line x1="6" y1="7" x2="18" y2="7"></line>
+          <line x1="6" y1="17" x2="18" y2="17"></line>
+        </svg>
+      </div>
+      <span class="text-xs text-ink-muted block">Enter dimensions to see real-world analogies</span>
+    </div>
+  </div>
+</div>

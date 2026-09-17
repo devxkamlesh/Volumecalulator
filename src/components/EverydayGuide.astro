@@ -1,0 +1,84 @@
+---
+// EverydayGuide.astro - Helpful guides for shipping, moving, and everyday home volume
+import { ICONS } from '../scripts/icons';
+---
+
+<section id="guide" class="w-full max-w-4xl mx-auto space-y-6">
+  <!-- Everyday Guide Cards with Clean Vector SVGs -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div class="bg-white rounded-xl border border-hairline p-5 shadow-xs">
+      <div class="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-3">
+        <Fragment set:html={ICONS.truck} />
+      </div>
+      <h3 class="font-bold text-sm text-ink mb-1">Shipping & Moving Boxes</h3>
+      <p class="text-xs text-ink-muted leading-relaxed">
+        Multiply Length × Width × Height in inches, then divide by 1,728 to find cubic feet for freight and moving trucks.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl border border-hairline p-5 shadow-xs">
+      <div class="w-9 h-9 rounded-lg bg-[#2a9d99]/10 border border-[#2a9d99]/20 text-[#2a9d99] flex items-center justify-center mb-3">
+        <Fragment set:html={ICONS.pool} />
+      </div>
+      <h3 class="font-bold text-sm text-ink mb-1">Pools & Water Tanks</h3>
+      <p class="text-xs text-ink-muted leading-relaxed">
+        For round pools, calculate the cylinder volume and multiply cubic feet by 7.48 to get the exact water capacity in US gallons.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl border border-hairline p-5 shadow-xs">
+      <div class="w-9 h-9 rounded-lg bg-[#dd5b00]/10 border border-[#dd5b00]/20 text-[#dd5b00] flex items-center justify-center mb-3">
+        <Fragment set:html={ICONS.kitchen} />
+      </div>
+      <h3 class="font-bold text-sm text-ink mb-1">Kitchen & Recipes</h3>
+      <p class="text-xs text-ink-muted leading-relaxed">
+        Convert between cups, pints, quarts, fluid ounces, and milliliters effortlessly without mental math mistakes.
+      </p>
+    </div>
+  </div>
+
+  <!-- Everyday Volume FAQ -->
+  <div id="faq" class="bg-white rounded-xl border border-hairline p-5 sm:p-7 shadow-xs">
+    <div class="mb-5 pb-3 border-b border-hairline flex items-center justify-between">
+      <div>
+        <h3 class="text-lg font-bold text-ink tracking-tight">Everyday Volume Questions</h3>
+        <p class="text-xs text-ink-muted">Quick answers to common household, shipping, and tank calculations</p>
+      </div>
+      <a href="/calculators#faq" class="text-xs font-semibold text-primary hover:underline">
+        All Questions FAQ →
+      </a>
+    </div>
+
+    <div class="space-y-3">
+      <details class="group rounded-lg border border-hairline p-3.5 transition-colors open:bg-canvas-soft/40">
+        <summary class="font-semibold text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+          <span>How do I calculate the volume of a package or cardboard box?</span>
+          <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+        </summary>
+        <div class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+          Measure the length, width, and height of the box using a tape measure. Select <strong>Rectangular Box</strong> on our calculator above, enter the three dimensions in inches, and you will instantly get the volume in cubic feet, cubic inches, and liters.
+        </div>
+      </details>
+
+      <details class="group rounded-lg border border-hairline p-3.5 transition-colors open:bg-canvas-soft/40">
+        <summary class="font-semibold text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+          <span>How many gallons are in a cubic foot of water?</span>
+          <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+        </summary>
+        <div class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+          There are exactly <strong>7.48052 US liquid gallons</strong> in one cubic foot (ft³) of water. To convert cubic feet to gallons, simply multiply by 7.48.
+        </div>
+      </details>
+
+      <details class="group rounded-lg border border-hairline p-3.5 transition-colors open:bg-canvas-soft/40">
+        <summary class="font-semibold text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+          <span>What if my container is a cylinder, sphere, or cone?</span>
+          <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+        </summary>
+        <div class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+          Use the tabs at the top of the calculator to pick <strong>Cylinder</strong>, <strong>Sphere</strong>, or <strong>Cone</strong>. For more specialized shapes (like horizontal tanks with liquid fill depth, capsules, pipes, and pyramids), open our <a href="/calculators" class="text-primary underline font-medium">All 16 Calculators Hub</a>.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>

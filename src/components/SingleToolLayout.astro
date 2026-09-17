@@ -1,0 +1,356 @@
+---
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SHAPES } from '../scripts/shapes';
+import { TOOL_DETAILS } from '../scripts/tool-details';
+import { getShapeSvg } from '../scripts/diagrams';
+import { ICONS } from '../scripts/icons';
+
+const detail = TOOL_DETAILS[slug];
+if (!detail) {
+  throw new Error(`Tool detail not found for slug: ${slug}`);
+}
+
+const shape = SHAPES[detail.shapeId];
+if (!shape) {
+  throw new Error(`Shape not found for ID: ${detail.shapeId}`);
+}
+
+const diagramSvg = getShapeSvg(shape.id);
+const units = [
+  { id: 'in', label: 'Inches (in)' },
+  { id: 'ft', label: 'Feet (ft)' },
+  { id: 'cm', label: 'Centimeters (cm)' },
+  { id: 'm', label: 'Meters (m)' },
+  { id: 'yd', label: 'Yards (yd)' },
+  { id: 'mm', label: 'Millimeters (mm)' },
+];
+
+const allTools = Object.values(TOOL_DETAILS);
+---
+
+<Layout
+  title={`${detail.title} | thevolumecalculator.com`}
+  description={detail.metaDescription}
+>
+  <Header />
+
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8 sm:space-y-12">
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span>/</span>
+      <a href="/calculators" class="hover:text-primary transition-colors">Calculators</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">{shape.name}</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <section class="space-y-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${shape.badgeColor}`}>
+          {shape.categoryLabel}
+        </span>
+        <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-canvas-soft border border-hairline text-ink-muted">
+          No Pre-filled Data
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-ink tracking-tight flex items-center gap-3">
+        <span class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
+          <Fragment set:html={shape.iconSvg} />
+        </span>
+        <span>{detail.h1}</span>
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary max-w-3xl leading-relaxed">
+        {detail.shortTagline} Enter your measurements below to calculate instant, accurate volume in gallons, liters, cubic feet, or cubic meters.
+      </p>
+    </section>
+
+    <!-- Main Interactive Calculator Card (Mobile-First) -->
+    <div
+      id="single-tool-card"
+      data-shape-id={shape.id}
+      class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-6"
+    >
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-hairline">
+        <div>
+          <h2 class="text-lg font-bold text-ink tracking-tight">
+            Enter Dimensions
+          </h2>
+          <p class="text-xs text-ink-muted mt-0.5">
+            Measure your {shape.name.toLowerCase()} and select units for each measurement
+          </p>
+        </div>
+        <button
+          type="button"
+          id="single-clear-btn"
+          class="text-xs font-semibold px-3 py-1.5 rounded-md bg-canvas-soft border border-hairline text-ink-muted hover:text-ink hover:border-ink-muted transition-colors cursor-pointer self-start sm:self-auto"
+        >
+          Clear All
+        </button>
+      </div>
+
+      <!-- Responsive Grid: Form Inputs (7 cols on lg), Diagram (5 cols on lg) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+        <!-- Inputs Form Column -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+          {shape.inputs.map((input) => (
+            <div class="flex flex-col gap-1.5">
+              <label for={`tool-in-${input.id}`} class="text-xs sm:text-sm font-bold text-ink flex items-center justify-between">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-5 h-5 rounded bg-canvas-soft border border-hairline text-ink-muted font-mono font-bold text-xs flex items-center justify-center">
+                    {input.symbol}
+                  </span>
+                  <span>{input.label}</span>
+                </span>
+                <span class="text-[11px] font-normal text-ink-faint">
+                  symbol: {input.symbol}
+                </span>
+              </label>
+
+              <div class="flex items-center gap-2">
+                <input
+                  type="number"
+                  id={`tool-in-${input.id}`}
+                  data-id={input.id}
+                  value=""
+                  placeholder="0"
+                  step="any"
+                  min="0"
+                  class="w-full px-3.5 py-2.5 text-base font-mono rounded-xl bg-canvas-soft/40 border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all shadow-xs"
+                />
+                <select
+                  id={`tool-unit-${input.id}`}
+                  class="px-3 py-2.5 text-xs sm:text-sm font-semibold rounded-xl bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shrink-0"
+                >
+                  {units.map((u) => (
+                    <option value={u.id} selected={u.id === input.defaultUnit}>
+                      {u.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Wireframe Diagram Visual Guide Column -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center p-4 rounded-xl bg-canvas-soft border border-hairline">
+          <div class="w-full flex items-center justify-center">
+            <Fragment set:html={diagramSvg} />
+          </div>
+          <span class="text-[11px] font-medium text-ink-muted mt-2 text-center">
+            Dimension reference guide for {shape.name}
+          </span>
+        </div>
+      </div>
+
+      <!-- Output Results Card (Generous, High-Contrast, Mobile-First) -->
+      <div class="p-5 sm:p-6 rounded-xl bg-canvas-soft border border-hairline flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-ink-muted">
+            Calculated Volume
+          </span>
+          <button
+            type="button"
+            id="single-copy-btn"
+            class="text-xs font-semibold px-3 py-1 rounded bg-white border border-hairline hover:border-ink-muted text-ink active:scale-95 transition-all cursor-pointer shadow-xs"
+          >
+            Copy Result
+          </button>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <!-- Big Volume Number Display -->
+          <div class="my-1">
+            <span
+              id="single-volume-value"
+              class="text-4xl sm:text-5xl font-extrabold text-ink tracking-tight font-mono block leading-none"
+            >
+              0.00
+            </span>
+          </div>
+
+          <!-- Output Unit Selector -->
+          <div class="flex items-center gap-2 self-start sm:self-auto">
+            <label for="single-output-unit" class="text-xs font-semibold text-ink-muted">
+              Display In:
+            </label>
+            <select
+              id="single-output-unit"
+              class="px-3 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-white border border-hairline text-primary focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shadow-2xs"
+            >
+              <option value="gal" selected>US Gallons (gal)</option>
+              <option value="L">Liters (L)</option>
+              <option value="ft3">Cubic Feet (ft³)</option>
+              <option value="m3">Cubic Meters (m³)</option>
+              <option value="in3">Cubic Inches (in³)</option>
+              <option value="fl_oz">Fluid Ounces (fl oz)</option>
+              <option value="yd3">Cubic Yards (yd³)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Optional Surface Area Metric -->
+        {shape.surfaceAreaFormula && (
+          <div class="pt-3 border-t border-hairline/80 flex items-center justify-between text-xs text-ink-muted">
+            <span>Total Surface Area:</span>
+            <span id="single-surface-area" class="font-mono font-bold text-ink">
+              —
+            </span>
+          </div>
+        )}
+      </div>
+
+      <!-- Live Step-by-Step Arithmetic Substitution (Hidden until numbers typed) -->
+      <div id="single-steps-card" class="hidden p-4 sm:p-5 rounded-xl bg-canvas-soft/60 border border-hairline space-y-3">
+        <div class="flex items-center gap-2 text-xs font-bold text-ink">
+          <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          <span>Step-by-Step Calculation for Entered Values</span>
+        </div>
+        <div id="single-steps-container" class="space-y-2">
+          <!-- Populated live by single-tool-calculator.ts -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational Guide: Formula & Plain-English How-To -->
+    <section class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-6">
+      <div>
+        <h2 class="text-xl font-bold text-ink tracking-tight mb-1">
+          How to Calculate {shape.name} Volume
+        </h2>
+        <p class="text-xs sm:text-sm text-ink-muted">
+          Understand the mathematical formula and measurement method
+        </p>
+      </div>
+
+      <!-- Formula Pill Callout -->
+      <div class="p-4 rounded-xl bg-canvas-soft border border-hairline flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <span class="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1">
+            Standard Volume Formula
+          </span>
+          <span class="font-mono text-base sm:text-lg font-extrabold text-primary">
+            {detail.formulaHtml}
+          </span>
+        </div>
+        <p class="text-xs text-ink-muted max-w-sm sm:text-right">
+          {detail.formulaNote}
+        </p>
+      </div>
+
+      <!-- Numbered Steps in Plain English -->
+      <div class="space-y-3">
+        <h3 class="text-sm font-bold text-ink uppercase tracking-wider text-xs">
+          Calculation Steps
+        </h3>
+        <ol class="space-y-2.5">
+          {detail.howToCalculate.map((step, idx) => (
+            <li class="flex items-start gap-3 text-xs sm:text-sm text-ink-secondary">
+              <span class="w-5 h-5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold font-mono text-xs flex items-center justify-center shrink-0 mt-0.5">
+                {idx + 1}
+              </span>
+              <span class="leading-relaxed">{step}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Practical Real-World Applications -->
+    <section class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight mb-1">
+          Practical Everyday Uses for {shape.name}
+        </h2>
+        <p class="text-xs text-ink-muted">
+          Where this 3D calculation is applied in construction, shipping, and daily projects
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+        {detail.practicalExamples.map((ex) => (
+          <div class="p-4 rounded-xl bg-canvas-soft border border-hairline space-y-1.5">
+            <h4 class="font-bold text-xs sm:text-sm text-ink">{ex.title}</h4>
+            <p class="text-xs text-ink-muted leading-relaxed">{ex.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Shape-Specific FAQs -->
+    <section class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight mb-1">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-xs text-ink-muted">
+          Common measurement questions for {shape.name.toLowerCase()} volume
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        {detail.faqs.map((faq) => (
+          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
+            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+              <span>{faq.question}</span>
+              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+            </summary>
+            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+              {faq.answer}
+            </p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Related Volume Calculators Grid -->
+    <section class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-ink tracking-tight">
+            Explore Other 3D Volume Calculators
+          </h2>
+          <p class="text-xs text-ink-muted">Quick links to other shapes in our mathematical suite</p>
+        </div>
+        <a href="/calculators" class="text-xs font-semibold text-primary hover:underline">
+          View All 16 →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        {allTools.slice(0, 8).map((t) => (
+          <a
+            href={`/${t.slug}`}
+            class={`p-3 rounded-xl bg-canvas-soft border border-hairline hover:border-primary hover:bg-white transition-all flex items-center gap-2 text-xs font-medium text-ink ${
+              t.slug === detail.slug ? 'ring-2 ring-primary/40 bg-primary/5' : ''
+            }`}
+          >
+            <span class="w-6 h-6 rounded bg-white border border-hairline text-primary flex items-center justify-center shrink-0">
+              <Fragment set:html={SHAPES[t.shapeId].iconSvg} />
+            </span>
+            <span class="truncate">{SHAPES[t.shapeId].name}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- Client-side calculation logic -->
+  <script src="../scripts/single-tool-calculator.ts"></script>
+</Layout>

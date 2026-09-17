@@ -1,0 +1,114 @@
+---
+// ResultsPanel.astro - Instant calculation output, multi-unit breakdown, and action controls
+import { VOLUME_UNITS } from '../scripts/units';
+
+const unitsList = Object.values(VOLUME_UNITS);
+---
+
+<div id="results-panel" class="w-full bg-white rounded-xl border border-hairline p-5 sm:p-6 shadow-xs flex flex-col justify-between">
+  <div>
+    <!-- Top status bar -->
+    <div class="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-hairline">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+        <span class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Calculated Output</span>
+      </div>
+      <!-- Copy and Share buttons -->
+      <div class="flex items-center gap-1.5">
+        <button
+          type="button"
+          id="copy-result-btn"
+          class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-canvas-soft border border-hairline hover:border-ink-muted text-ink active:scale-95 transition-all cursor-pointer"
+          title="Copy formatted result"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span id="copy-btn-text">Copy</span>
+        </button>
+        <button
+          type="button"
+          id="share-btn"
+          class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-canvas-soft border border-hairline hover:border-ink-muted text-ink active:scale-95 transition-all cursor-pointer"
+          title="Copy shareable link with inputs"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+            <polyline points="16 6 12 2 8 6"></polyline>
+            <line x1="12" y1="2" x2="12" y2="15"></line>
+          </svg>
+          <span>Share</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Primary Volume Big Display -->
+    <div class="mb-5">
+      <div class="text-xs font-medium text-ink-muted mb-1 flex items-center justify-between">
+        <span>Volume (V)</span>
+        <!-- Selected unit switcher -->
+        <div class="flex items-center gap-1">
+          <label for="primary-volume-unit" class="text-[11px] text-ink-faint">Output unit:</label>
+          <select
+            id="primary-volume-unit"
+            class="text-xs font-semibold py-0.5 px-2 rounded border border-hairline bg-canvas-soft text-ink focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer"
+          >
+            {unitsList.map((u) => (
+              <option value={u.id} selected={u.id === 'm3'}>
+                {u.name} ({u.symbol})
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div class="flex items-baseline gap-2 flex-wrap">
+        <span id="primary-volume-value" class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight font-mono">
+          0.0000
+        </span>
+        <span id="primary-volume-unit-label" class="text-lg font-semibold text-primary">
+          m³
+        </span>
+      </div>
+    </div>
+
+    <!-- Additional Secondary Metrics (Surface Area, Lateral Area) -->
+    <div id="secondary-metrics-grid" class="grid grid-cols-2 gap-2 mb-5">
+      <div class="p-2.5 rounded-lg bg-canvas-soft border border-hairline">
+        <span class="text-[11px] text-ink-muted block mb-0.5">Total Surface Area</span>
+        <span id="surface-area-value" class="text-sm font-bold font-mono text-ink">
+          —
+        </span>
+      </div>
+      <div class="p-2.5 rounded-lg bg-canvas-soft border border-hairline">
+        <span class="text-[11px] text-ink-muted block mb-0.5">Lateral Area / Extra</span>
+        <span id="lateral-area-value" class="text-sm font-bold font-mono text-ink">
+          —
+        </span>
+      </div>
+    </div>
+
+    <!-- Omni-Unit Breakdown Table -->
+    <div class="border-t border-hairline pt-4">
+      <div class="flex items-center justify-between mb-2">
+        <h4 class="text-xs font-bold text-ink uppercase tracking-wider">All Common Units Matrix</h4>
+        <span class="text-[10px] text-ink-faint">Instant conversions</span>
+      </div>
+
+      <div class="max-h-60 overflow-y-auto rounded-lg border border-hairline bg-canvas-soft/60">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-canvas-soft text-ink-muted sticky top-0 border-b border-hairline">
+            <tr>
+              <th class="py-1.5 px-3 font-semibold">Unit</th>
+              <th class="py-1.5 px-3 font-semibold text-right">Value</th>
+            </tr>
+          </thead>
+          <tbody id="multi-unit-tbody" class="divide-y divide-hairline">
+            <!-- Populated reactively by calculator.ts -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

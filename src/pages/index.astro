@@ -1,11 +1,43 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Header from '../components/Header.astro';
+import SimpleCalculator from '../components/SimpleCalculator.astro';
+import EverydayGuide from '../components/EverydayGuide.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="The Volume Calculator - Quick & Simple 3D Volume Tool | thevolumecalculator.com"
+  description="Free and easy volume calculator for everyday shapes: boxes, cylinders, spheres, cubes, and cones. Instant calculations in gallons, liters, cubic feet, and cubic meters."
+>
+  <Header />
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 sm:space-y-14">
+    <!-- Clean, Friendly Everyday Hero -->
+    <section class="text-center max-w-2xl mx-auto pt-2 pb-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-hairline text-primary shadow-xs mb-3.5">
+        <span class="w-2 h-2 rounded-full bg-[#1aae39]"></span>
+        <span>Quick & Easy Volume Calculator</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight leading-tight mb-3">
+        Online Volume Calculator
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
+        Quickly calculate the volume of boxes, cylinders, spheres, cubes, and cones. Enter your measurements and get immediate answers in gallons, liters, cubic feet, and meters.
+      </p>
+    </section>
+
+    <!-- Simple, Easy-to-Use Calculator Card for Normal Users -->
+    <SimpleCalculator />
+
+    <!-- Helpful Everyday Guide & FAQ -->
+    <EverydayGuide />
+  </main>
+
+  <Footer />
+
+  <!-- Simple calculator client script -->
+  <script src="../scripts/simple-calculator.ts"></script>
 </Layout>

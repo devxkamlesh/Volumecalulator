@@ -1,0 +1,300 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SHAPES, SHAPE_CATEGORIES } from '../scripts/shapes';
+import { TOOL_DETAILS } from '../scripts/tool-details';
+
+const toolsList = Object.values(TOOL_DETAILS).map((detail) => {
+  const shape = SHAPES[detail.shapeId];
+  return {
+    ...detail,
+    shape,
+  };
+});
+---
+
+<Layout
+  title="All 16 Volume Calculators - Complete 3D Tools Directory | thevolumecalculator.com"
+  description="Directory of all 16 dedicated 3D volume calculators. Calculate volume for cubes, boxes, cylinders, spheres, cones, tanks, pipes, and pyramids with instant step-by-step math."
+>
+  <Header />
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 sm:space-y-14">
+    <!-- Hub Page Hero -->
+    <section class="text-center max-w-3xl mx-auto pt-2 pb-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-hairline text-primary shadow-xs mb-3.5">
+        <span class="w-2 h-2 rounded-full bg-primary"></span>
+        <span>Directory of 16 Dedicated Tools • 100% Free & Ad-Free</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight leading-tight mb-3">
+        All Volume Calculators
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-2xl mx-auto">
+        Explore our complete suite of 16 dedicated 3D volume tools. Each calculator is mobile-first, starts clean with zero distractions, and provides live step-by-step arithmetic.
+      </p>
+
+      <!-- Instant Filter & Search Bar -->
+      <div class="mt-6 max-w-md mx-auto relative">
+        <input
+          type="text"
+          id="hub-search-input"
+          placeholder="Search by shape (e.g. tank, cylinder, pipe)..."
+          class="w-full px-4 py-2.5 pl-10 text-sm rounded-xl bg-white border border-hairline text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
+        />
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3.5 top-3.5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Category Filter Tabs -->
+    <div class="flex items-center justify-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
+      {SHAPE_CATEGORIES.map((cat, idx) => (
+        <button
+          type="button"
+          class={`hub-category-tab px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+            idx === 0
+              ? 'bg-primary text-white shadow-xs'
+              : 'bg-white text-ink-secondary border border-hairline hover:border-ink-muted'
+          }`}
+          data-category={cat.id}
+        >
+          {cat.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- 16 Dedicated Calculators Grid -->
+    <section class="space-y-4">
+      <div id="hub-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {toolsList.map((t) => (
+          <div
+            class="hub-tool-card bg-white rounded-2xl border border-hairline p-5 shadow-xs hover:border-primary/60 hover:shadow-sm transition-all flex flex-col justify-between group"
+            data-category={t.shape.category}
+            data-name={`${t.shape.name} ${t.h1} ${t.shortTagline}`.toLowerCase()}
+          >
+            <div>
+              <!-- Header with Icon & Category Badge -->
+              <div class="flex items-start justify-between gap-2 mb-3">
+                <div class="w-10 h-10 rounded-xl bg-canvas-soft border border-hairline flex items-center justify-center text-primary group-hover:scale-105 transition-transform shrink-0">
+                  <Fragment set:html={t.shape.iconSvg} />
+                </div>
+                <span class={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${t.shape.badgeColor}`}>
+                  {t.shape.categoryLabel}
+                </span>
+              </div>
+
+              <!-- Title & Formula -->
+              <h2 class="font-bold text-base text-ink group-hover:text-primary transition-colors leading-snug mb-1">
+                {t.shape.name} Volume Calculator
+              </h2>
+
+              <div class="inline-block mb-2.5">
+                <span class="font-mono text-xs px-2 py-0.5 rounded bg-canvas-soft border border-hairline text-ink-secondary font-semibold">
+                  {t.shape.formula}
+                </span>
+              </div>
+
+              <!-- Short Description -->
+              <p class="text-xs text-ink-muted leading-relaxed line-clamp-2 mb-4">
+                {t.shortTagline}
+              </p>
+            </div>
+
+            <!-- Action Button -->
+            <a
+              href={`/${t.slug}`}
+              class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-canvas-soft border border-hairline text-ink group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all text-center"
+            >
+              <span>Open Dedicated Calculator</span>
+              <span>→</span>
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <!-- Empty Search Fallback -->
+      <div id="hub-no-results" class="hidden text-center py-12 bg-white rounded-2xl border border-hairline p-6">
+        <p class="text-sm font-semibold text-ink">No volume calculators matched your search</p>
+        <p class="text-xs text-ink-muted mt-1">Try searching for "cylinder", "tank", "box", or clear the search input.</p>
+        <button
+          type="button"
+          id="hub-clear-search"
+          class="mt-3 text-xs font-semibold px-3 py-1.5 rounded-md bg-primary text-white cursor-pointer hover:bg-primary-active"
+        >
+          Clear Search
+        </button>
+      </div>
+    </section>
+
+    <!-- Formula Comparison Cheat-Sheet Table -->
+    <section class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+          3D Geometric Volume Formulas Quick Reference
+        </h2>
+        <p class="text-xs text-ink-muted mt-0.5">
+          Standard mathematical formulas and variable definitions for all 16 shapes
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="border-b border-hairline bg-canvas-soft/70 text-ink-secondary font-semibold uppercase tracking-wider text-[11px]">
+              <th class="py-2.5 px-3">Shape</th>
+              <th class="py-2.5 px-3">Category</th>
+              <th class="py-2.5 px-3">Standard Formula</th>
+              <th class="py-2.5 px-3">Variables</th>
+              <th class="py-2.5 px-3 text-right">Tool Link</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline">
+            {toolsList.map((t) => (
+              <tr class="hover:bg-canvas-soft/40 transition-colors">
+                <td class="py-2.5 px-3 font-bold text-ink flex items-center gap-2">
+                  <span class="w-4 h-4 text-primary shrink-0">
+                    <Fragment set:html={t.shape.iconSvg} />
+                  </span>
+                  <span>{t.shape.name}</span>
+                </td>
+                <td class="py-2.5 px-3 text-ink-muted">
+                  <span class={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${t.shape.badgeColor}`}>
+                    {t.shape.categoryLabel}
+                  </span>
+                </td>
+                <td class="py-2.5 px-3 font-mono font-bold text-primary">
+                  {t.shape.formula}
+                </td>
+                <td class="py-2.5 px-3 text-ink-muted font-mono">
+                  {t.shape.inputs.map((i) => i.symbol).join(', ')}
+                </td>
+                <td class="py-2.5 px-3 text-right">
+                  <a href={`/${t.slug}`} class="text-primary font-semibold hover:underline">
+                    Calculate →
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Hub Page FAQ Section -->
+    <section class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight mb-1">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-xs text-ink-muted">
+          Common questions about 3D shapes, measurements, and unit conversions
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
+          <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+            <span>Which calculator should I use for a shipping box or room?</span>
+            <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+          </summary>
+          <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+            Use the <a href="/box-volume-calculator" class="text-primary font-semibold underline">Box Volume Calculator (Rectangular Prism)</a>. Measure the length, width, and height in inches, feet, centimeters, or meters to calculate total cubic volume and fluid capacity.
+          </p>
+        </details>
+
+        <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
+          <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+            <span>How do I calculate volume in a round water tank?</span>
+            <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+          </summary>
+          <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+            If the tank stands vertically upright, use the <a href="/cylinder-volume-calculator" class="text-primary font-semibold underline">Cylinder Volume Calculator</a>. If the tank lies on its side horizontally and you want to measure liquid volume based on dipstick depth, use the <a href="/horizontal-tank-volume-calculator" class="text-primary font-semibold underline">Horizontal Tank Volume Calculator</a>.
+          </p>
+        </details>
+
+        <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
+          <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+            <span>Can I mix different measurement units in the calculators?</span>
+            <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+          </summary>
+          <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+            Yes! Every individual calculator allows independent unit selection (inches, feet, cm, meters, yards, mm) for each dimension input. The system automatically converts them internally and outputs the exact volume in gallons, liters, cubic feet, cubic meters, and more.
+          </p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- Client-Side Instant Filtering Script -->
+  <script>
+    const searchInput = document.getElementById('hub-search-input') as HTMLInputElement | null;
+    const categoryTabs = document.querySelectorAll<HTMLButtonElement>('.hub-category-tab');
+    const toolCards = document.querySelectorAll<HTMLElement>('.hub-tool-card');
+    const noResultsEl = document.getElementById('hub-no-results');
+    const clearSearchBtn = document.getElementById('hub-clear-search');
+
+    let activeCategory = 'all';
+    let searchQuery = '';
+
+    function filterCards() {
+      let visibleCount = 0;
+
+      toolCards.forEach((card) => {
+        const category = card.getAttribute('data-category') || '';
+        const name = card.getAttribute('data-name') || '';
+
+        const matchesCategory = activeCategory === 'all' || category === activeCategory;
+        const matchesSearch = !searchQuery || name.includes(searchQuery);
+
+        if (matchesCategory && matchesSearch) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (noResultsEl) {
+        if (visibleCount === 0) {
+          noResultsEl.classList.remove('hidden');
+        } else {
+          noResultsEl.classList.add('hidden');
+        }
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        searchQuery = searchInput.value.trim().toLowerCase();
+        filterCards();
+      });
+    }
+
+    if (clearSearchBtn && searchInput) {
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchQuery = '';
+        filterCards();
+      });
+    }
+
+    categoryTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        categoryTabs.forEach((t) => {
+          t.className = 'hub-category-tab px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer bg-white text-ink-secondary border border-hairline hover:border-ink-muted';
+        });
+        tab.className = 'hub-category-tab px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer bg-primary text-white shadow-xs';
+
+        activeCategory = tab.getAttribute('data-category') || 'all';
+        filterCards();
+      });
+    });
+  </script>
+</Layout>

@@ -1,0 +1,89 @@
+---
+import { SHAPES, SHAPE_CATEGORIES } from '../scripts/shapes';
+
+const shapesList = Object.values(SHAPES);
+---
+
+<section id="shapes" class="w-full">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+    <div>
+      <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-ink">Choose a 3D Shape</h2>
+      <p class="text-sm text-ink-muted">Select from 16 geometric shapes, structural prisms, and industrial tank models</p>
+    </div>
+
+    <!-- Quick Search Field -->
+    <div class="relative max-w-xs w-full">
+      <input
+        type="text"
+        id="shape-search-input"
+        placeholder="Filter shapes (e.g. cylinder, tank)..."
+        class="w-full px-3 py-1.5 pl-8 text-sm rounded-md bg-white border border-hairline text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
+      />
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-2.5 top-2.5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Category filter tabs -->
+  <div class="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none mb-4">
+    {SHAPE_CATEGORIES.map((cat, idx) => (
+      <button
+        type="button"
+        class={`category-tab px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
+          idx === 0
+            ? 'bg-primary text-white shadow-xs'
+            : 'bg-white text-ink-secondary border border-hairline hover:border-ink-muted'
+        }`}
+        data-category={cat.id}
+      >
+        {cat.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- Shape Card Grid -->
+  <div id="shapes-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-2.5 sm:gap-3">
+    {shapesList.map((shape, idx) => (
+      <button
+        type="button"
+        class={`shape-card group text-left p-3 sm:p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
+          idx === 0
+            ? 'border-primary ring-2 ring-primary/20 bg-white shadow-sm'
+            : 'border-hairline bg-white hover:border-ink-muted hover:shadow-xs'
+        }`}
+        data-shape-id={shape.id}
+        data-category={shape.category}
+        data-name={shape.name.toLowerCase()}
+      >
+        <div>
+          <!-- Header with icon & badge -->
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-canvas-soft border border-hairline flex items-center justify-center text-ink group-hover:text-primary transition-colors">
+              <Fragment set:html={shape.iconSvg} />
+            </div>
+            <span class={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${shape.badgeColor}`}>
+              {shape.categoryLabel}
+            </span>
+          </div>
+
+          <!-- Shape Title -->
+          <h3 class="font-semibold text-sm text-ink leading-snug group-hover:text-primary transition-colors line-clamp-1">
+            {shape.name}
+          </h3>
+        </div>
+
+        <!-- Formula footer -->
+        <div class="mt-2.5 pt-2 border-t border-hairline/60 flex items-center justify-between">
+          <span class="font-mono text-xs text-ink-muted group-hover:text-ink transition-colors font-medium">
+            {shape.formula}
+          </span>
+          <span class="text-[10px] text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+            Select →
+          </span>
+        </div>
+      </button>
+    ))}
+  </div>
+</section>

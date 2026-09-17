@@ -1,0 +1,136 @@
+---
+// EducationalFaq.astro - Comprehensive Reference Guide, Formulas Table, & FAQ
+const FAQ_ITEMS = [
+  {
+    q: 'How do you calculate the volume of a 3D shape?',
+    a: 'Volume measures the 3D space occupied by an object. The exact formula depends on geometry: for a rectangular box, multiply length × width × height ($V = l \\cdot w \\cdot h$). For a cylinder, multiply the circular base area by height ($V = \\pi r^2 h$). For a sphere, calculate $V = \\frac{4}{3} \\pi r^3$. Use the interactive shape selector above to automatically calculate any of our 16 supported geometric solids.',
+  },
+  {
+    q: 'What is the difference between volume and capacity?',
+    a: 'While both describe three-dimensional space, volume refers to the total 3D space occupied by an object itself (including walls or external bounds), whereas capacity refers to the amount of liquid, gas, or substance that the interior of a container can hold. For hollow shapes like pipes or tanks, our calculator displays both the material wall volume and internal fluid capacity.',
+  },
+  {
+    q: 'What is the SI unit for volume?',
+    a: 'The official International System of Units (SI) standard unit for volume is the cubic meter (m³). Since a cubic meter is large (equal to 1,000 liters), common everyday metric units include the liter (L), milliliter (mL), and cubic centimeter (cm³ or cc). In Imperial and US customary systems, cubic feet (cu ft), cubic inches (cu in), and gallons (gal) are widely used.',
+  },
+  {
+    q: 'How do I calculate the volume of liquid in a partially filled horizontal tank?',
+    a: 'For a horizontal cylinder tank filled to depth $d$, the volume is not a simple linear ratio because the cross-sectional area changes with height. The circular segment area formula is used: $A_{segment} = r^2 \\arccos(\\frac{r-d}{r}) - (r-d)\\sqrt{2rd - d^2}$, and multiplied by the tank length $L$. You can select "Horizontal Cylinder Tank" in our calculator above for instant depth fill calculations.',
+  },
+  {
+    q: 'How do you convert between cubic meters, liters, and US gallons?',
+    a: '1 cubic meter ($m^3$) equals exactly 1,000 liters. 1 US liquid gallon is equal to approximately 3.78541 liters ($0.00378541\\text{ m}^3$). 1 cubic foot ($ft^3$) equals approximately 7.48052 US gallons (28.3168 liters). Our omni-unit matrix table converts your volume into all these units simultaneously.',
+  },
+  {
+    q: 'How to find the volume of an irregular shape?',
+    a: 'For irregular objects without a regular geometric formula, the water displacement method (Archimedes principle) is standard: submerge the solid object into a graduated container filled with liquid and measure the volume change between the initial water level and the final water level.',
+  },
+];
+---
+
+<section id="guide" class="w-full space-y-8">
+  <!-- Reference Table Section -->
+  <div class="bg-white rounded-xl border border-hairline p-5 sm:p-6 shadow-xs">
+    <div class="mb-4 pb-3 border-b border-hairline">
+      <h3 class="text-lg font-bold text-ink tracking-tight">Complete 3D Volume Formulas Reference</h3>
+      <p class="text-xs text-ink-muted">Quick reference guide of standard mathematical formulas and variables for common 3D solids</p>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs sm:text-sm">
+        <thead class="bg-canvas-soft text-ink font-semibold border-b border-hairline">
+          <tr>
+            <th class="py-2.5 px-3">Shape</th>
+            <th class="py-2.5 px-3">Volume Formula</th>
+            <th class="py-2.5 px-3">Surface Area Formula</th>
+            <th class="py-2.5 px-3">Key Variables</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-hairline">
+          <tr class="hover:bg-canvas-soft/40 transition-colors">
+            <td class="py-2 px-3 font-semibold text-ink">Cube</td>
+            <td class="py-2 px-3 font-mono text-primary font-bold">V = a³</td>
+            <td class="py-2 px-3 font-mono text-ink-muted">A = 6a²</td>
+            <td class="py-2 px-3 text-ink-secondary text-xs">a = edge length</td>
+          </tr>
+          <tr class="hover:bg-canvas-soft/40 transition-colors">
+            <td class="py-2 px-3 font-semibold text-ink">Rectangular Box</td>
+            <td class="py-2 px-3 font-mono text-primary font-bold">V = l × w × h</td>
+            <td class="py-2 px-3 font-mono text-ink-muted">A = 2(lw + lh + wh)</td>
+            <td class="py-2 px-3 text-ink-secondary text-xs">l = length, w = width, h = height</td>
+          </tr>
+          <tr class="hover:bg-canvas-soft/40 transition-colors">
+            <td class="py-2 px-3 font-semibold text-ink">Cylinder</td>
+            <td class="py-2 px-3 font-mono text-primary font-bold">V = π r² h</td>
+            <td class="py-2 px-3 font-mono text-ink-muted">A = 2πr(r + h)</td>
+            <td class="py-2 px-3 text-ink-secondary text-xs">r = radius, h = height</td>
+          </tr>
+          <tr class="hover:bg-canvas-soft/40 transition-colors">
+            <td class="py-2 px-3 font-semibold text-ink">Sphere</td>
+            <td class="py-2 px-3 font-mono text-primary font-bold">V = ⁴⁄₃ π r³</td>
+            <td class="py-2 px-3 font-mono text-ink-muted">A = 4πr²</td>
+            <td class="py-2 px-3 text-ink-secondary text-xs">r = radius</td>
+          </tr>
+          <tr class="hover:bg-canvas-soft/40 transition-colors">
+            <td class="py-2 px-3 font-semibold text-ink">Cone</td>
+            <td class="py-2 px-3 font-mono text-primary font-bold">V = ⅓ π r² h</td>
+            <td class="py-2 px-3 font-mono text-ink-muted">A = πr(r + √(h²+r²))</td>
+            <td class="py-2 px-3 text-ink-secondary text-xs">r = base radius, h = height</td>
+          </tr>
+          <tr class="hover:bg-canvas-soft/40 transition-colors">
+            <td class="py-2 px-3 font-semibold text-ink">Capsule</td>
+            <td class="py-2 px-3 font-mono text-primary font-bold">V = π r² (⁴⁄₃r + a)</td>
+            <td class="py-2 px-3 font-mono text-ink-muted">A = 2πr(2r + a)</td>
+            <td class="py-2 px-3 text-ink-secondary text-xs">r = radius, a = cylinder length</td>
+          </tr>
+          <tr class="hover:bg-canvas-soft/40 transition-colors">
+            <td class="py-2 px-3 font-semibold text-ink">Conical Frustum</td>
+            <td class="py-2 px-3 font-mono text-primary font-bold">V = ⅓ π h (r₁² + r₁r₂ + r₂²)</td>
+            <td class="py-2 px-3 font-mono text-ink-muted">A = π(r₁² + r₂² + (r₁+r₂)s)</td>
+            <td class="py-2 px-3 text-ink-secondary text-xs">r₁, r₂ = radii, h = height</td>
+          </tr>
+          <tr class="hover:bg-canvas-soft/40 transition-colors">
+            <td class="py-2 px-3 font-semibold text-ink">Ellipsoid</td>
+            <td class="py-2 px-3 font-mono text-primary font-bold">V = ⁴⁄₃ π a b c</td>
+            <td class="py-2 px-3 font-mono text-ink-muted">A ≈ 4π[(a^p b^p + ...)/3]^(1/p)</td>
+            <td class="py-2 px-3 text-ink-secondary text-xs">a, b, c = semi-principal axes</td>
+          </tr>
+          <tr class="hover:bg-canvas-soft/40 transition-colors">
+            <td class="py-2 px-3 font-semibold text-ink">Pyramid (Square)</td>
+            <td class="py-2 px-3 font-mono text-primary font-bold">V = ⅓ a² h</td>
+            <td class="py-2 px-3 font-mono text-ink-muted">A = a² + 2as</td>
+            <td class="py-2 px-3 text-ink-secondary text-xs">a = base edge, h = height</td>
+          </tr>
+          <tr class="hover:bg-canvas-soft/40 transition-colors">
+            <td class="py-2 px-3 font-semibold text-ink">Torus</td>
+            <td class="py-2 px-3 font-mono text-primary font-bold">V = 2π² R r²</td>
+            <td class="py-2 px-3 font-mono text-ink-muted">A = 4π² R r</td>
+            <td class="py-2 px-3 text-ink-secondary text-xs">R = major radius, r = tube radius</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Frequently Asked Questions (FAQ) with Schema Markup -->
+  <div id="faq" class="bg-white rounded-xl border border-hairline p-5 sm:p-6 shadow-xs">
+    <div class="mb-5 pb-3 border-b border-hairline">
+      <h3 class="text-lg font-bold text-ink tracking-tight">Frequently Asked Questions</h3>
+      <p class="text-xs text-ink-muted">Common questions about calculating volume, unit conversions, and geometric formulas</p>
+    </div>
+
+    <div class="space-y-3.5">
+      {FAQ_ITEMS.map((item) => (
+        <details class="group rounded-lg border border-hairline p-3.5 transition-colors open:bg-canvas-soft/40">
+          <summary class="font-semibold text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+            <span>{item.q}</span>
+            <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+          </summary>
+          <div class="mt-2.5 pt-2.5 border-t border-hairline text-xs sm:text-sm text-ink-secondary leading-relaxed">
+            {item.a}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

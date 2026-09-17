@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://thevolumecalculator.com/sitemap.xml
+Sitemap: https://thevolumecalculator.com/sitemap-index.xml

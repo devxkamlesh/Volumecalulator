@@ -1,0 +1,171 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Formula Standards & Methodology';
+const description = 'Documentation of geometric formulas, physical conversion factors, numerical precision, and verification standards used across thevolumecalculator.com.';
+const canonical = 'https://thevolumecalculator.com/methodology';
+
+const schemaGraph = [
+  {
+    '@type': 'AboutPage',
+    'name': title,
+    'description': description,
+    'url': canonical,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': 'https://thevolumecalculator.com/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Methodology',
+        'item': canonical,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`${title} | thevolumecalculator.com`}
+  description={description}
+  canonical={canonical}
+  schemaGraph={schemaGraph}
+>
+  <Header />
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 sm:space-y-12">
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">Methodology</span>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-canvas-card border border-hairline text-primary shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-accent-green"></span>
+        <span>Editorial & Mathematical Verification</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight leading-tight">
+        Mathematical Standards & Methodology
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
+        This document specifies the Euclidean mathematical formulas, physical conversion constants, and computational precision models implemented across all 16 calculators on thevolumecalculator.com.
+      </p>
+    </section>
+
+    <!-- Section 1: Standard Constants -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        1. Universal Conversion Factors & Physical Constants
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        All volumetric calculations convert input lengths into SI base units (meters) before applying 3D solid equations. Output values derive directly from international standard conversion definitions established by the National Institute of Standards and Technology (NIST SP 811) and ISO 80000-3.
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-hairline text-ink-muted">
+              <th class="py-2.5 px-3 font-semibold">Unit</th>
+              <th class="py-2.5 px-3 font-semibold">Symbol</th>
+              <th class="py-2.5 px-3 font-semibold">Exact SI Ratio</th>
+              <th class="py-2.5 px-3 font-semibold">Authority Standard</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline text-ink-secondary">
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Liter</td>
+              <td class="py-2.5 px-3 font-mono">L</td>
+              <td class="py-2.5 px-3 font-mono">1 L = 0.001 m³</td>
+              <td class="py-2.5 px-3">BIPM / SI Derived</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">US Liquid Gallon</td>
+              <td class="py-2.5 px-3 font-mono">gal</td>
+              <td class="py-2.5 px-3 font-mono">1 gal = 231 in³ = 0.003785411784 m³</td>
+              <td class="py-2.5 px-3">NIST SP 811</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Cubic Foot</td>
+              <td class="py-2.5 px-3 font-mono">ft³</td>
+              <td class="py-2.5 px-3 font-mono">1 ft³ = 1,728 in³ = 0.028316846592 m³</td>
+              <td class="py-2.5 px-3">ISO 80000-3</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Cubic Yard</td>
+              <td class="py-2.5 px-3 font-mono">yd³</td>
+              <td class="py-2.5 px-3 font-mono">1 yd³ = 27 ft³ = 0.764554857984 m³</td>
+              <td class="py-2.5 px-3">ISO 80000-3</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">US Fluid Ounce</td>
+              <td class="py-2.5 px-3 font-mono">fl oz</td>
+              <td class="py-2.5 px-3 font-mono">1/128 gal = 29.5735295625 mL</td>
+              <td class="py-2.5 px-3">NIST SP 811</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2: Mathematical Proofs & Formulas -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        2. Geometric Formula Derivations
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Calculations use standard closed-form Euclidean equations verified against CRC Standard Mathematical Tables. Complex non-linear geometries adhere to calculus derivations:
+      </p>
+
+      <ul class="space-y-3 text-xs sm:text-sm text-ink-secondary list-disc pl-5">
+        <li>
+          <strong class="text-ink">Horizontal Cylindrical Tanks:</strong> Liquid fill volume uses circular segment integration. Rather than linear approximations, the engine calculates segment area as A = r² arccos((r - d) / r) - (r - d)√(2rd - d²), multiplied by cylindrical body length L.
+        </li>
+        <li>
+          <strong class="text-ink">Spherical Caps & Domes:</strong> Cap volume integrates disk slices perpendicular to the height axis, yielding V = (πh / 6)(3r² + h²), where r is the cutoff base radius and h is cap vertical height.
+        </li>
+        <li>
+          <strong class="text-ink">Conical Frustums:</strong> Evaluated using the truncated cone integral V = (πh / 3)(r₁² + r₁r₂ + r₂²), preventing nesting errors common in stepped approximations.
+        </li>
+        <li>
+          <strong class="text-ink">Torus Rings:</strong> Derived via Pappus's Centroid Theorem as V = 2π²Rr², where R represents the distance from the tube center to the central origin and r represents circular cross-section radius.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 3: Computational Precision -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        3. Floating-Point Precision & Rounding Policies
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Internal arithmetic runs in 64-bit double-precision floating point (IEEE 754 standard) using JavaScript Math objects, with π fixed to 15 decimal places (3.141592653589793). Rounding is deferred until final presentation formatting to eliminate compound rounding drift. Output metrics format dynamically: numbers exceeding 10,000 display standard engineering comma grouping, while sub-unitary numbers preserve up to four significant digits.
+      </p>
+    </section>
+
+    <!-- Section 4: Review Standards -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        4. Editorial Review & Verification Cycle
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Every formula, conversion ratio, and worked example undergoes unit testing across extreme boundaries, including zero values, dimensional equivalence tests (e.g. confirming that setting a = b = c on an ellipsoid equals a sphere), and liquid density verification against water at 4°C (1 kg/L). Updates to the engine are re-tested against reference solutions before production deployment.
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

@@ -21,18 +21,12 @@ const POPULAR_TOOLS = [
       class="flex items-center gap-2 sm:gap-2.5 group min-w-0 shrink"
       aria-label="The Volume Calculator Homepage"
     >
-      <!-- 3D Cube Icon -->
-      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-surface border border-hairline shadow-xs flex items-center justify-center p-1 transition-transform group-hover:scale-105 shrink-0">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full" viewBox="0 0 64 64" fill="none">
-          <polygon points="32,9 51,20 32,31 13,20" fill="#7DD3FC" opacity="0.9" stroke="#0284C7" stroke-width="2" />
-          <polygon points="13,20 32,31 32,53 13,42" fill="#0075DE" stroke="#0052A3" stroke-width="2" />
-          <polygon points="32,31 51,20 51,42 32,53" fill="#0284C7" stroke="#0369A1" stroke-width="2" />
-          <polygon points="32,23 45,30.5 32,38 19,30.5" fill="#E0F2FE" stroke="#38BDF8" stroke-width="1.2" />
-          <line x1="29.5" y1="36" x2="34.5" y2="36" stroke="#FFFFFF" stroke-width="1.8" />
-          <line x1="29" y1="41.5" x2="35" y2="41.5" stroke="#FFFFFF" stroke-width="2.2" />
-          <line x1="29.5" y1="47" x2="34.5" y2="47" stroke="#FFFFFF" stroke-width="1.8" />
-          <line x1="32" y1="31" x2="32" y2="53" stroke="#FFFFFF" stroke-width="1.8" opacity="0.4" />
-          <polyline points="13,20 32,31 51,20" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" opacity="0.8" />
+      <!-- 3D Cube Icon (Black in Light Mode, White in Dark Mode - Enlarged) -->
+      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white dark:bg-[#1e1e1e] border border-hairline shadow-xs flex items-center justify-center p-1 transition-all group-hover:scale-105 shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-black dark:text-white" viewBox="0 0 64 64" fill="none">
+          <polygon points="32,6 56,19 32,32 8,19" fill="currentColor" />
+          <polygon points="8,23 30.5,35 30.5,57 8,45" fill="currentColor" opacity="0.38" />
+          <polygon points="33.5,35 56,23 56,45 33.5,57" fill="currentColor" opacity="0.78" />
         </svg>
       </div>
 
@@ -55,7 +49,7 @@ const POPULAR_TOOLS = [
         <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-primary/10 text-primary font-bold">16 Tools</span>
       </a>
       <a href="/calculators#hub-grid" class="hover:text-primary transition-colors font-medium" aria-label="3D Volume formulas and reference table">Formulas</a>
-      <a href="/calculators#faq" class="hover:text-primary transition-colors font-medium" aria-label="Frequently Asked Questions">FAQ</a>
+      <a href="/#faq" class="hover:text-primary transition-colors font-medium" aria-label="Frequently Asked Questions">FAQ</a>
     </nav>
 
     <!-- Right Controls (Desktop & Mobile) -->
@@ -204,7 +198,7 @@ const POPULAR_TOOLS = [
         </a>
 
         <a
-          href="/calculators#faq"
+          href="/#faq"
           class="mobile-nav-link min-h-[44px] px-3 rounded-lg hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between text-sm font-medium text-ink-secondary"
         >
           <span class="flex items-center gap-2.5">

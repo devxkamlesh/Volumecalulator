@@ -34,11 +34,69 @@ const units = [
 ];
 
 const allTools = Object.values(TOOL_DETAILS);
+
+const canonicalUrl = `https://thevolumecalculator.com/${detail.slug}`;
+
+const toolSchemaGraph: any[] = [
+  {
+    '@type': 'SoftwareApplication',
+    'name': detail.h1,
+    'applicationCategory': 'EducationalApplication',
+    'operatingSystem': 'Any',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD',
+    },
+    'description': detail.metaDescription,
+    'url': canonicalUrl,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': 'https://thevolumecalculator.com/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Calculators',
+        'item': 'https://thevolumecalculator.com/calculators',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 3,
+        'name': shape.name,
+        'item': canonicalUrl,
+      },
+    ],
+  },
+];
+
+if (detail.faqs && detail.faqs.length > 0) {
+  toolSchemaGraph.push({
+    '@type': 'FAQPage',
+    'mainEntity': detail.faqs.map((faq) => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.answer,
+      },
+    })),
+  });
+}
 ---
 
 <Layout
   title={`${detail.title} | thevolumecalculator.com`}
   description={detail.metaDescription}
+  keywords={detail.keywords}
+  canonical={canonicalUrl}
+  schemaGraph={toolSchemaGraph}
 >
   <Header />
 
@@ -57,9 +115,6 @@ const allTools = Object.values(TOOL_DETAILS);
       <div class="flex flex-wrap items-center gap-2">
         <span class={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${shape.badgeColor}`}>
           {shape.categoryLabel}
-        </span>
-        <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-canvas-soft border border-hairline text-ink-muted">
-          No Pre-filled Data
         </span>
       </div>
 
@@ -287,7 +342,7 @@ const allTools = Object.values(TOOL_DETAILS);
         {detail.practicalExamples.map((ex) => (
           <div class="p-4 rounded-xl bg-canvas-soft border border-hairline space-y-1.5">
             <h3 class="font-bold text-xs sm:text-sm text-ink">{ex.title}</h3>
-            <p class="text-xs text-ink-muted leading-relaxed">{ex.desc}</p>
+            <p class="text-xs text-ink-muted leading-relaxed" set:html={ex.desc} />
           </div>
         ))}
       </div>

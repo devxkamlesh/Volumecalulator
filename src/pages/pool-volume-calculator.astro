@@ -1,0 +1,773 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { ICONS } from '../scripts/icons';
+
+const title = 'Pool Volume Calculator - Gallons & Water Capacity';
+const description = 'Free swimming pool volume calculator. Calculate pool water volume in gallons, liters, and cubic feet for rectangular, round, and oval pools with sloped shallow & deep ends.';
+const keywords = 'pool volume calculator, pool capacity calculator, pool water volume calculator, swimming pool volume calculator, swimming pool capacity calculator, estimate pool volume, volume pool calculator, pool gallons calculator';
+const canonical = 'https://thevolumecalculator.com/pool-volume-calculator';
+
+const schemaGraph = [
+  {
+    '@type': 'SoftwareApplication',
+    'name': 'Pool Volume & Capacity Calculator',
+    'applicationCategory': 'EducationalApplication',
+    'operatingSystem': 'Any',
+    'description': description,
+    'url': canonical,
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    }
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': 'https://thevolumecalculator.com/'
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Calculators',
+        'item': 'https://thevolumecalculator.com/calculators'
+      },
+      {
+        '@type': 'ListItem',
+        'position': 3,
+        'name': 'Pool Volume Calculator',
+        'item': canonical
+      }
+    ]
+  },
+  {
+    '@type': 'FAQPage',
+    'mainEntity': [
+      {
+        '@type': 'Question',
+        'name': 'How do I calculate the volume of a swimming pool in gallons?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'For a rectangular pool, multiply Length (ft) × Width (ft) × Average Depth (ft) × 7.48. For a circular pool, multiply π × Radius² × Average Depth × 7.48 (or Diameter² × Depth × 5.9). For an oval pool, multiply Length × Width × Average Depth × 5.9.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': 'How do I calculate pool volume with a shallow end and deep end?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'Calculate the average depth by adding the shallow end depth to the deep end depth and dividing by 2: Average Depth = (Shallow Depth + Deep Depth) / 2. Then multiply by your pool surface dimensions.'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': 'How many gallons of water are in a 16x32 pool?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'A standard 16x32 ft inground pool with an average depth of 4.5 feet holds approximately 17,235 gallons of water (16 × 32 × 4.5 × 7.48).'
+        }
+      },
+      {
+        '@type': 'Question',
+        'name': 'How much does pool water weigh?',
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': 'One US liquid gallon of fresh water weighs approximately 8.34 pounds (3.785 kilograms). A 15,000-gallon swimming pool holds about 125,100 lbs (over 62 tons) of water.'
+        }
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  canonical={canonical}
+  schemaGraph={schemaGraph}
+>
+  <Header />
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 sm:space-y-12">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-2 text-xs text-ink-muted font-medium" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span>/</span>
+      <a href="/calculators" class="hover:text-primary transition-colors">Calculators</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">Pool Volume Calculator</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <section class="space-y-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full border bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800">
+          Water & Pool Capacity
+        </span>
+        <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+          US Gallons & Metric Liters
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-ink tracking-tight flex items-center gap-3">
+        <span class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
+          <Fragment set:html={ICONS.pool} />
+        </span>
+        <span>Pool Volume Calculator</span>
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary max-w-3xl leading-relaxed">
+        Estimate swimming pool volume, water capacity, and gallon requirements for chemical balancing. Supports rectangular, circular/round, and oval swimming pools with flat or sloped shallow-to-deep ends.
+      </p>
+    </section>
+
+    <!-- Interactive Pool Calculator Card -->
+    <div
+      id="pool-calculator-card"
+      class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-6"
+    >
+      <!-- Top Control Bar: Shape Tabs & Clear Button -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-hairline">
+        <!-- Pool Shape Switcher -->
+        <div class="flex items-center gap-1.5 p-1 rounded-xl bg-canvas-soft border border-hairline overflow-x-auto" role="tablist">
+          <button
+            type="button"
+            data-shape="rect"
+            class="pool-shape-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-white shadow-xs text-primary border border-hairline/80"
+            role="tab"
+            aria-selected="true"
+          >
+            Rectangular Pool
+          </button>
+          <button
+            type="button"
+            data-shape="round"
+            class="pool-shape-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-ink-muted hover:text-ink"
+            role="tab"
+            aria-selected="false"
+          >
+            Round / Circular Pool
+          </button>
+          <button
+            type="button"
+            data-shape="oval"
+            class="pool-shape-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-ink-muted hover:text-ink"
+            role="tab"
+            aria-selected="false"
+          >
+            Oval Pool
+          </button>
+        </div>
+
+        <button
+          type="button"
+          id="pool-clear-btn"
+          class="text-xs font-semibold px-3 py-1.5 rounded-md bg-canvas-soft border border-hairline text-ink-muted hover:text-ink hover:border-ink-muted transition-colors cursor-pointer self-start sm:self-auto"
+        >
+          Clear All
+        </button>
+      </div>
+
+      <!-- Depth Profile Toggle: Flat vs Sloped Floor -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-canvas-soft/60 border border-hairline">
+        <div class="space-y-0.5">
+          <span class="text-xs font-bold text-ink flex items-center gap-1.5">
+            <span>Depth Profile</span>
+          </span>
+          <p class="text-[11px] text-ink-muted">Does your swimming pool have a slope from shallow to deep end?</p>
+        </div>
+
+        <div class="flex items-center gap-1 p-0.5 rounded-lg bg-white border border-hairline">
+          <button
+            type="button"
+            id="depth-mode-flat"
+            class="depth-mode-btn px-3 py-1 rounded-md text-xs font-semibold transition-all bg-primary text-white shadow-xs"
+          >
+            Constant Depth
+          </button>
+          <button
+            type="button"
+            id="depth-mode-sloped"
+            class="depth-mode-btn px-3 py-1 rounded-md text-xs font-semibold transition-all text-ink-muted hover:text-ink"
+          >
+            Shallow + Deep End
+          </button>
+        </div>
+      </div>
+
+      <!-- Form Inputs & Diagram Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+        <!-- Inputs Column (7 cols) -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+          <!-- Dimension 1: Length or Diameter -->
+          <div id="group-length" class="flex flex-col gap-1.5">
+            <label for="pool-in-len" class="text-xs sm:text-sm font-bold text-ink flex items-center justify-between">
+              <span id="label-len-text">Length (l)</span>
+              <span class="text-[11px] font-normal text-ink-faint">Side to side</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                id="pool-in-len"
+                step="any"
+                min="0"
+                placeholder="e.g. 32"
+                class="w-full text-base font-semibold px-3.5 py-2.5 rounded-xl border border-hairline bg-surface text-ink focus:outline-hidden focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+              />
+              <select
+                id="pool-unit-len"
+                class="text-xs font-semibold px-3 py-2.5 rounded-xl border border-hairline bg-canvas-soft text-ink shrink-0 cursor-pointer focus:outline-hidden focus:border-primary"
+              >
+                <option value="ft" selected>Feet (ft)</option>
+                <option value="in">Inches (in)</option>
+                <option value="m">Meters (m)</option>
+                <option value="cm">Centimeters (cm)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dimension 2: Width (Hidden on Round Pool) -->
+          <div id="group-width" class="flex flex-col gap-1.5">
+            <label for="pool-in-width" class="text-xs sm:text-sm font-bold text-ink flex items-center justify-between">
+              <span>Width (w)</span>
+              <span class="text-[11px] font-normal text-ink-faint">Across</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                id="pool-in-width"
+                step="any"
+                min="0"
+                placeholder="e.g. 16"
+                class="w-full text-base font-semibold px-3.5 py-2.5 rounded-xl border border-hairline bg-surface text-ink focus:outline-hidden focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+              />
+              <select
+                id="pool-unit-width"
+                class="text-xs font-semibold px-3 py-2.5 rounded-xl border border-hairline bg-canvas-soft text-ink shrink-0 cursor-pointer focus:outline-hidden focus:border-primary"
+              >
+                <option value="ft" selected>Feet (ft)</option>
+                <option value="in">Inches (in)</option>
+                <option value="m">Meters (m)</option>
+                <option value="cm">Centimeters (cm)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dimension 3: Constant Depth (Shown in flat mode) -->
+          <div id="group-flat-depth" class="flex flex-col gap-1.5">
+            <label for="pool-in-depth" class="text-xs sm:text-sm font-bold text-ink flex items-center justify-between">
+              <span>Water Depth (d)</span>
+              <span class="text-[11px] font-normal text-ink-faint">Average water height</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                id="pool-in-depth"
+                step="any"
+                min="0"
+                placeholder="e.g. 4.5"
+                class="w-full text-base font-semibold px-3.5 py-2.5 rounded-xl border border-hairline bg-surface text-ink focus:outline-hidden focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+              />
+              <select
+                id="pool-unit-depth"
+                class="text-xs font-semibold px-3 py-2.5 rounded-xl border border-hairline bg-canvas-soft text-ink shrink-0 cursor-pointer focus:outline-hidden focus:border-primary"
+              >
+                <option value="ft" selected>Feet (ft)</option>
+                <option value="in">Inches (in)</option>
+                <option value="m">Meters (m)</option>
+                <option value="cm">Centimeters (cm)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dimension 4 & 5: Shallow & Deep End Depths (Shown in sloped mode) -->
+          <div id="group-sloped-depth" class="grid grid-cols-1 sm:grid-cols-2 gap-3 hidden">
+            <div class="flex flex-col gap-1.5">
+              <label for="pool-in-shallow" class="text-xs sm:text-sm font-bold text-ink flex items-center justify-between">
+                <span>Shallow End (d₁)</span>
+                <span class="text-[11px] font-normal text-ink-faint">Min depth</span>
+              </label>
+              <div class="flex items-center gap-2">
+                <input
+                  type="number"
+                  id="pool-in-shallow"
+                  step="any"
+                  min="0"
+                  placeholder="e.g. 3"
+                  class="w-full text-base font-semibold px-3.5 py-2.5 rounded-xl border border-hairline bg-surface text-ink focus:outline-hidden focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                />
+                <select
+                  id="pool-unit-shallow"
+                  class="text-xs font-semibold px-2.5 py-2.5 rounded-xl border border-hairline bg-canvas-soft text-ink shrink-0 cursor-pointer"
+                >
+                  <option value="ft" selected>ft</option>
+                  <option value="in">in</option>
+                  <option value="m">m</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <label for="pool-in-deep" class="text-xs sm:text-sm font-bold text-ink flex items-center justify-between">
+                <span>Deep End (d₂)</span>
+                <span class="text-[11px] font-normal text-ink-faint">Max depth</span>
+              </label>
+              <div class="flex items-center gap-2">
+                <input
+                  type="number"
+                  id="pool-in-deep"
+                  step="any"
+                  min="0"
+                  placeholder="e.g. 8"
+                  class="w-full text-base font-semibold px-3.5 py-2.5 rounded-xl border border-hairline bg-surface text-ink focus:outline-hidden focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                />
+                <select
+                  id="pool-unit-deep"
+                  class="text-xs font-semibold px-2.5 py-2.5 rounded-xl border border-hairline bg-canvas-soft text-ink shrink-0 cursor-pointer"
+                >
+                  <option value="ft" selected>ft</option>
+                  <option value="in">in</option>
+                  <option value="m">m</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Diagram Column (5 cols) -->
+        <div class="lg:col-span-5 bg-canvas-soft rounded-2xl border border-hairline p-5 flex flex-col items-center justify-center min-h-[220px]">
+          <div class="w-full max-w-[280px] text-primary flex items-center justify-center">
+            <svg viewBox="0 0 280 160" class="w-full h-auto drop-shadow-sm" fill="none" stroke="currentColor">
+              <!-- Pool Water Basin -->
+              <path d="M30 45 L250 45 L235 125 L45 125 Z" fill="rgba(14, 165, 233, 0.15)" stroke="#0284c7" stroke-width="2" />
+              <!-- Water Surface Ripple -->
+              <path d="M30 45 Q90 40, 140 45 T250 45" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" fill="none" />
+              <!-- Sloped Floor Line -->
+              <path d="M45 75 L140 75 L235 125" stroke="#0369a1" stroke-width="1.5" stroke-dasharray="3 3" />
+              <!-- Dimension Labels -->
+              <text x="140" y="32" fill="#0369a1" font-size="11" font-weight="bold" text-anchor="middle">Length (l)</text>
+              <text x="25" y="60" fill="#0369a1" font-size="10" font-weight="bold" text-anchor="end">Shallow (d₁)</text>
+              <text x="245" y="110" fill="#0369a1" font-size="10" font-weight="bold" text-anchor="start">Deep (d₂)</text>
+              <text x="140" y="145" fill="#64748b" font-size="10" text-anchor="middle">Average Depth = (d₁ + d₂) / 2</text>
+            </svg>
+          </div>
+          <span class="text-[11px] font-medium text-ink-muted mt-2 text-center">
+            Cross-section view with shallow & deep end slope
+          </span>
+        </div>
+      </div>
+
+      <!-- Live Results Showcase Matrix -->
+      <div class="pt-4 border-t border-hairline space-y-4">
+        <!-- Main Highlight Card: US Gallons -->
+        <div class="p-4 sm:p-5 rounded-xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-sky-700 dark:text-sky-300">
+              Total Swimming Pool Water Capacity
+            </span>
+            <div class="flex items-baseline gap-2 mt-0.5">
+              <span id="result-gallons" class="text-2xl sm:text-4xl font-extrabold text-sky-900 dark:text-sky-100">
+                —
+              </span>
+              <span class="text-base sm:text-lg font-bold text-sky-700 dark:text-sky-300">US Gallons</span>
+            </div>
+            <p id="result-liters-sub" class="text-xs text-sky-600 dark:text-sky-400 mt-0.5">
+              Equivalent to: — Liters
+            </p>
+          </div>
+
+          <button
+            type="button"
+            id="pool-copy-btn"
+            class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-auto shadow-xs"
+          >
+            <span>Copy Gallons</span>
+          </button>
+        </div>
+
+        <!-- Secondary Metrics Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-xs">
+          <div class="p-3 rounded-xl bg-canvas-soft border border-hairline space-y-1">
+            <span class="text-ink-muted text-[11px] font-sans font-medium block">Cubic Feet (ft³)</span>
+            <span id="result-cuft" class="text-sm font-bold text-ink block">—</span>
+          </div>
+          <div class="p-3 rounded-xl bg-canvas-soft border border-hairline space-y-1">
+            <span class="text-ink-muted text-[11px] font-sans font-medium block">Cubic Meters (m³)</span>
+            <span id="result-m3" class="text-sm font-bold text-ink block">—</span>
+          </div>
+          <div class="p-3 rounded-xl bg-canvas-soft border border-hairline space-y-1">
+            <span class="text-ink-muted text-[11px] font-sans font-medium block">Water Weight</span>
+            <span id="result-weight" class="text-sm font-bold text-ink block">—</span>
+          </div>
+          <div class="p-3 rounded-xl bg-canvas-soft border border-hairline space-y-1">
+            <span class="text-ink-muted text-[11px] font-sans font-medium block">8-Hr Pump Flow</span>
+            <span id="result-pump" class="text-sm font-bold text-ink block">—</span>
+          </div>
+        </div>
+
+        <!-- Live Step Math Derivation Box -->
+        <div id="pool-math-box" class="p-3.5 rounded-xl bg-canvas-soft border border-hairline text-xs font-mono space-y-1">
+          <span class="text-ink-muted font-sans font-bold text-[11px] uppercase tracking-wider block">
+            Calculation Step Breakdown:
+          </span>
+          <p id="pool-math-formula" class="text-ink leading-relaxed">
+            Enter your pool dimensions above to view step-by-step arithmetic substitution.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO Content Section: Formulas, Chemical Care & Size Chart -->
+    <article class="space-y-8 text-ink text-sm sm:text-base leading-relaxed">
+      <!-- How to calculate pool volume -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+          How to Calculate Pool Volume in Gallons (Standard Formulas)
+        </h2>
+        <p class="text-ink-secondary">
+          Calculating your swimming pool's water volume requires determining the surface area, multiplying by the average water depth, and converting the resulting cubic volume to liquid US gallons (1 cubic foot = 7.48052 gallons).
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+          <div class="p-4 rounded-xl border border-hairline bg-white space-y-2">
+            <span class="font-sans font-bold text-sm text-ink block">Rectangular Pool</span>
+            <p class="text-primary font-bold">Gallons = Length × Width × Avg Depth × 7.48</p>
+            <p class="text-ink-muted font-sans text-xs">Standard box pool geometry.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-hairline bg-white space-y-2">
+            <span class="font-sans font-bold text-sm text-ink block">Circular / Round Pool</span>
+            <p class="text-primary font-bold">Gallons = Diameter² × Depth × 5.9</p>
+            <p class="text-ink-muted font-sans text-xs">Or: π × Radius² × Depth × 7.48.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-hairline bg-white space-y-2">
+            <span class="font-sans font-bold text-sm text-ink block">Oval Pool</span>
+            <p class="text-primary font-bold">Gallons = Length × Width × Avg Depth × 5.9</p>
+            <p class="text-ink-muted font-sans text-xs">Accounts for curved semi-circle ends.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Standard Pool Size Gallon Chart -->
+      <section class="space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+          Common Pool Sizes & Gallon Capacity Chart
+        </h2>
+        <p class="text-ink-secondary">
+          Compare your swimming pool against typical residential above-ground and inground pool sizes:
+        </p>
+
+        <div class="overflow-x-auto rounded-xl border border-hairline">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse">
+            <thead class="bg-canvas-soft border-b border-hairline font-bold text-ink">
+              <tr>
+                <th class="p-3 sm:p-3.5">Pool Type</th>
+                <th class="p-3 sm:p-3.5">Dimensions</th>
+                <th class="p-3 sm:p-3.5">Average Depth</th>
+                <th class="p-3 sm:p-3.5">Approx. Gallons</th>
+                <th class="p-3 sm:p-3.5">Approx. Liters</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline font-mono text-xs">
+              <tr>
+                <td class="p-3 font-sans font-medium text-ink">Round Above-Ground</td>
+                <td class="p-3">18 ft Diameter</td>
+                <td class="p-3">4 ft</td>
+                <td class="p-3 font-bold text-primary">7,600 gal</td>
+                <td class="p-3 text-ink-muted">28,770 L</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-sans font-medium text-ink">Round Above-Ground</td>
+                <td class="p-3">24 ft Diameter</td>
+                <td class="p-3">4.5 ft</td>
+                <td class="p-3 font-bold text-primary">15,300 gal</td>
+                <td class="p-3 text-ink-muted">57,910 L</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-sans font-medium text-ink">Small Inground</td>
+                <td class="p-3">12 × 24 ft</td>
+                <td class="p-3">4.5 ft (3 to 6 ft)</td>
+                <td class="p-3 font-bold text-primary">9,700 gal</td>
+                <td class="p-3 text-ink-muted">36,700 L</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-sans font-medium text-ink">Standard Inground</td>
+                <td class="p-3">16 × 32 ft</td>
+                <td class="p-3">5.5 ft (3 to 8 ft)</td>
+                <td class="p-3 font-bold text-primary">21,060 gal</td>
+                <td class="p-3 text-ink-muted">79,720 L</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-sans font-medium text-ink">Large Inground</td>
+                <td class="p-3">20 × 40 ft</td>
+                <td class="p-3">5.5 ft (3 to 8 ft)</td>
+                <td class="p-3 font-bold text-primary">32,900 gal</td>
+                <td class="p-3 text-ink-muted">124,540 L</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FAQs -->
+      <section class="space-y-4 pt-4 border-t border-hairline">
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+          Frequently Asked Questions (FAQ)
+        </h2>
+
+        <div class="space-y-3">
+          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
+            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+              <span>How do I calculate pool volume with a shallow end and deep end?</span>
+              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+            </summary>
+            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+              Add the shallow depth to the deep end depth and divide by 2 to get the average depth: <strong>Average Depth = (Shallow Depth + Deep Depth) / 2</strong>. For example, if your pool is 3 feet at the shallow end and 8 feet at the deep end, your average depth is (3 + 8) / 2 = 5.5 feet.
+            </p>
+          </details>
+
+          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
+            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+              <span>Why is knowing exact pool volume important for chemicals?</span>
+              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+            </summary>
+            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+              Pool chemicals like chlorine shock, algaecide, muriatic acid, and stabilizer are dosed strictly per 10,000 gallons. Under-dosing leads to cloudy water and algae blooms, while over-dosing can burn swimmers' skin and damage pool liners.
+            </p>
+          </details>
+
+          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
+            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+              <span>How many gallons is a 12x24 pool?</span>
+              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+            </summary>
+            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+              A 12x24 rectangular pool with an average depth of 4.5 feet holds roughly <strong>9,700 gallons</strong> (36,700 liters). If it has a constant depth of 4 feet, it holds approximately <strong>8,617 gallons</strong>.
+            </p>
+          </details>
+
+          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
+            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+              <span>How do I size a pool pump based on gallon capacity?</span>
+              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+            </summary>
+            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
+              A residential pool pump should cycle all the water once every 8 hours. Divide your total gallons by 480 minutes (8 hours) to find the minimum gallons-per-minute (GPM) rating your pump must produce.
+            </p>
+          </details>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <Footer />
+
+  <!-- Client-side Pool Calculation Script -->
+  <script>
+    function initPoolCalculator() {
+      let currentShape = 'rect';
+      let currentDepthMode = 'flat';
+
+      const shapeTabs = document.querySelectorAll('.pool-shape-tab');
+      const depthModeFlat = document.getElementById('depth-mode-flat');
+      const depthModeSloped = document.getElementById('depth-mode-sloped');
+
+      const groupLength = document.getElementById('group-length');
+      const groupWidth = document.getElementById('group-width');
+      const groupFlatDepth = document.getElementById('group-flat-depth');
+      const groupSlopedDepth = document.getElementById('group-sloped-depth');
+      const labelLenText = document.getElementById('label-len-text');
+
+      const inLen = document.getElementById('pool-in-len');
+      const unitLen = document.getElementById('pool-unit-len');
+      const inWidth = document.getElementById('pool-in-width');
+      const unitWidth = document.getElementById('pool-unit-width');
+      const inDepth = document.getElementById('pool-in-depth');
+      const unitDepth = document.getElementById('pool-unit-depth');
+
+      const inShallow = document.getElementById('pool-in-shallow');
+      const unitShallow = document.getElementById('pool-unit-shallow');
+      const inDeep = document.getElementById('pool-in-deep');
+      const unitDeep = document.getElementById('pool-unit-deep');
+
+      const resGallons = document.getElementById('result-gallons');
+      const resLiters = document.getElementById('result-liters-sub');
+      const resCuFt = document.getElementById('result-cuft');
+      const resM3 = document.getElementById('result-m3');
+      const resWeight = document.getElementById('result-weight');
+      const resPump = document.getElementById('result-pump');
+      const mathFormula = document.getElementById('pool-math-formula');
+
+      const clearBtn = document.getElementById('pool-clear-btn');
+      const copyBtn = document.getElementById('pool-copy-btn');
+
+      function toFeet(val, unit) {
+        if (isNaN(val) || val <= 0) return 0;
+        if (unit === 'ft') return val;
+        if (unit === 'in') return val / 12;
+        if (unit === 'm') return val * 3.28084;
+        if (unit === 'cm') return val * 0.0328084;
+        return val;
+      }
+
+      function calculate() {
+        const lenFeet = toFeet(parseFloat(inLen?.value || '0'), unitLen?.value || 'ft');
+        const widthFeet = toFeet(parseFloat(inWidth?.value || '0'), unitWidth?.value || 'ft');
+
+        let avgDepthFeet = 0;
+        let depthStepStr = '';
+
+        if (currentDepthMode === 'flat') {
+          avgDepthFeet = toFeet(parseFloat(inDepth?.value || '0'), unitDepth?.value || 'ft');
+          depthStepStr = avgDepthFeet.toFixed(2) + ' ft depth';
+        } else {
+          const shallowFeet = toFeet(parseFloat(inShallow?.value || '0'), unitShallow?.value || 'ft');
+          const deepFeet = toFeet(parseFloat(inDeep?.value || '0'), unitDeep?.value || 'ft');
+          if (shallowFeet > 0 || deepFeet > 0) {
+            avgDepthFeet = (shallowFeet + deepFeet) / 2;
+            depthStepStr = '[(' + shallowFeet.toFixed(2) + ' ft + ' + deepFeet.toFixed(2) + ' ft) / 2 = ' + avgDepthFeet.toFixed(2) + ' ft avg depth]';
+          }
+        }
+
+        let cuFt = 0;
+        let stepMath = '';
+
+        if (currentShape === 'rect') {
+          if (lenFeet > 0 && widthFeet > 0 && avgDepthFeet > 0) {
+            cuFt = lenFeet * widthFeet * avgDepthFeet;
+            stepMath = lenFeet.toFixed(2) + ' ft (L) × ' + widthFeet.toFixed(2) + ' ft (W) × ' + depthStepStr + ' = ' + cuFt.toLocaleString('en-US', {maximumFractionDigits: 1}) + ' ft³';
+          }
+        } else if (currentShape === 'round') {
+          if (lenFeet > 0 && avgDepthFeet > 0) {
+            const radius = lenFeet / 2;
+            cuFt = Math.PI * radius * radius * avgDepthFeet;
+            stepMath = 'π × (' + radius.toFixed(2) + ' ft radius)² × ' + depthStepStr + ' = ' + cuFt.toLocaleString('en-US', {maximumFractionDigits: 1}) + ' ft³';
+          }
+        } else if (currentShape === 'oval') {
+          if (lenFeet > 0 && widthFeet > 0 && avgDepthFeet > 0) {
+            const r1 = lenFeet / 2;
+            const r2 = widthFeet / 2;
+            cuFt = Math.PI * r1 * r2 * avgDepthFeet;
+            stepMath = 'π × (' + r1.toFixed(2) + ' ft) × (' + r2.toFixed(2) + ' ft) × ' + depthStepStr + ' = ' + cuFt.toLocaleString('en-US', {maximumFractionDigits: 1}) + ' ft³';
+          }
+        }
+
+        if (cuFt > 0) {
+          const gallons = cuFt * 7.48052;
+          const liters = cuFt * 28.3168;
+          const m3 = cuFt * 0.0283168;
+          const weightLbs = gallons * 8.34;
+          const pumpGpm = gallons / 480; // 8 hr turnover = 480 minutes
+
+          if (resGallons) resGallons.textContent = Math.round(gallons).toLocaleString('en-US');
+          if (resLiters) resLiters.textContent = 'Equivalent to: ' + Math.round(liters).toLocaleString('en-US') + ' Liters';
+          if (resCuFt) resCuFt.textContent = cuFt.toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' ft³';
+          if (resM3) resM3.textContent = m3.toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' m³';
+          if (resWeight) resWeight.textContent = Math.round(weightLbs).toLocaleString('en-US') + ' lbs';
+          if (resPump) resPump.textContent = Math.ceil(pumpGpm) + ' GPM';
+
+          if (mathFormula) {
+            mathFormula.innerHTML = '<span>' + stepMath + '</span><br/><span class="text-primary font-bold">' + cuFt.toFixed(1) + ' ft³ × 7.48052 gal/ft³ = ' + Math.round(gallons).toLocaleString('en-US') + ' US Gallons</span>';
+          }
+        } else {
+          if (resGallons) resGallons.textContent = '—';
+          if (resLiters) resLiters.textContent = 'Equivalent to: — Liters';
+          if (resCuFt) resCuFt.textContent = '—';
+          if (resM3) resM3.textContent = '—';
+          if (resWeight) resWeight.textContent = '—';
+          if (resPump) resPump.textContent = '—';
+          if (mathFormula) mathFormula.textContent = 'Enter your pool dimensions above to view step-by-step arithmetic substitution.';
+        }
+      }
+
+      // Shape Switcher Tab Handler
+      shapeTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          shapeTabs.forEach((t) => {
+            t.classList.remove('bg-white', 'shadow-xs', 'text-primary', 'border', 'border-hairline/80');
+            t.classList.add('text-ink-muted');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('bg-white', 'shadow-xs', 'text-primary', 'border', 'border-hairline/80');
+          tab.classList.remove('text-ink-muted');
+          tab.setAttribute('aria-selected', 'true');
+
+          currentShape = tab.getAttribute('data-shape') || 'rect';
+          if (currentShape === 'round') {
+            if (groupWidth) groupWidth.classList.add('hidden');
+            if (labelLenText) labelLenText.textContent = 'Diameter (d)';
+          } else {
+            if (groupWidth) groupWidth.classList.remove('hidden');
+            if (labelLenText) labelLenText.textContent = 'Length (l)';
+          }
+          calculate();
+        });
+      });
+
+      // Depth Mode Toggle
+      depthModeFlat?.addEventListener('click', () => {
+        currentDepthMode = 'flat';
+        depthModeFlat.classList.add('bg-primary', 'text-white', 'shadow-xs');
+        depthModeFlat.classList.remove('text-ink-muted');
+        depthModeSloped?.classList.remove('bg-primary', 'text-white', 'shadow-xs');
+        depthModeSloped?.classList.add('text-ink-muted');
+
+        groupFlatDepth?.classList.remove('hidden');
+        groupSlopedDepth?.classList.add('hidden');
+        calculate();
+      });
+
+      depthModeSloped?.addEventListener('click', () => {
+        currentDepthMode = 'sloped';
+        depthModeSloped.classList.add('bg-primary', 'text-white', 'shadow-xs');
+        depthModeSloped.classList.remove('text-ink-muted');
+        depthModeFlat?.classList.remove('bg-primary', 'text-white', 'shadow-xs');
+        depthModeFlat?.classList.add('text-ink-muted');
+
+        groupFlatDepth?.classList.add('hidden');
+        groupSlopedDepth?.classList.remove('hidden');
+        calculate();
+      });
+
+      // Inputs change listeners
+      [inLen, unitLen, inWidth, unitWidth, inDepth, unitDepth, inShallow, unitShallow, inDeep, unitDeep].forEach((el) => {
+        if (!el) return;
+        el.addEventListener('input', calculate);
+        el.addEventListener('change', calculate);
+      });
+
+      // Clear button
+      clearBtn?.addEventListener('click', () => {
+        [inLen, inWidth, inDepth, inShallow, inDeep].forEach((i) => {
+          if (i) i.value = '';
+        });
+        calculate();
+      });
+
+      // Copy button
+      copyBtn?.addEventListener('click', () => {
+        const text = resGallons?.textContent || '';
+        if (text && text !== '—') {
+          navigator.clipboard.writeText(text.replace(/,/g, '') + ' gallons');
+          const prev = copyBtn.textContent;
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = prev; }, 1800);
+        }
+      });
+
+      calculate();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPoolCalculator);
+    } else {
+      initPoolCalculator();
+    }
+  </script>
+</Layout>

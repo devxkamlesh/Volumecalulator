@@ -4,6 +4,7 @@ export interface ToolDetail {
   title: string;
   h1: string;
   metaDescription: string;
+  keywords: string;
   shortTagline: string;
   howToCalculate: string[];
   formulaHtml: string;
@@ -17,19 +18,20 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'cube-volume-calculator': {
     slug: 'cube-volume-calculator',
     shapeId: 'cube',
-    title: 'Cube Volume Calculator - Instant & Accurate 3D Cube Math',
+    title: 'Cube Volume Calculator',
     h1: 'Cube Volume Calculator',
     metaDescription: 'Calculate the volume and surface area of a cube instantly. Enter the edge length in inches, feet, centimeters, or meters with step-by-step math.',
+    keywords: 'cube volume calculator, volume of a cube, calculate cube volume, cube cubic feet, cube side length',
     shortTagline: 'Calculate volume of cubic containers, storage boxes, and dice from side length.',
     howToCalculate: [
-      'Measure any one of the cube’s edges (a). Since all sides of a cube are identical, length = width = height.',
+      'Measure any one of the cube edges (a). Since all sides of a cube are identical, length = width = height.',
       'Multiply the edge length by itself three times (a × a × a, or a³).',
       'Convert the resulting cubic units into your desired volume measurement (e.g. gallons, liters, cubic feet).',
     ],
     formulaHtml: 'V = a^3',
     formulaNote: 'Where a is the edge (side) length of the cube. Total Surface Area is A = 6a².',
     practicalExamples: [
-      { title: 'Moving & Storage Boxes', desc: 'A 2-foot cube storage box holds 2 × 2 × 2 = 8 cubic feet of goods (approx. 59.8 gallons).' },
+      { title: 'Moving & Storage Boxes', desc: 'A 2-foot cube storage box holds 2 × 2 × 2 = 8 cubic feet of goods. Convert larger freight estimates with our <a href="/cubic-feet-calculator" class="text-primary hover:underline font-medium">Cubic Feet Calculator</a>.' },
       { title: 'Concrete Footings & Blocks', desc: 'Contractors calculating cubic yards of poured concrete for square structural bases.' },
       { title: 'Cube Aquariums', desc: 'Determine total water capacity in gallons or liters for nano reef and freshwater cube fish tanks.' },
     ],
@@ -44,9 +46,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'box-volume-calculator': {
     slug: 'box-volume-calculator',
     shapeId: 'rectangular_prism',
-    title: 'Box Volume Calculator - Rectangular Prism Volume in Gallons & Liters',
+    title: 'Box Volume Calculator',
     h1: 'Box Volume Calculator (Rectangular Prism)',
     metaDescription: 'Quickly calculate the volume of any rectangular box, carton, shipping package, room, or rectangular tank. Step-by-step formulas and unit conversions.',
+    keywords: 'box volume calculator, rectangular prism volume calculator, calculate box volume, box volume in gallons, box cubic feet',
     shortTagline: 'Calculate rectangular boxes, cargo containers, rooms, and packages.',
     howToCalculate: [
       'Measure the internal or external Length (l), Width (w), and Height (h) using a ruler or tape measure.',
@@ -56,8 +59,8 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
     formulaHtml: 'V = l \\times w \\times h',
     formulaNote: 'Where l = length, w = width, and h = height. Total Surface Area is A = 2(lw + lh + wh).',
     practicalExamples: [
-      { title: 'Parcel Shipping & USPS / FedEx Freight', desc: 'Calculate dimensional weight (DIM weight) and volume to avoid carrier surcharges.' },
-      { title: 'Rectangular Swimming Pools', desc: 'Find how many thousands of gallons are needed to fill a backyard swimming pool.' },
+      { title: 'Parcel Shipping & Cargo Freight', desc: 'Calculate dimensional weight for shipping boxes, or use our dedicated <a href="/cubic-feet-calculator" class="text-primary hover:underline font-medium">Cubic Feet Calculator</a> to estimate total freight container space.' },
+      { title: 'Rectangular Swimming Pools', desc: 'Estimate water volume for box-shaped basins, or use our specialized <a href="/pool-volume-calculator" class="text-primary hover:underline font-medium">Pool Volume Calculator</a> for pools with shallow and deep ends.' },
       { title: 'Raised Garden Beds', desc: 'Calculate how many cubic feet or cubic yards of soil and compost you need to purchase.' },
     ],
     faqs: [
@@ -71,9 +74,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'cylinder-volume-calculator': {
     slug: 'cylinder-volume-calculator',
     shapeId: 'cylinder',
-    title: 'Cylinder Volume Calculator - Accurate Cylindrical Tank & Tube Math',
+    title: 'Cylinder Volume Calculator',
     h1: 'Cylinder Volume Calculator',
     metaDescription: 'Find the volume of any cylinder, round tank, pipe, or drink can. Enter radius or diameter and height to calculate volume in gallons, liters, and m³.',
+    keywords: 'cylinder volume calculator, volume of a cylinder, cylindrical tank volume, cylinder volume in gallons, cylinder cubic feet',
     shortTagline: 'Calculate volume of round water tanks, industrial drums, columns, and circular pipes.',
     howToCalculate: [
       'Measure the base radius (r) from the center to the outer edge, or measure diameter and divide by 2.',
@@ -84,7 +88,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
     formulaNote: 'Where r = radius of the circular base, h = height. If you know diameter d, r = d/2.',
     practicalExamples: [
       { title: '55-Gallon Steel Drums', desc: 'Industrial chemical and oil drums with 11.25 in radius and 33.5 in height hold ~55 US gallons.' },
-      { title: 'Vertical Water Storage Tanks', desc: 'Calculate rain harvesting or well water holding capacity in gallons or liters.' },
+      { title: 'Vertical Water Storage Tanks', desc: 'Calculate rain harvesting or well water holding capacity in gallons or liters. For round swimming pools, use our <a href="/pool-volume-calculator" class="text-primary hover:underline font-medium">Pool Volume Calculator</a>.' },
       { title: 'Circular Concrete Pillars & Columns', desc: 'Determine concrete mix bags needed for civil engineering foundations and sonotubes.' },
     ],
     faqs: [
@@ -98,9 +102,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'sphere-volume-calculator': {
     slug: 'sphere-volume-calculator',
     shapeId: 'sphere',
-    title: 'Sphere Volume Calculator - Ball & Spherical Tank Capacity',
+    title: 'Sphere Volume Calculator',
     h1: 'Sphere Volume Calculator',
     metaDescription: 'Calculate the volume of a sphere, ball, planet, or spherical gas tank. Input radius or diameter for instant multi-unit volume conversions.',
+    keywords: 'sphere volume calculator, volume of a sphere, ball volume calculator, spherical volume, sphere cubic feet',
     shortTagline: 'Calculate volume and surface area of balls, globes, domes, and spherical tanks.',
     howToCalculate: [
       'Measure the radius (r) from the exact center of the sphere to any point on its surface.',
@@ -124,9 +129,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'cone-volume-calculator': {
     slug: 'cone-volume-calculator',
     shapeId: 'cone',
-    title: 'Cone Volume Calculator - Conical Pile, Funnel & Tank Volume',
+    title: 'Cone Volume Calculator',
     h1: 'Cone Volume Calculator',
     metaDescription: 'Find the volume of a cone, gravel pile, hopper, or funnel with radius and height. Instant volume calculations with step-by-step formula derivation.',
+    keywords: 'cone volume calculator, volume of a cone, cone cubic feet calculator, conical volume, cone capacity',
     shortTagline: 'Calculate volume of funnels, conical mounds, traffic cones, and grain hoppers.',
     howToCalculate: [
       'Measure base radius (r) and vertical height (h) from the base center to the apex.',
@@ -150,9 +156,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'capsule-volume-calculator': {
     slug: 'capsule-volume-calculator',
     shapeId: 'capsule',
-    title: 'Capsule Volume Calculator - Cylindrical Tank with Hemispherical Ends',
+    title: 'Capsule Volume Calculator',
     h1: 'Capsule Volume Calculator',
     metaDescription: 'Calculate the volume of a capsule shape: a cylinder capped with two hemispheres. Used for pharmaceutical pills, LPG bullet tanks, and pressure vessels.',
+    keywords: 'capsule volume calculator, capsule tank volume, pressure vessel volume calculator, capsule volume formula',
     shortTagline: 'Calculate volume of pharmaceutical capsules and industrial bullet pressure tanks.',
     howToCalculate: [
       'Identify radius (r) of the hemispherical end caps and length (a) of the central cylindrical body.',
@@ -175,9 +182,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'spherical-cap-volume-calculator': {
     slug: 'spherical-cap-volume-calculator',
     shapeId: 'spherical_cap',
-    title: 'Spherical Cap & Dome Volume Calculator',
+    title: 'Spherical Cap Calculator',
     h1: 'Spherical Cap / Dome Volume Calculator',
     metaDescription: 'Calculate the volume of a spherical cap, architectural dome, bowl, or dish. Step-by-step calculus formula with base radius and height.',
+    keywords: 'spherical cap volume calculator, dome volume calculator, hemispherical bowl volume, spherical dome volume',
     shortTagline: 'Calculate volume of architectural domes, shallow bowls, dishes, and spherical cutoffs.',
     howToCalculate: [
       'Measure base radius (r) of the circular cutoff flat base and height (h) of the cap.',
@@ -198,9 +206,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'conical-frustum-volume-calculator': {
     slug: 'conical-frustum-volume-calculator',
     shapeId: 'conical_frustum',
-    title: 'Conical Frustum Volume Calculator - Truncated Cone, Buckets & Cups',
+    title: 'Conical Frustum Calculator',
     h1: 'Conical Frustum Volume Calculator',
     metaDescription: 'Calculate the volume of a truncated cone (conical frustum). Ideal for utility buckets, paper coffee cups, flower pots, and lamp shades.',
+    keywords: 'conical frustum volume calculator, bucket volume calculator, truncated cone volume, flower pot volume',
     shortTagline: 'Calculate volume of buckets, paper cups, planters, and tapered containers.',
     howToCalculate: [
       'Measure top radius (r₁), bottom radius (r₂), and vertical height (h).',
@@ -223,9 +232,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'ellipsoid-volume-calculator': {
     slug: 'ellipsoid-volume-calculator',
     shapeId: 'ellipsoid',
-    title: 'Ellipsoid Volume Calculator - 3D Oval & Oblong Spheroid Math',
+    title: 'Ellipsoid Volume Calculator',
     h1: 'Ellipsoid Volume Calculator',
     metaDescription: 'Calculate the volume of an ellipsoid or scalene spheroid with semi-axes a, b, and c. Used for rugby balls, watermelons, and celestial planets.',
+    keywords: 'ellipsoid volume calculator, volume of an ellipsoid, spheroid volume calculator, triaxial ellipsoid volume',
     shortTagline: 'Calculate volume of rugby balls, watermelons, eggs, and oblate spheroids.',
     howToCalculate: [
       'Measure the three principal semi-axes (a, b, c) from the center to the three orthogonal surfaces.',
@@ -247,9 +257,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'square-pyramid-volume-calculator': {
     slug: 'square-pyramid-volume-calculator',
     shapeId: 'square_pyramid',
-    title: 'Square Pyramid Volume Calculator - Ancient Pyramids & Roof Tops',
+    title: 'Square Pyramid Calculator',
     h1: 'Square Pyramid Volume Calculator',
     metaDescription: 'Calculate volume and surface area of a pyramid with a square base. Enter base edge length and vertical height with live mathematical steps.',
+    keywords: 'square pyramid volume calculator, volume of a square pyramid, square base pyramid volume, pyramid volume formula',
     shortTagline: 'Calculate volume of square pyramids, pyramid roofs, and monuments.',
     howToCalculate: [
       'Measure the edge length (a) of the square base.',
@@ -271,9 +282,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'rectangular-pyramid-volume-calculator': {
     slug: 'rectangular-pyramid-volume-calculator',
     shapeId: 'rectangular_pyramid',
-    title: 'Rectangular Pyramid Volume Calculator',
+    title: 'Rectangular Pyramid Calculator',
     h1: 'Rectangular Pyramid Volume Calculator',
     metaDescription: 'Find the volume of a pyramid with a rectangular base (length ≠ width). Accurate formulas and instant unit conversions.',
+    keywords: 'rectangular pyramid volume calculator, volume of a rectangular pyramid, right rectangular pyramid volume',
     shortTagline: 'Calculate volume of rectangular pyramids and hip roofs.',
     howToCalculate: [
       'Measure base length (l), base width (w), and vertical height (h).',
@@ -294,9 +306,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'triangular-prism-volume-calculator': {
     slug: 'triangular-prism-volume-calculator',
     shapeId: 'triangular_prism',
-    title: 'Triangular Prism Volume Calculator - Tents & Wedge Containers',
+    title: 'Triangular Prism Calculator',
     h1: 'Triangular Prism Volume Calculator',
     metaDescription: 'Calculate the volume of a triangular prism with triangle base, triangle height, and prism length. Clear formulas and instant unit conversions.',
+    keywords: 'triangular prism volume calculator, volume of a triangular prism, wedge volume calculator, triangle prism capacity',
     shortTagline: 'Calculate volume of A-frame tents, wedges, Toblerone boxes, and roof trusses.',
     howToCalculate: [
       'Measure base of the triangle (b) and height of the triangle (h).',
@@ -318,9 +331,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'pipe-volume-calculator': {
     slug: 'pipe-volume-calculator',
     shapeId: 'hollow_cylinder',
-    title: 'Pipe & Hollow Cylinder Volume Calculator - Material & Fluid Capacity',
+    title: 'Pipe Volume Calculator',
     h1: 'Pipe & Hollow Cylinder Volume Calculator',
     metaDescription: 'Calculate pipe wall material volume and internal fluid capacity. Enter outer radius, inner radius (or thickness), and pipe length.',
+    keywords: 'pipe volume calculator, tube volume calculator, hollow cylinder volume calculator, pipe water capacity',
     shortTagline: 'Calculate pipe wall material volume and internal liquid capacity for plumbing & drainage.',
     howToCalculate: [
       'Measure outer radius (R), inner radius (r), and total pipe length (h).',
@@ -344,9 +358,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'torus-volume-calculator': {
     slug: 'torus-volume-calculator',
     shapeId: 'torus',
-    title: 'Torus (Donut / O-Ring) Volume Calculator',
+    title: 'Torus Volume Calculator',
     h1: 'Torus Volume Calculator (Donut & O-Ring)',
     metaDescription: 'Calculate the volume and surface area of a torus (donut or o-ring). Input major radius R and tube radius r for instant results.',
+    keywords: 'torus volume calculator, volume of a torus, donut volume calculator, o-ring volume',
     shortTagline: 'Calculate volume and surface area of donuts, o-rings, tire tubes, and magnetic toroids.',
     howToCalculate: [
       'Measure major radius (R) from the center of the hole to the center of the tube.',
@@ -368,9 +383,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'trapezoidal-prism-volume-calculator': {
     slug: 'trapezoidal-prism-volume-calculator',
     shapeId: 'trapezoidal_prism',
-    title: 'Trapezoidal Prism & Trench Volume Calculator - Troughs & Swales',
+    title: 'Trapezoidal Prism Calculator',
     h1: 'Trapezoidal Prism & Trench Calculator',
     metaDescription: 'Calculate the volume of trapezoidal ditches, trenches, drainage swales, canals, and livestock troughs. Multi-unit volume math made easy.',
+    keywords: 'trapezoidal prism volume calculator, trench volume calculator, trough volume calculator, swale ditch volume',
     shortTagline: 'Calculate volume of drainage swales, farm troughs, trenches, and canals.',
     howToCalculate: [
       'Measure top width (a), bottom width (b), depth / height (h), and total trench length (l).',
@@ -392,9 +408,10 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
   'horizontal-tank-volume-calculator': {
     slug: 'horizontal-tank-volume-calculator',
     shapeId: 'horizontal_tank_fill',
-    title: 'Horizontal Tank Volume Calculator - Liquid Fill Depth & Capacity',
+    title: 'Horizontal Tank Calculator',
     h1: 'Horizontal Tank Volume Calculator (Liquid Fill Depth)',
     metaDescription: 'Calculate the exact liquid volume and fill percentage of a horizontal cylindrical tank filled to depth d. Advanced circular segment calculus math.',
+    keywords: 'horizontal tank volume calculator, horizontal cylinder tank fill calculator, dipstick tank volume, liquid fill depth calculator',
     shortTagline: 'Calculate exact liquid volume in horizontal cylindrical oil, fuel, and water storage tanks.',
     howToCalculate: [
       'Enter tank radius (r), tank length (L), and current liquid dipstick depth (d ≤ 2r).',

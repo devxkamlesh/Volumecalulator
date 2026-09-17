@@ -1,0 +1,354 @@
+---
+// HomeSeoArticle.astro - Comprehensive On-Page SEO Guide (1,000 - 1,500 words)
+// Primary keyword: volume calculator
+// Secondary keywords: calculate volume, volume calculator gallons, cu ft calculator, water volume calculator, volumetric calculator, volume solver, volume cal, cubic volume, volume formula, volumetric formula
+
+export const HOME_FAQS = [
+  {
+    question: "How to calculate the volume?",
+    answer: "To calculate volume for any three-dimensional solid, identify the shape, measure its dimensions using the same unit, and apply the geometric formula for that shape. For a rectangular box, multiply length, width, and height. For a cylinder, calculate the circular base area using Pi multiplied by radius squared, then multiply by height. For a sphere, multiply four-thirds by Pi and the cube of the radius. If you measure an irregular object, submerge it in water and measure the displaced fluid volume. Our online volume calculator automates these steps for sixteen shapes and provides instant answers in gallons, litres, cubic feet, and cubic meters."
+  },
+  {
+    question: "How do you calculate volume in litres?",
+    answer: "To calculate volume in litres, determine the cubic volume of your container and convert the figure to litres using metric ratios. One litre equals 1,000 cubic centimeters and 0.001 cubic meters. If you measure dimensions in centimeters, multiply length by width by height to get cubic centimeters, then divide by 1,000. If you measure in meters, multiply the dimensions to get cubic meters, then multiply by 1,000. For measurements in inches, calculate cubic inches and divide by 61.024. A water tank measuring 1.5 meters long, 1 meter wide, and 0.8 meters deep has a volume of 1.2 cubic meters, which equals 1,200 litres."
+  },
+  {
+    question: "How much is m3 in volume?",
+    answer: "One cubic meter (m³) is the volume of a cube with edges that measure exactly one meter in length, width, and height. One cubic meter equals 1,000 litres, 1,000,000 cubic centimeters, approximately 35.3147 cubic feet, and approximately 264.172 US liquid gallons. In freight shipping, one cubic meter is known as one cubic meter size (CBM). One cubic meter of water weighs 1,000 kilograms, or one metric ton, at standard temperature."
+  },
+  {
+    question: "How do you calculate cubic volume?",
+    answer: "Cubic volume measures the three-dimensional capacity enclosed within an object. For rectangular spaces and boxes, measure the length, width, and height in the same unit. Multiply the three dimensions together: cubic volume equals length multiplied by width multiplied by height. When measurements are in feet, the product is cubic feet. When measurements are in inches, multiply length, width, and height, then divide the total by 1,728 to find cubic feet. Our volumetric calculator handles these conversions automatically."
+  },
+  {
+    question: "What is its volume formula?",
+    answer: "The volume formula depends on the geometric shape of the object. For a rectangular box, the formula is length multiplied by width multiplied by height (V = l × w × h). For a cube, the formula is the side length cubed (V = s³). For a cylinder, the formula is Pi multiplied by radius squared multiplied by height (V = π × r² × h). For a sphere, the formula is four-thirds multiplied by Pi and radius cubed (V = 4/3 × π × r³). For a cone, the formula is one-third multiplied by Pi, radius squared, and height (V = 1/3 × π × r² × h)."
+  },
+  {
+    question: "How do you get the volume?",
+    answer: "You can determine volume through three primary methods: geometric calculation, fluid displacement, or mass division. For regular objects, measure physical dimensions and calculate volume with geometric formulas. For irregular objects, place the item into a container filled with water and measure the volume of liquid displaced, where one milliliter of displaced water equals one cubic centimeter of solid volume. For known materials, divide total mass by density (V = m / ρ). You can also enter dimensions into our volume solver for instant calculations."
+  },
+  {
+    question: "How much is 1 m3 in litres?",
+    answer: "One cubic meter contains exactly 1,000 litres (1 m³ = 1,000 L). The metric system defines one litre as one cubic decimeter (0.1 m × 0.1 m × 0.1 m), meaning that 1,000 cubic decimeters fit inside one cubic meter. A standard 1,000-litre intermediate bulk container (IBC) occupies exactly one cubic meter of spatial volume."
+  },
+  {
+    question: "How to calculate 1 m3?",
+    answer: "To calculate one cubic meter (1 m³), find three dimensions whose product equals one when expressed in meters. Examples include 1 m × 1 m × 1 m, 2 m × 1 m × 0.5 m, or 4 m × 0.5 m × 0.5 m. If your measurements are in centimeters, multiply length, width, and height, then divide by 1,000,000. If your measurements are in millimeters, multiply length, width, and height, then divide by 1,000,000,000."
+  },
+  {
+    question: "How many m3 is 1 litre?",
+    answer: "One litre equals exactly 0.001 cubic meters (1 L = 0.001 m³). To convert any volume in litres into cubic meters, divide the number of litres by 1,000. For example, 250 litres equals 0.25 m³, 500 litres equals 0.5 m³, and 5,000 litres equals 5 m³."
+  },
+  {
+    question: "What is the 2 formula for volume?",
+    answer: "The two standard formulas for volume used in physics and applied mathematics are the geometric base area formula and the physical density formula. The geometric formula calculates volume as base area multiplied by height (V = A_b × h), which applies to all prisms, cylinders, and boxes. The physical formula calculates volume as mass divided by density (V = m / ρ), which allows you to determine volume by weighing an object and looking up the material density."
+  },
+  {
+    question: "How do you calculate m3 size?",
+    answer: "To calculate m³ size (CBM) for freight, cargo, and storage: measure the length, width, and height of each item in centimeters or meters. If measuring in centimeters, convert to meters by dividing by 100. Multiply length in meters by width in meters by height in meters. A shipping crate measuring 120 cm long, 80 cm wide, and 100 cm high has an m³ size of 1.2 × 0.8 × 1.0 = 0.96 m³."
+  },
+  {
+    question: "How to find volume in cubic mm?",
+    answer: "To find volume in cubic millimeters (mm³), measure all dimensions in millimeters and multiply them together according to the shape formula. If you already have volume in cubic centimeters, multiply by 1,000 because 1 cm³ equals 1,000 mm³. If your volume is in litres, multiply by 1,000,000. If your volume is in cubic meters, multiply by 1,000,000,000. Cubic millimeters are used in precision engineering, medical dosages, and 3D printing filaments."
+  }
+];
+---
+
+<section class="w-full max-w-4xl mx-auto space-y-10 sm:space-y-14 text-ink leading-relaxed pt-4">
+  <article class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-6 sm:p-10 shadow-xs space-y-8">
+    
+    <header class="space-y-3 pb-6 border-b border-hairline">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 border border-primary/20 text-primary">
+        <span>Educational and engineering guide</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
+        Understanding 3D calculations with our volume calculator
+      </h2>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        Calculating three-dimensional space accurately is necessary when you plan home improvements, pack freight containers, size an air conditioning system, or fill a backyard pool. Our <strong>volume calculator</strong> removes guesswork and arithmetic errors by automating Euclidean equations across both metric and imperial units. When you use this <strong>volumetric calculator</strong>, you receive fast numerical results alongside formula derivations. The tool operates as a versatile <strong>volume solver</strong> and general <strong>volume cal</strong> utility for sixteen distinct geometric shapes, applying standard <strong>volume formula</strong> and <strong>volumetric formula</strong> rules to give you exact liquid and dry measurements.
+      </p>
+    </header>
+
+    <section class="space-y-4">
+      <h3 class="text-xl sm:text-2xl font-bold text-ink tracking-tight flex items-center gap-2">
+        <span class="w-2 h-6 rounded-full bg-primary inline-block"></span>
+        <span>What volume is and how to calculate volume</span>
+      </h3>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        In physics and geometry, volume is the total quantity of three-dimensional space enclosed by a boundary or occupied by a substance. Surface area covers an exterior boundary in square units, such as square meters or square feet. Volume measures three linear dimensions at once, producing cubic units such as cubic meters, cubic feet, cubic centimeters, or liquid capacity units such as litres and gallons.
+      </p>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        To <strong>calculate volume</strong> for any standard solid, you measure its linear dimensions and apply the mathematical equation for that shape. For polyhedra such as cubes and boxes, volume is the area of the base multiplied by perpendicular height. For circular shapes such as cylinders and spheres, the mathematical constant Pi (π ≈ 3.14159265) accounts for boundary curvature. Entering measurements into our calculator produces total <strong>cubic volume</strong> within milliseconds.
+      </p>
+    </section>
+
+    <section class="space-y-4">
+      <h3 class="text-xl sm:text-2xl font-bold text-ink tracking-tight flex items-center gap-2">
+        <span class="w-2 h-6 rounded-full bg-primary inline-block"></span>
+        <span>Standard volume formulas for 3D geometric shapes</span>
+      </h3>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        Our multi-shape calculator supports sixteen distinct geometries. Each shape uses a verified equation:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <div class="p-4 rounded-xl bg-canvas-soft border border-hairline space-y-2">
+          <div class="font-bold text-sm text-ink flex items-center justify-between">
+            <span>Rectangular box</span>
+            <span class="text-xs font-mono bg-primary/10 text-primary px-2 py-0.5 rounded">V = l × w × h</span>
+          </div>
+          <p class="text-xs text-ink-muted">
+            Multiply length by width by height. This formula applies to cardboard packages, rooms, and shipping cartons.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-canvas-soft border border-hairline space-y-2">
+          <div class="font-bold text-sm text-ink flex items-center justify-between">
+            <span>Cube</span>
+            <span class="text-xs font-mono bg-primary/10 text-primary px-2 py-0.5 rounded">V = s³</span>
+          </div>
+          <p class="text-xs text-ink-muted">
+            All edges of a cube have identical length. Multiply the single edge measurement by itself three times.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-canvas-soft border border-hairline space-y-2">
+          <div class="font-bold text-sm text-ink flex items-center justify-between">
+            <span>Cylinder</span>
+            <span class="text-xs font-mono bg-primary/10 text-primary px-2 py-0.5 rounded">V = π × r² × h</span>
+          </div>
+          <p class="text-xs text-ink-muted">
+            Multiply circular base area by vertical height. Used for water storage tanks, metal pipes, and industrial barrels.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-canvas-soft border border-hairline space-y-2">
+          <div class="font-bold text-sm text-ink flex items-center justify-between">
+            <span>Sphere</span>
+            <span class="text-xs font-mono bg-primary/10 text-primary px-2 py-0.5 rounded">V = (4/3) × π × r³</span>
+          </div>
+          <p class="text-xs text-ink-muted">
+            Multiply four-thirds by Pi and the cube of the radius. This equation applies to sports balls, storage globes, and spherical tanks.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-canvas-soft border border-hairline space-y-2">
+          <div class="font-bold text-sm text-ink flex items-center justify-between">
+            <span>Cone</span>
+            <span class="text-xs font-mono bg-primary/10 text-primary px-2 py-0.5 rounded">V = (1/3) × π × r² × h</span>
+          </div>
+          <p class="text-xs text-ink-muted">
+            A cone encloses one-third the volume of a cylinder that has the same base radius and height.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-canvas-soft border border-hairline space-y-2">
+          <div class="font-bold text-sm text-ink flex items-center justify-between">
+            <span>Horizontal tank</span>
+            <span class="text-xs font-mono bg-primary/10 text-primary px-2 py-0.5 rounded">V_fill = A_seg × L</span>
+          </div>
+          <p class="text-xs text-ink-muted">
+            Uses circular segment integration based on liquid fill depth and tank length to calculate remaining fuel or water.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h3 class="text-xl sm:text-2xl font-bold text-ink tracking-tight flex items-center gap-2">
+        <span class="w-2 h-6 rounded-full bg-accent-teal inline-block"></span>
+        <span>Liquid capacity and water volume calculations</span>
+      </h3>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        Homeowners and facility managers often need a dedicated <strong>water volume calculator</strong> when sizing swimming pools, garden ponds, rainwater collection barrels, and hot tubs. Liquid containers are usually labeled in gallons or litres rather than cubic inches.
+      </p>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        Our built-in <strong>volume calculator gallons</strong> feature converts linear measurements directly into fluid capacity. For instance, a cylindrical garden pool with a diameter of 12 feet and a water depth of 3 feet has a cubic volume of 339.29 cubic feet. Because one cubic foot of fresh water contains 7.48052 US liquid gallons, the pool holds approximately 2,538 gallons of water, which equals 9,607 litres.
+      </p>
+      <div class="p-4 rounded-xl bg-accent-teal/5 border border-accent-teal/20 space-y-2">
+        <h4 class="font-bold text-sm text-ink">Key liquid conversion factors</h4>
+        <ul class="text-xs sm:text-sm text-ink-secondary list-disc list-inside space-y-1">
+          <li>1 cubic foot equals 7.48052 US liquid gallons, 6.2288 Imperial gallons, and 28.3168 litres</li>
+          <li>1 cubic meter equals 1,000 litres, 264.172 US liquid gallons, and 219.969 Imperial gallons</li>
+          <li>1 US gallon equals 231 cubic inches, 3.78541 litres, and 0.13368 cubic feet</li>
+          <li>1 Imperial gallon equals 4.54609 litres and 1.20095 US gallons</li>
+          <li>1 litre of fresh water has a mass of 1 kilogram; 1 US gallon weighs approximately 8.34 pounds</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h3 class="text-xl sm:text-2xl font-bold text-ink tracking-tight flex items-center gap-2">
+        <span class="w-2 h-6 rounded-full bg-accent-orange inline-block"></span>
+        <span>Using the cu ft calculator for shipping and construction</span>
+      </h3>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        In North America, cubic feet are used for shipping packages, renting storage lockers, and purchasing building materials. When packing a trailer or booking freight, using a <strong>cu ft calculator</strong> prevents carrier surcharges and clarifies capacity requirements.
+      </p>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        Rulers and tape measures mark dimensions in inches. Because one linear foot equals 12 inches, one cubic foot equals 12 inches multiplied by 12 inches multiplied by 12 inches, which equals 1,728 cubic inches. To calculate cubic feet from measurements in inches, multiply length, width, and height, then divide by 1,728:
+      </p>
+      <div class="p-4 rounded-xl bg-canvas-soft border border-hairline font-mono text-xs sm:text-sm text-center font-bold text-primary">
+        Cubic feet = [Length (in) × Width (in) × Height (in)] ÷ 1,728
+      </div>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        In landscaping and concrete pouring, suppliers sell materials by the cubic yard. One cubic yard equals 27 cubic feet (3 ft × 3 ft × 3 ft). If an excavation or garden bed requires 81 cubic feet of soil, divide by 27 to find that you need 3 cubic yards of material.
+      </p>
+    </section>
+
+    <section class="space-y-4">
+      <h3 class="text-xl sm:text-2xl font-bold text-ink tracking-tight flex items-center gap-2">
+        <span class="w-2 h-6 rounded-full bg-primary inline-block"></span>
+        <span>Metric volume scale: cubic meters, litres, and cubic millimeters</span>
+      </h3>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        The metric system simplifies three-dimensional calculations because its units scale in decimal multiples of ten. The fundamental SI unit of volume is the cubic meter (m³).
+      </p>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        One cubic meter equals 1,000 litres, 1,000,000 cubic centimeters, and 1,000,000,000 cubic millimeters. Freight forwarders quote international container space in CBM (cubic meters). A standard 20-foot shipping container holds roughly 33 CBM of cargo, while a 40-foot container accommodates roughly 67 CBM.
+      </p>
+    </section>
+
+    <section class="space-y-4">
+      <h3 class="text-xl sm:text-2xl font-bold text-ink tracking-tight flex items-center gap-2">
+        <span class="w-2 h-6 rounded-full bg-primary inline-block"></span>
+        <span>Volume unit conversion reference table</span>
+      </h3>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        This table displays direct conversion values across metric, imperial, and fluid volume units:
+      </p>
+
+      <div class="overflow-x-auto rounded-xl border border-hairline">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead class="bg-canvas-soft border-b border-hairline text-ink font-bold">
+            <tr>
+              <th class="p-3">Unit</th>
+              <th class="p-3">Symbol</th>
+              <th class="p-3">Litres (L)</th>
+              <th class="p-3">Cubic feet (ft³)</th>
+              <th class="p-3">US gallons (gal)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline text-ink-secondary">
+            <tr class="hover:bg-canvas-soft/40">
+              <td class="p-3 font-semibold text-ink">Cubic meter</td>
+              <td class="p-3 font-mono">m³</td>
+              <td class="p-3 font-mono">1,000 L</td>
+              <td class="p-3 font-mono">35.3147 ft³</td>
+              <td class="p-3 font-mono">264.172 gal</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft/40">
+              <td class="p-3 font-semibold text-ink">Litre</td>
+              <td class="p-3 font-mono">L</td>
+              <td class="p-3 font-mono">1 L</td>
+              <td class="p-3 font-mono">0.035315 ft³</td>
+              <td class="p-3 font-mono">0.264172 gal</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft/40">
+              <td class="p-3 font-semibold text-ink">US liquid gallon</td>
+              <td class="p-3 font-mono">gal</td>
+              <td class="p-3 font-mono">3.78541 L</td>
+              <td class="p-3 font-mono">0.133681 ft³</td>
+              <td class="p-3 font-mono">1 gal</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft/40">
+              <td class="p-3 font-semibold text-ink">Cubic foot</td>
+              <td class="p-3 font-mono">ft³</td>
+              <td class="p-3 font-mono">28.3168 L</td>
+              <td class="p-3 font-mono">1 ft³</td>
+              <td class="p-3 font-mono">7.48052 gal</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft/40">
+              <td class="p-3 font-semibold text-ink">Cubic yard</td>
+              <td class="p-3 font-mono">yd³</td>
+              <td class="p-3 font-mono">764.555 L</td>
+              <td class="p-3 font-mono">27 ft³</td>
+              <td class="p-3 font-mono">201.974 gal</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft/40">
+              <td class="p-3 font-semibold text-ink">Cubic inch</td>
+              <td class="p-3 font-mono">in³</td>
+              <td class="p-3 font-mono">0.016387 L</td>
+              <td class="p-3 font-mono">0.0005787 ft³</td>
+              <td class="p-3 font-mono">0.004329 gal</td>
+            </tr>
+            <tr class="hover:bg-canvas-soft/40">
+              <td class="p-3 font-semibold text-ink">Cubic millimeter</td>
+              <td class="p-3 font-mono">mm³</td>
+              <td class="p-3 font-mono">0.000001 L</td>
+              <td class="p-3 font-mono">3.5315 × 10⁻⁸ ft³</td>
+              <td class="p-3 font-mono">2.6417 × 10⁻⁷ gal</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h3 class="text-xl sm:text-2xl font-bold text-ink tracking-tight flex items-center gap-2">
+        <span class="w-2 h-6 rounded-full bg-primary inline-block"></span>
+        <span>Everyday applications of volume calculations</span>
+      </h3>
+      <p class="text-sm sm:text-base text-ink-secondary">
+        Precise calculations prevent costly errors across domestic, commercial, and engineering tasks:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
+        <div class="p-4 rounded-xl border border-hairline bg-canvas-soft/50 space-y-2">
+          <div class="font-bold text-sm text-ink">Freight and shipping</div>
+          <p class="text-xs text-ink-muted leading-relaxed">
+            Courier companies bill using dimensional weight, dividing total cubic inches by a dimensional divisor. Calculating package volume accurately prevents re-billing adjustments.
+          </p>
+        </div>
+        <div class="p-4 rounded-xl border border-hairline bg-canvas-soft/50 space-y-2">
+          <div class="font-bold text-sm text-ink">Water and pool treatment</div>
+          <p class="text-xs text-ink-muted leading-relaxed">
+            Chlorine dosages, pH balancers, and algaecides require exact liquid measurements. Incorrect volume calculations risk chemical imbalances or wasted treatments.
+          </p>
+        </div>
+        <div class="p-4 rounded-xl border border-hairline bg-canvas-soft/50 space-y-2">
+          <div class="font-bold text-sm text-ink">Heating and cooling sizing</div>
+          <p class="text-xs text-ink-muted leading-relaxed">
+            Heating and ventilation systems require capacity ratings based on the total enclosed air volume of a structure, including vaulted ceilings and open halls.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </article>
+
+  <section id="faq-section" class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-6 sm:p-10 shadow-xs space-y-6">
+    <div class="border-b border-hairline pb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 border border-primary/20 text-primary mb-2">
+        <span>Authoritative answers</span>
+      </div>
+      <h2 class="text-xl sm:text-2xl font-extrabold text-ink tracking-tight">
+        Frequently asked questions about volume
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-muted mt-1">
+        Mathematical derivations and conversion answers for common volumetric questions.
+      </p>
+    </div>
+
+    <div class="space-y-3.5">
+      {HOME_FAQS.map((faq, index) => (
+        <details class="group rounded-xl border border-hairline p-4 sm:p-5 transition-all open:bg-canvas-soft/40 open:border-primary/40">
+          <summary class="font-bold text-sm sm:text-base text-ink cursor-pointer list-none flex items-center justify-between gap-3">
+            <span class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center shrink-0">
+                {index + 1}
+              </span>
+              <span>{faq.question}</span>
+            </span>
+            <span class="text-ink-muted transition-transform duration-200 group-open:rotate-180 text-xs shrink-0">
+              ▼
+            </span>
+          </summary>
+          <div class="mt-3 pt-3 border-t border-hairline text-xs sm:text-sm text-ink-secondary leading-relaxed pl-8 sm:pl-8.5">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+</section>

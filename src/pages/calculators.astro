@@ -12,11 +12,50 @@ const toolsList = Object.values(TOOL_DETAILS).map((detail) => {
     shape,
   };
 });
+
+const schemaGraph = [
+  {
+    '@type': 'CollectionPage',
+    'name': 'All 16 Volume Calculators Directory',
+    'description': 'Directory of all 16 dedicated 3D volume calculators with instant formulas and conversions.',
+    'url': 'https://thevolumecalculator.com/calculators',
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': 'https://thevolumecalculator.com/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Calculators',
+        'item': 'https://thevolumecalculator.com/calculators',
+      },
+    ],
+  },
+  {
+    '@type': 'ItemList',
+    'name': '3D Volume Calculators',
+    'numberOfItems': toolsList.length,
+    'itemListElement': toolsList.map((tool, idx) => ({
+      '@type': 'ListItem',
+      'position': idx + 1,
+      'name': tool.h1,
+      'url': `https://thevolumecalculator.com/${tool.slug}`,
+    })),
+  },
+];
 ---
 
 <Layout
-  title="All 16 Volume Calculators - Complete 3D Tools Directory | thevolumecalculator.com"
+  title="3D Volume Calculators Directory | thevolumecalculator.com"
   description="Directory of all 16 dedicated 3D volume calculators. Calculate volume for cubes, boxes, cylinders, spheres, cones, tanks, pipes, and pyramids with instant step-by-step math."
+  canonical="https://thevolumecalculator.com/calculators"
+  schemaGraph={schemaGraph}
 >
   <Header />
 
@@ -189,47 +228,71 @@ const toolsList = Object.values(TOOL_DETAILS).map((detail) => {
       </div>
     </section>
 
-    <!-- Hub Page FAQ Section -->
-    <section class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
-      <div>
-        <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight mb-1">
-          Frequently Asked Questions
-        </h2>
-        <p class="text-xs text-ink-muted">
-          Common questions about 3D shapes, measurements, and unit conversions
-        </p>
+
+
+    <!-- Practical & Industry Volume Calculators (High-Demand) -->
+    <section class="space-y-4 pt-4 border-t border-hairline">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+            Practical & Industry Volume Calculators
+          </h2>
+          <p class="text-xs sm:text-sm text-ink-muted">
+            Specialized calculators for swimming pools, landscaping, concrete, and freight logistics
+          </p>
+        </div>
       </div>
 
-      <div class="space-y-3">
-        <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
-          <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
-            <span>Which calculator should I use for a shipping box or room?</span>
-            <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
-          </summary>
-          <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
-            Use the <a href="/box-volume-calculator" class="text-primary font-semibold underline">Box Volume Calculator (Rectangular Prism)</a>. Measure the length, width, and height in inches, feet, centimeters, or meters to calculate total cubic volume and fluid capacity.
-          </p>
-        </details>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Pool Volume Card -->
+        <a
+          href="/pool-volume-calculator"
+          class="p-5 rounded-2xl bg-white border border-hairline shadow-xs hover:border-primary/60 hover:shadow-sm transition-all group flex flex-col justify-between"
+        >
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full border bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800">
+                Water & Chemicals
+              </span>
+              <span class="text-xs font-semibold text-primary group-hover:underline">Open Tool &rarr;</span>
+            </div>
+            <h3 class="text-lg font-bold text-ink group-hover:text-primary transition-colors">
+              Pool Volume Calculator
+            </h3>
+            <p class="text-xs text-ink-secondary leading-relaxed">
+              Calculate swimming pool water capacity in gallons or liters. Supports rectangular, round, and oval pools with shallow & deep end sloping depths.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-xs text-ink-muted font-mono">
+            <span>Gallons &bull; Liters &bull; Weight</span>
+            <span class="text-primary font-bold">8-Hr Turnover Flow</span>
+          </div>
+        </a>
 
-        <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
-          <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
-            <span>How do I calculate volume in a round water tank?</span>
-            <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
-          </summary>
-          <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
-            If the tank stands vertically upright, use the <a href="/cylinder-volume-calculator" class="text-primary font-semibold underline">Cylinder Volume Calculator</a>. If the tank lies on its side horizontally and you want to measure liquid volume based on dipstick depth, use the <a href="/horizontal-tank-volume-calculator" class="text-primary font-semibold underline">Horizontal Tank Volume Calculator</a>.
-          </p>
-        </details>
-
-        <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
-          <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
-            <span>Can I mix different measurement units in the calculators?</span>
-            <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
-          </summary>
-          <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
-            Yes! Every individual calculator allows independent unit selection (inches, feet, cm, meters, yards, mm) for each dimension input. The system automatically converts them internally and outputs the exact volume in gallons, liters, cubic feet, cubic meters, and more.
-          </p>
-        </details>
+        <!-- Cubic Feet Card -->
+        <a
+          href="/cubic-feet-calculator"
+          class="p-5 rounded-2xl bg-white border border-hairline shadow-xs hover:border-primary/60 hover:shadow-sm transition-all group flex flex-col justify-between"
+        >
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full border bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800">
+                Landscaping & Concrete
+              </span>
+              <span class="text-xs font-semibold text-primary group-hover:underline">Open Tool &rarr;</span>
+            </div>
+            <h3 class="text-lg font-bold text-ink group-hover:text-primary transition-colors">
+              Cubic Feet Calculator (Cu Ft & Cu Yd)
+            </h3>
+            <p class="text-xs text-ink-secondary leading-relaxed">
+              Calculate volume in cubic feet ($ft^3$) and convert directly to cubic yards ($yd^3$) or cubic inches ($in^3$). Estimate materials for concrete slabs, mulch, and soil.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-xs text-ink-muted font-mono">
+            <span>Cu Ft &harr; Cu Yd &harr; In&sup3;</span>
+            <span class="text-primary font-bold">1 yd&sup3; = 27 ft&sup3;</span>
+          </div>
+        </a>
       </div>
     </section>
   </main>

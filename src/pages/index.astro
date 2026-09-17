@@ -2,20 +2,81 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import SimpleCalculator from '../components/SimpleCalculator.astro';
-import EverydayGuide from '../components/EverydayGuide.astro';
+import HomeSeoArticle, { HOME_FAQS } from '../components/HomeSeoArticle.astro';
 import Footer from '../components/Footer.astro';
+
+const title = 'Volume Calculator - Gallons, Litres & Cu Ft';
+const description = 'Free online volume calculator to calculate volume for 16 3D shapes. Convert cubic volume in gallons, litres, cu ft, and m³ with instant step-by-step formulas.';
+const keywords = 'volume calculator, calculate volume, volume calculator gallons, cu ft calculator, water volume calculator, volumetric calculator, volume solver, volume cal, cubic volume, volume formula, volumetric formula';
+const canonical = 'https://thevolumecalculator.com/';
+const ogImage = '/og-image.png';
+const ogImageAlt = 'Volume Calculator - Calculate cubic volume and liquid capacity in gallons, litres, and cu ft';
+
+const schemaGraph = [
+  {
+    '@type': 'WebSite',
+    'name': 'The Volume Calculator',
+    'url': 'https://thevolumecalculator.com/',
+    'potentialAction': {
+      '@type': 'SearchAction',
+      'target': 'https://thevolumecalculator.com/calculators?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  },
+  {
+    '@type': 'SoftwareApplication',
+    'name': 'Volume Calculator',
+    'applicationCategory': 'EducationalApplication',
+    'operatingSystem': 'Any',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD',
+    },
+    'description': description,
+    'url': canonical,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': canonical,
+      },
+    ],
+  },
+  {
+    '@type': 'FAQPage',
+    'mainEntity': HOME_FAQS.map((faq) => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.answer,
+      },
+    })),
+  },
+];
 ---
 
 <Layout
-  title="The Volume Calculator - Quick & Simple 3D Volume Tool | thevolumecalculator.com"
-  description="Free and easy volume calculator for everyday shapes: boxes, cylinders, spheres, cubes, and cones. Instant calculations in gallons, liters, cubic feet, and cubic meters."
+  title={title}
+  description={description}
+  keywords={keywords}
+  canonical={canonical}
+  ogType="website"
+  ogImage={ogImage}
+  ogImageAlt={ogImageAlt}
+  schemaGraph={schemaGraph}
 >
   <Header />
 
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 sm:space-y-14">
     <!-- Clean, Friendly Everyday Hero -->
     <section class="text-center max-w-2xl mx-auto pt-2 pb-2">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-hairline text-primary shadow-xs mb-3.5">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-canvas-card border border-hairline text-primary shadow-xs mb-3.5">
         <span class="w-2 h-2 rounded-full bg-accent-green"></span>
         <span>Quick & Easy Volume Calculator</span>
       </div>
@@ -25,15 +86,15 @@ import Footer from '../components/Footer.astro';
       </h1>
 
       <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
-        Quickly calculate the volume of boxes, cylinders, spheres, cubes, and cones. Enter your measurements and get immediate answers in gallons, liters, cubic feet, and meters.
+        Quickly calculate volume for boxes, cylinders, spheres, cubes, and cones. Enter your measurements into our volumetric calculator and volume solver for instant cubic volume and liquid capacity results in gallons, litres, cubic feet, and cubic meters.
       </p>
     </section>
 
-    <!-- Simple, Easy-to-Use Calculator Card for Normal Users -->
+    <!-- Simple, Easy-to-Use Calculator Card for Everyday Users -->
     <SimpleCalculator />
 
-    <!-- Helpful Everyday Guide & FAQ -->
-    <EverydayGuide />
+    <!-- In-Depth SEO Guide & 12 IMP FAQs (1000 - 1500 Words) -->
+    <HomeSeoArticle />
   </main>
 
   <Footer />

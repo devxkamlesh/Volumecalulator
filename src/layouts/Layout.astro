@@ -11,7 +11,7 @@ const {
   description = 'Calculate volume for 16 3D geometric shapes including cube, box, cylinder, sphere, cone, capsule, and horizontal tanks with liquid fill depth. Instant multi-unit conversions into m³, liters, gallons, cubic feet, and barrels.',
 } = Astro.props;
 
-const canonicalUrl = 'https://thevolumecalculator.com/';
+const canonicalUrl = new URL(Astro.url.pathname, 'https://thevolumecalculator.com').href;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -70,6 +70,17 @@ const jsonLd = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalUrl} />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Robots: Allow full indexing on main domain, block *.pages.dev -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" id="meta-robots" />
+    <script is:inline>
+      if (typeof window !== 'undefined' && window.location.hostname.endsWith('.pages.dev')) {
+        const meta = document.getElementById('meta-robots');
+        if (meta) {
+          meta.content = 'noindex, nofollow, noarchive';
+        }
+      }
+    </script>
 
     <!-- Dark Mode Initializer (Zero Flash of Unstyled Content) -->
     <script is:inline>

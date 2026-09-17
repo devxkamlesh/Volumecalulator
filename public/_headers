@@ -1,0 +1,7 @@
+# Cloudflare Pages HTTP Response Headers
+# Note: Host-specific indexing (blocking *.pages.dev while permitting .com) is handled 
+# dynamically by functions/_middleware.js so that the main domain (.com) is 100% indexed.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

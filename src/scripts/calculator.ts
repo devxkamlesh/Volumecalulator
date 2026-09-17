@@ -318,9 +318,11 @@ class VolumeCalculatorApp {
               min="${input.min !== undefined ? input.min : '0'}"
               class="w-full px-3 py-2 text-sm font-mono rounded-md bg-white border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
             />
+            <label for="unit-${input.id}" class="sr-only">${input.label} measurement unit</label>
             <select
               id="unit-${input.id}"
               data-unit-for="${input.id}"
+              aria-label="${input.label} measurement unit"
               class="px-2.5 py-2 text-xs font-medium rounded-md bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
             >
               ${unitOptions}

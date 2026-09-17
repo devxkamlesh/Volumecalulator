@@ -128,8 +128,10 @@ const allTools = Object.values(TOOL_DETAILS);
                   min="0"
                   class="w-full px-3.5 py-2.5 text-base font-mono rounded-xl bg-canvas-soft/40 border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all shadow-xs"
                 />
+                <label for={`tool-unit-${input.id}`} class="sr-only">{input.label} measurement unit</label>
                 <select
                   id={`tool-unit-${input.id}`}
+                  aria-label={`${input.label} measurement unit`}
                   class="px-3 py-2.5 text-xs sm:text-sm font-semibold rounded-xl bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shrink-0"
                 >
                   {units.map((u) => (
@@ -284,7 +286,7 @@ const allTools = Object.values(TOOL_DETAILS);
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
         {detail.practicalExamples.map((ex) => (
           <div class="p-4 rounded-xl bg-canvas-soft border border-hairline space-y-1.5">
-            <h4 class="font-bold text-xs sm:text-sm text-ink">{ex.title}</h4>
+            <h3 class="font-bold text-xs sm:text-sm text-ink">{ex.title}</h3>
             <p class="text-xs text-ink-muted leading-relaxed">{ex.desc}</p>
           </div>
         ))}

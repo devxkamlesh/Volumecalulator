@@ -1,0 +1,253 @@
+/**
+ * ==============================================================================
+ * UNIVERSAL THEME SYSTEM - THE VOLUME CALCULATOR
+ * ==============================================================================
+ * Central single source of truth for Light & Dark mode design tokens.
+ * Specifications strictly derived from DESIGN.md (Notion Design Language).
+ *
+ * To adjust any color or token across the entire site, simply edit the values below.
+ * ==============================================================================
+ */
+
+:root {
+  color-scheme: light;
+
+  /* --- BRAND & ACTION TOKENS (DESIGN.md line 6-10 - WCAG AAA Compliant) --- */
+  --color-primary: #005bab;
+  --color-primary-active: #004585;
+  --color-secondary: #213183;
+  --color-on-primary: #ffffff;
+
+  /* --- SURFACES (DESIGN.md line 11-13, 287-291) --- */
+  --color-canvas: #ffffff;
+  --color-canvas-soft: #f6f5f4; /* Warm Paper */
+  --color-surface: #ffffff;
+  --color-surface-secondary: #fbfbfa;
+  --color-surface-hover: #f1f0ee;
+
+  /* --- BORDERS & DIVIDERS (DESIGN.md line 18) --- */
+  --color-hairline: #e6e6e6;
+  --color-hairline-subtle: rgba(0, 0, 0, 0.05);
+
+  /* --- TYPOGRAPHY & INK (DESIGN.md line 14-17 - WCAG AA/AAA High Contrast) --- */
+  --color-ink: #000000;          /* Primary headings & heavy titles (21:1 contrast) */
+  --color-ink-secondary: #31302e;/* Secondary body copy, nav (12.5:1 contrast) */
+  --color-ink-muted: #524e4a;    /* Supporting / muted copy (8.2:1 contrast) */
+  --color-ink-faint: #6c6864;    /* Captions, metadata, placeholders (5.6:1 contrast - exceeds 4.5:1 WCAG AA) */
+
+  /* --- INPUTS & CONTROLS --- */
+  --color-input-bg: #ffffff;
+  --color-input-border: #cccccc;
+  --color-input-text: #000000;
+  --color-input-placeholder: #6c6864;
+  --color-input-focus-border: #005bab;
+  --color-input-focus-ring: rgba(0, 91, 171, 0.2);
+
+  /* --- NOTION DECORATIVE STICKER PALETTE (DESIGN.md line 19-27, 278-286) --- */
+  --color-accent-sky: #62aef0;
+  --color-accent-purple: #d6b6f6;
+  --color-accent-purple-deep: #391c57;
+  --color-accent-pink: #ff64c8;
+  --color-accent-orange: #dd5b00;
+  --color-accent-orange-deep: #793400;
+  --color-accent-teal: #2a9d99;
+  --color-accent-green: #1aae39;
+  --color-accent-brown: #523410;
+
+  /* --- SHAPES & RADII (DESIGN.md line 97-103) --- */
+  --radius-xs: 4px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* --- SPACING SCALE (DESIGN.md line 105-112) --- */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 28px;
+  --space-xxl: 32px;
+
+  /* --- ELEVATION & SHADOWS (DESIGN.md line 361-369) --- */
+  --shadow-level-0: none;
+  --shadow-level-1: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-level-2: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* ==============================================================================
+   DARK MODE SYSTEM (Inverted Notion Aesthetics from DESIGN.md)
+   ============================================================================== */
+html.dark {
+  color-scheme: dark;
+
+  /* --- BRAND & ACTION TOKENS (High-contrast for dark background) --- */
+  --color-primary: #388bfd;
+  --color-primary-active: #58a6ff;
+  --color-secondary: #213183;
+  --color-on-primary: #ffffff;
+
+  /* --- SURFACES (Warm deep charcoal document palette) --- */
+  --color-canvas: #121212;
+  --color-canvas-soft: #181818; /* Document page canvas in dark mode */
+  --color-surface: #1e1e1e;     /* Elevated card surface */
+  --color-surface-secondary: #252525;
+  --color-surface-hover: #292929;
+
+  /* --- BORDERS & DIVIDERS --- */
+  --color-hairline: #2e2e2e;
+  --color-hairline-subtle: rgba(255, 255, 255, 0.08);
+
+  /* --- TYPOGRAPHY & INK --- */
+  --color-ink: #f7f7f5;          /* Crisp headings & heavy titles */
+  --color-ink-secondary: #d4d4d0;/* Secondary body copy, nav links */
+  --color-ink-muted: #9b9a97;    /* Supporting labels & descriptions */
+  --color-ink-faint: #8e8b85;    /* Subdued metadata & placeholders (5.8:1 contrast in dark mode) */
+
+  /* --- INPUTS & CONTROLS --- */
+  --color-input-bg: #262626;
+  --color-input-border: #373737;
+  --color-input-text: #f7f7f5;
+  --color-input-placeholder: #8e8b85;
+  --color-input-focus-border: #388bfd;
+  --color-input-focus-ring: rgba(56, 139, 253, 0.25);
+
+  /* --- NOTION DECORATIVE STICKER PALETTE (Retained with vibrant presence) --- */
+  --color-accent-sky: #62aef0;
+  --color-accent-purple: #d6b6f6;
+  --color-accent-purple-deep: #a881d8;
+  --color-accent-pink: #ff7ad1;
+  --color-accent-orange: #f07018;
+  --color-accent-orange-deep: #ff8c3b;
+  --color-accent-teal: #33b3af;
+  --color-accent-green: #2ecc71;
+  --color-accent-brown: #96632c;
+
+  /* --- ELEVATION & SHADOWS --- */
+  --shadow-level-0: none;
+  --shadow-level-1: 0 1px 3px rgba(0, 0, 0, 0.25);
+  --shadow-level-2: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* ==============================================================================
+   UNIVERSAL THEME COMPONENT & ELEMENT DEFAULTS
+   Ensures seamless theme switching across all existing templates
+   ============================================================================== */
+
+/* Base document background and text */
+body {
+  background-color: var(--color-canvas-soft);
+  color: var(--color-ink);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Universal surface and card mapping: handles both bg-surface and legacy bg-white */
+.bg-surface,
+.bg-white {
+  background-color: var(--color-surface);
+  transition: background-color 0.2s ease;
+}
+
+.bg-canvas-soft {
+  background-color: var(--color-canvas-soft);
+}
+
+/* Hover surfaces */
+.hover\:bg-surface:hover,
+.hover\:bg-white:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.hover\:bg-canvas-soft:hover {
+  background-color: var(--color-surface-hover);
+}
+
+/* Borders */
+.border-hairline {
+  border-color: var(--color-hairline);
+}
+
+/* Text inks */
+.text-ink {
+  color: var(--color-ink);
+}
+.text-ink-secondary {
+  color: var(--color-ink-secondary);
+}
+.text-ink-muted {
+  color: var(--color-ink-muted);
+}
+.text-ink-faint {
+  color: var(--color-ink-faint);
+}
+
+/* Universal Input and Select styles */
+input[type="number"],
+input[type="text"],
+select,
+textarea {
+  background-color: var(--color-input-bg);
+  border-color: var(--color-input-border);
+  color: var(--color-input-text);
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="number"]::placeholder,
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-input-focus-border);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-input-focus-ring);
+}
+
+select option {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+}
+
+/* FAQ Accordions */
+details {
+  border-color: var(--color-hairline);
+}
+
+details[open] {
+  background-color: var(--color-surface-secondary);
+}
+
+details summary {
+  color: var(--color-ink);
+}
+
+/* SVG Diagrams & Wireframe Lines */
+html.dark svg line[stroke="#1c1917"],
+html.dark svg polygon[stroke="#1c1917"],
+html.dark svg path[stroke="#1c1917"],
+html.dark svg circle[stroke="#1c1917"],
+html.dark svg ellipse[stroke="#1c1917"] {
+  stroke: #e2e8f0;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-canvas-soft);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-hairline);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-faint);
+}

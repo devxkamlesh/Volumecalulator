@@ -214,6 +214,7 @@ export class SimpleCalculatorApp {
       const slug = slugMap[shape.id] || 'box-volume-calculator';
       dedicatedLink.href = `/${slug}`;
       dedicatedLink.title = `Open standalone ${shape.name} calculator`;
+      dedicatedLink.setAttribute('aria-label', `Open standalone ${shape.name} volume calculator page`);
     }
 
     this.renderInputs();
@@ -255,11 +256,14 @@ export class SimpleCalculatorApp {
               placeholder="${input.placeholder}"
               step="any"
               min="0"
+              aria-label="${input.label} (${input.symbol})"
               class="w-full px-3.5 py-2.5 text-base font-mono rounded-lg bg-white border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
             />
+            <label for="simple-unit-${input.id}" class="sr-only">${input.label} measurement unit</label>
             <select
               id="simple-unit-${input.id}"
               data-unit-for="${input.id}"
+              aria-label="${input.label} measurement unit"
               class="px-3 py-2.5 text-xs font-medium rounded-lg bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shrink-0"
             >
               ${unitOpts}

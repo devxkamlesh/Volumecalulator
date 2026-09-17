@@ -52,10 +52,12 @@ const toolsList = Object.values(TOOL_DETAILS).map((detail) => {
     </section>
 
     <!-- Category Filter Tabs -->
-    <div class="flex items-center justify-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
+    <div class="flex items-center justify-center gap-1.5 overflow-x-auto pb-2 scrollbar-none" role="tablist" aria-label="Filter calculators by category">
       {SHAPE_CATEGORIES.map((cat, idx) => (
         <button
           type="button"
+          role="tab"
+          aria-selected={idx === 0 ? 'true' : 'false'}
           class={`hub-category-tab px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
             idx === 0
               ? 'bg-primary text-white shadow-xs'
@@ -83,7 +85,7 @@ const toolsList = Object.values(TOOL_DETAILS).map((detail) => {
                 <div class="w-10 h-10 rounded-xl bg-canvas-soft border border-hairline flex items-center justify-center text-primary group-hover:scale-105 transition-transform shrink-0">
                   <Fragment set:html={t.shape.iconSvg} />
                 </div>
-                <span class={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${t.shape.badgeColor}`}>
+                <span class={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${t.shape.badgeColor}`}>
                   {t.shape.categoryLabel}
                 </span>
               </div>
@@ -105,10 +107,12 @@ const toolsList = Object.values(TOOL_DETAILS).map((detail) => {
               </p>
             </div>
 
-            <!-- Action Button -->
+            <!-- Action Button with Descriptive Accessibility Text -->
             <a
               href={`/${t.slug}`}
-              class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-canvas-soft border border-hairline text-ink group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all text-center"
+              aria-label={`Open dedicated ${t.shape.name} volume calculator`}
+              title={`Open dedicated ${t.shape.name} volume calculator`}
+              class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-canvas-soft border border-hairline text-ink group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all text-center shadow-2xs"
             >
               <span>Open Dedicated Calculator</span>
               <span>→</span>
@@ -163,7 +167,7 @@ const toolsList = Object.values(TOOL_DETAILS).map((detail) => {
                   <span>{t.shape.name}</span>
                 </td>
                 <td class="py-2.5 px-3 text-ink-muted">
-                  <span class={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${t.shape.badgeColor}`}>
+                  <span class={`text-xs font-bold px-2 py-0.5 rounded-full border ${t.shape.badgeColor}`}>
                     {t.shape.categoryLabel}
                   </span>
                 </td>
@@ -174,7 +178,7 @@ const toolsList = Object.values(TOOL_DETAILS).map((detail) => {
                   {t.shape.inputs.map((i) => i.symbol).join(', ')}
                 </td>
                 <td class="py-2.5 px-3 text-right">
-                  <a href={`/${t.slug}`} class="text-primary font-semibold hover:underline">
+                  <a href={`/${t.slug}`} aria-label={`Calculate ${t.shape.name} volume`} class="text-primary font-semibold hover:underline">
                     Calculate →
                   </a>
                 </td>
@@ -289,8 +293,10 @@ const toolsList = Object.values(TOOL_DETAILS).map((detail) => {
       tab.addEventListener('click', () => {
         categoryTabs.forEach((t) => {
           t.className = 'hub-category-tab px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer bg-white text-ink-secondary border border-hairline hover:border-ink-muted';
+          t.setAttribute('aria-selected', 'false');
         });
         tab.className = 'hub-category-tab px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer bg-primary text-white shadow-xs';
+        tab.setAttribute('aria-selected', 'true');
 
         activeCategory = tab.getAttribute('data-category') || 'all';
         filterCards();

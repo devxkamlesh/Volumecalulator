@@ -10,6 +10,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SHAPES } from '../scripts/shapes';
 import { GERMAN_TOOLS } from '../i18n/german-tools';
+import { FRENCH_TOOLS } from '../i18n/french-tools';
 import { getShapeSvg } from '../scripts/diagrams';
 
 const tool = GERMAN_TOOLS[slug];
@@ -52,11 +53,13 @@ const relatedTools = tool.relatedGermanSlugs.map((relatedSlug) => {
 const canonicalUrl = `https://thevolumecalculator.com/de/${tool.slug}`;
 const englishUrl = `https://thevolumecalculator.com/${tool.englishSlug}`;
 const spanishUrl = `https://thevolumecalculator.com/es/${tool.spanishSlug}`;
+const frenchCounterpart = Object.values(FRENCH_TOOLS).find((ft) => ft.englishSlug === tool.englishSlug);
 
 const alternates = [
   { hreflang: 'en', href: englishUrl },
   { hreflang: 'de', href: canonicalUrl },
   { hreflang: 'es', href: spanishUrl },
+  ...(frenchCounterpart ? [{ hreflang: 'fr', href: `https://thevolumecalculator.com/fr/${frenchCounterpart.slug}` }] : []),
   { hreflang: 'x-default', href: englishUrl },
 ];
 

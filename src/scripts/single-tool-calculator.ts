@@ -83,6 +83,26 @@ export class SingleToolCalculatorApp {
     return 'El cálculo no pudo completarse. Revisa las medidas e inténtalo de nuevo.';
   }
 
+  private getNumInputElement(id: string): HTMLInputElement | null {
+    return (document.getElementById(`tool-in-${id}`) || document.getElementById(`single-input-${id}`)) as HTMLInputElement | null;
+  }
+
+  private getUnitSelectElement(id: string): HTMLSelectElement | null {
+    return (document.getElementById(`tool-unit-${id}`) || document.getElementById(`single-unit-${id}`)) as HTMLSelectElement | null;
+  }
+
+  private getVolumeValueElement(): HTMLElement | null {
+    return document.getElementById('single-volume-value') || document.getElementById('single-result-val');
+  }
+
+  private getErrorElement(): HTMLElement | null {
+    return document.getElementById('single-calculation-error') || document.getElementById('single-calc-error');
+  }
+
+  private getSurfaceAreaElement(): HTMLElement | null {
+    return document.getElementById('single-surface-val') || document.getElementById('single-surface-area');
+  }
+
   private restoreFromUrl(): void {
     const params = new URLSearchParams(window.location.search);
     const outputUnit = params.get('unit');
@@ -95,8 +115,8 @@ export class SingleToolCalculatorApp {
     for (const input of this.shape.inputs) {
       const value = params.get(input.id);
       const unit = params.get(`${input.id}Unit`);
-      const numInput = document.getElementById(`tool-in-${input.id}`) as HTMLInputElement | null;
-      const unitSelect = document.getElementById(`tool-unit-${input.id}`) as HTMLSelectElement | null;
+      const numInput = this.getNumInputElement(input.id);
+      const unitSelect = this.getUnitSelectElement(input.id);
       if (value !== null && Number.isFinite(Number(value))) {
         this.currentInputs[input.id].val = Number(value);
         if (numInput) numInput.value = value;
@@ -121,26 +141,26 @@ export class SingleToolCalculatorApp {
   }
 
   private clearValidation(): void {
-    const errorEl = document.getElementById('single-calculation-error');
+    const errorEl = this.getErrorElement();
     errorEl?.classList.add('hidden');
     if (errorEl) errorEl.textContent = '';
     for (const input of this.shape.inputs) {
-      const element = document.getElementById(`tool-in-${input.id}`);
+      const element = this.getNumInputElement(input.id);
       element?.removeAttribute('aria-invalid');
       element?.removeAttribute('aria-describedby');
     }
   }
 
   private showError(message: string, fieldIds: string[] = []): void {
-    const errorEl = document.getElementById('single-calculation-error');
+    const errorEl = this.getErrorElement();
     if (errorEl) {
       errorEl.textContent = message;
       errorEl.classList.remove('hidden');
     }
     for (const fieldId of fieldIds) {
-      const element = document.getElementById(`tool-in-${fieldId}`);
+      const element = this.getNumInputElement(fieldId);
       element?.setAttribute('aria-invalid', 'true');
-      element?.setAttribute('aria-describedby', 'single-calculation-error');
+      element?.setAttribute('aria-describedby', errorEl?.id || 'single-calculation-error');
     }
   }
 
@@ -155,8 +175,8 @@ export class SingleToolCalculatorApp {
   private setupListeners(): void {
     // Listen to numeric input changes
     this.shape.inputs.forEach((input) => {
-      const numInput = document.getElementById(`tool-in-${input.id}`) as HTMLInputElement | null;
-      const unitSelect = document.getElementById(`tool-unit-${input.id}`) as HTMLSelectElement | null;
+      const numInput = this.getNumInputElement(input.id);
+      const unitSelect = this.getUnitSelectElement(input.id);
 
       if (numInput) {
         numInput.addEventListener('input', (e) => {
@@ -193,7 +213,7 @@ export class SingleToolCalculatorApp {
       clearBtn.addEventListener('click', () => {
         for (const input of this.shape.inputs) {
           this.currentInputs[input.id].val = NaN;
-          const numInput = document.getElementById(`tool-in-${input.id}`) as HTMLInputElement | null;
+          const numInput = this.getNumInputElement(input.id);
           if (numInput) numInput.value = '';
         }
         history.replaceState(null, '', window.location.pathname);
@@ -206,7 +226,7 @@ export class SingleToolCalculatorApp {
     if (copyBtn) {
       copyBtn.addEventListener('click', async () => {
         if (!this.lastValidText) return;
-        const val = document.getElementById('single-volume-value')?.textContent || '0.00';
+        const val = this.getVolumeValueElement()?.textContent || '0.00';
         const outSelect = document.getElementById('single-output-unit') as HTMLSelectElement | null;
         const unitName = outSelect?.options[outSelect.selectedIndex]?.text || this.activeUnit;
         let labelPrefix = `${this.shape.name} Volume`;
@@ -233,10 +253,10 @@ export class SingleToolCalculatorApp {
   }
 
   private recalculate(): void {
-    const valEl = document.getElementById('single-volume-value');
+    const valEl = this.getVolumeValueElement();
     const stepsCard = document.getElementById('single-steps-card');
     const stepsContainer = document.getElementById('single-steps-container');
-    const surfaceAreaEl = document.getElementById('single-surface-area');
+    const surfaceAreaEl = this.getSurfaceAreaElement();
 
     if (!valEl) return;
 

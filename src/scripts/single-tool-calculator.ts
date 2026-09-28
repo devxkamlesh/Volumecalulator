@@ -314,12 +314,14 @@ export class SingleToolCalculatorApp {
           labelPrefix = `Volume: ${this.shapeDisplayName}`;
         } else if (this.isRussian) {
           labelPrefix = `Объем: ${this.shapeDisplayName}`;
+        } else if (this.isJapanese) {
+          labelPrefix = `${this.shapeDisplayName}の体積`;
         }
         const text = `${labelPrefix}: ${val} ${unitName}`;
         try {
           await navigator.clipboard.writeText(text);
           const original = copyBtn.textContent;
-          copyBtn.textContent = this.isSpanish ? '¡Copiado!' : (this.isGerman ? 'Kopiert!' : (this.isFrench ? 'Copié !' : (this.isPortuguese ? 'Copiado!' : (this.isItalian ? 'Copiato!' : (this.isRussian ? 'Скопировано!' : 'Copied!')))));
+          copyBtn.textContent = this.isSpanish ? '¡Copiado!' : (this.isGerman ? 'Kopiert!' : (this.isFrench ? 'Copié !' : (this.isPortuguese ? 'Copiado!' : (this.isItalian ? 'Copiato!' : (this.isRussian ? 'Скопировано!' : (this.isJapanese ? 'コピー完了！' : 'Copied!'))))));
           setTimeout(() => {
             copyBtn.textContent = original;
           }, 1500);

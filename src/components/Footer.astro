@@ -1,12 +1,16 @@
 ---
 // Footer.astro - Notion warm canvas-soft document footer
 const pathname = Astro.url.pathname;
+const isHindi = pathname === '/hi' || pathname === '/hi/' || pathname.startsWith('/hi/');
+const isArabic = pathname === '/ar' || pathname === '/ar/' || pathname.startsWith('/ar/');
 const isRussian = pathname === '/ru' || pathname === '/ru/' || pathname.startsWith('/ru/');
 const isItalian = pathname === '/it' || pathname === '/it/' || pathname.startsWith('/it/');
 const isPortuguese = pathname === '/pt' || pathname === '/pt/' || pathname.startsWith('/pt/');
 const isFrench = pathname === '/fr' || pathname === '/fr/' || pathname.startsWith('/fr/');
 const isSpanish = pathname === '/es' || pathname === '/es/' || pathname.startsWith('/es/');
 const isGerman = pathname === '/de' || pathname === '/de/' || pathname.startsWith('/de/');
+const isJapanese = pathname === '/ja' || pathname === '/ja/' || pathname.startsWith('/ja/');
+const isChinese = pathname === '/zh' || pathname === '/zh/' || pathname.startsWith('/zh/');
 ---
 
 <footer class="w-full border-t border-hairline bg-canvas-soft text-ink-secondary mt-16 py-12">
@@ -25,7 +29,15 @@ const isGerman = pathname === '/de' || pathname === '/de/' || pathname.startsWit
           <span class="font-bold text-base text-ink tracking-tight">thevolumecalculator.com</span>
         </div>
         <p class="text-xs text-ink-muted max-w-sm leading-relaxed">
-          {isRussian
+          {isHindi
+            ? '16 ज्यामितीय आकृतियों, औद्योगिक टैंकों और पाइपों के लिए त्वरित 3D आयतन कैलकुलेटर, वास्तविक समय इकाई रूपांतरण के साथ।'
+            : isArabic
+            ? 'حاسبة حجم ثلاثية الأبعاد دقيقة وسريعة تدعم 16 مجسمًا هندسيًا وخزانات وأنابيب صناعية مع تحويل فوري للوحدات.'
+            : isChinese
+            ? '免费、快速且全面的 3D 体积计算器，支持 16 种几何形体、工业储罐与管道容积计算，提供实时单位换算与推导算式。'
+            : isJapanese
+            ? '16種類の立体、タンク、配管に対応した無料の高精度3D体積計算機。瞬時の単位換算と途中計算式を表示します。'
+            : isRussian
             ? 'Бесплатный быстрый 3D калькулятор объема для 16 геометрических фигур, резервуаров и трубопроводов с пересчетом единиц в реальном времени. Разработан для инженеров, студентов и повседневных расчетов.'
             : isItalian
             ? 'Calcolatore di volume 3D gratuito, rapido e completo per 16 forme geometriche, cisterne e tubazioni con conversione di unità in tempo reale. Progettato per studenti, tecnici e ingegneri.'
@@ -42,14 +54,14 @@ const isGerman = pathname === '/de' || pathname === '/de/' || pathname.startsWit
         <div class="flex items-center gap-2 pt-1">
           <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] bg-white border border-hairline text-ink-muted font-medium">
             <svg class="w-3 h-3 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-            <span>{isRussian ? '100% Бесплатно' : isItalian ? '100% Gratuito' : isPortuguese ? '100% Gratuito' : isFrench ? '100% Gratuit' : isSpanish ? '100% Gratuito' : isGerman ? '100% Kostenlos' : '100% Free'}</span>
+            <span>{isHindi ? '100% मुफ्त' : isArabic ? '100% مجاني' : isChinese ? '100% 免费' : isJapanese ? '100% 無料' : isRussian ? '100% Бесплатно' : isItalian ? '100% Gratuito' : isPortuguese ? '100% Gratuito' : isFrench ? '100% Gratuit' : isSpanish ? '100% Gratuito' : isGerman ? '100% Kostenlos' : '100% Free'}</span>
           </span>
           <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] bg-white border border-hairline text-ink-muted font-medium">
             <svg class="w-3 h-3 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-            <span>{isRussian ? '16 Фигур 3D' : isItalian ? '16 Forme 3D' : isPortuguese ? '16 Formas 3D' : isFrench ? '16 Formes 3D' : isSpanish ? '16 Geometrías' : isGerman ? '16 Körper' : '16 Geometries'}</span>
+            <span>{isHindi ? '16 आकृतियां' : isArabic ? '16 مجسمًا' : isChinese ? '16种立体' : isJapanese ? '16種類の立体' : isRussian ? '16 Фигур 3D' : isItalian ? '16 Forme 3D' : isPortuguese ? '16 Formas 3D' : isFrench ? '16 Formes 3D' : isSpanish ? '16 Geometrías' : isGerman ? '16 Körper' : '16 Geometries'}</span>
           </span>
           <a href={isRussian ? '/ru/metodologiya' : isItalian ? '/it/metodologia' : isPortuguese ? '/pt/metodologia' : isFrench ? '/fr/methodologie' : isSpanish ? '/es/metodologia' : isGerman ? '/de/methodik' : '/methodology'} class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] bg-white border border-hairline text-primary hover:border-primary font-medium transition-colors">
-            <span>{isRussian ? 'Методология и расчеты' : isItalian ? 'Metodologia e calcoli' : isPortuguese ? 'Metodologia e cálculos' : isFrench ? 'Méthodologie et calculs' : isSpanish ? 'Metodología y estándares' : isGerman ? 'Methodik und Standards' : 'Methodology & Standards'}</span>
+            <span>{isHindi ? 'सूत्र और मानक' : isArabic ? 'الصيغ والمعايير' : isChinese ? '计算方法与公式' : isJapanese ? '計算方法と公式' : isRussian ? 'Методология и расчеты' : isItalian ? 'Metodologia e calcoli' : isPortuguese ? 'Metodologia e cálculos' : isFrench ? 'Méthodologie et calculs' : isSpanish ? 'Metodología y estándares' : isGerman ? 'Methodik und Standards' : 'Methodology & Standards'}</span>
           </a>
         </div>
       </div>
@@ -57,9 +69,53 @@ const isGerman = pathname === '/de' || pathname === '/de/' || pathname.startsWit
       <!-- Col 2: Important Tools -->
       <div>
         <h3 class="text-xs font-bold uppercase tracking-wider text-ink mb-3">
-          {isRussian ? 'Популярные калькуляторы' : isItalian ? 'Calcolatori popolari' : isPortuguese ? 'Calculadoras populares' : isFrench ? 'Calculateurs populaires' : isSpanish ? 'Calculadoras destacadas' : isGerman ? 'Beliebte Rechner' : 'Important Calculators'}
+          {isHindi ? 'प्रमुख कैलकुलेटर' : isArabic ? 'حاسبات مميزة' : isChinese ? '常用计算器' : isJapanese ? '注目の計算機' : isRussian ? 'Популярные калькуляторы' : isItalian ? 'Calcolatori popolari' : isPortuguese ? 'Calculadoras populares' : isFrench ? 'Calculateurs populaires' : isSpanish ? 'Calculadoras destacadas' : isGerman ? 'Beliebte Rechner' : 'Important Calculators'}
         </h3>
-        {isRussian ? (
+        {isHindi ? (
+          <ul class="space-y-2 text-xs text-ink-muted">
+            <li><a href="/hi/rectangular-prism-volume-calculator" class="hover:text-primary transition-colors">घनाभ का आयतन कैलकुलेटर</a></li>
+            <li><a href="/hi/cylinder-volume-calculator" class="hover:text-primary transition-colors">बेलन का आयतन कैलकुलेटर</a></li>
+            <li><a href="/hi/cube-volume-calculator" class="hover:text-primary transition-colors">घन का आयतन कैलकुलेटर</a></li>
+            <li><a href="/hi/sphere-volume-calculator" class="hover:text-primary transition-colors">गोले का आयतन कैलकुलेटर</a></li>
+            <li><a href="/hi/cone-volume-calculator" class="hover:text-primary transition-colors">शंकु का आयतन कैलकुलेटर</a></li>
+            <li><a href="/hi/horizontal-tank-volume-calculator" class="hover:text-primary transition-colors">क्षैतिज टैंक आयतन कैलकुलेटर</a></li>
+            <li><a href="/hi/pipe-volume-calculator" class="hover:text-primary transition-colors">पाइप का आयतन कैलकुलेटर</a></li>
+            <li><a href="/hi/capsule-volume-calculator" class="hover:text-primary transition-colors">कैप्सूल का आयतन कैलकुलेटर</a></li>
+          </ul>
+        ) : isArabic ? (
+          <ul class="space-y-2 text-xs text-ink-muted">
+            <li><a href="/ar/rectangular-prism-volume-calculator" class="hover:text-primary transition-colors">حاسبة حجم متوازي المستطيلات</a></li>
+            <li><a href="/ar/cylinder-volume-calculator" class="hover:text-primary transition-colors">حاسبة حجم الأسطوانة</a></li>
+            <li><a href="/ar/cube-volume-calculator" class="hover:text-primary transition-colors">حاسبة حجم المكعب</a></li>
+            <li><a href="/ar/sphere-volume-calculator" class="hover:text-primary transition-colors">حاسبة حجم الكرة</a></li>
+            <li><a href="/ar/cone-volume-calculator" class="hover:text-primary transition-colors">حاسبة حجم المخروط</a></li>
+            <li><a href="/ar/horizontal-tank-volume-calculator" class="hover:text-primary transition-colors">حاسبة حجم الخزان الأفقي</a></li>
+            <li><a href="/ar/pipe-volume-calculator" class="hover:text-primary transition-colors">حاسبة حجم الأنبوب والماسورة</a></li>
+            <li><a href="/ar/capsule-volume-calculator" class="hover:text-primary transition-colors">حاسبة حجم الكبسولة</a></li>
+          </ul>
+        ) : isChinese ? (
+          <ul class="space-y-2 text-xs text-ink-muted">
+            <li><a href="/zh/rectangular-prism-volume-calculator" class="hover:text-primary transition-colors">长方体・纸箱体积计算器</a></li>
+            <li><a href="/zh/cylinder-volume-calculator" class="hover:text-primary transition-colors">圆柱体体积计算器</a></li>
+            <li><a href="/zh/cube-volume-calculator" class="hover:text-primary transition-colors">正方体体积计算器</a></li>
+            <li><a href="/zh/sphere-volume-calculator" class="hover:text-primary transition-colors">球体体积计算器</a></li>
+            <li><a href="/zh/cone-volume-calculator" class="hover:text-primary transition-colors">圆锥体积计算器</a></li>
+            <li><a href="/zh/horizontal-tank-volume-calculator" class="hover:text-primary transition-colors">卧式油罐残量计算器</a></li>
+            <li><a href="/zh/pipe-volume-calculator" class="hover:text-primary transition-colors">管道水容量计算器</a></li>
+            <li><a href="/zh/capsule-volume-calculator" class="hover:text-primary transition-colors">胶囊体积计算器</a></li>
+          </ul>
+        ) : isJapanese ? (
+          <ul class="space-y-2 text-xs text-ink-muted">
+            <li><a href="/ja/rectangular-prism-volume-calculator" class="hover:text-primary transition-colors">直方体・箱の体積計算機</a></li>
+            <li><a href="/ja/cylinder-volume-calculator" class="hover:text-primary transition-colors">円柱の体積計算機</a></li>
+            <li><a href="/ja/cube-volume-calculator" class="hover:text-primary transition-colors">立方体の体積計算機</a></li>
+            <li><a href="/ja/sphere-volume-calculator" class="hover:text-primary transition-colors">球の体積計算機</a></li>
+            <li><a href="/ja/cone-volume-calculator" class="hover:text-primary transition-colors">円錐の体積計算機</a></li>
+            <li><a href="/ja/horizontal-tank-volume-calculator" class="hover:text-primary transition-colors">横型円筒タンクの容量計算機</a></li>
+            <li><a href="/ja/pipe-volume-calculator" class="hover:text-primary transition-colors">パイプ・配管の体積計算機</a></li>
+            <li><a href="/ja/capsule-volume-calculator" class="hover:text-primary transition-colors">カプセルの体積計算機</a></li>
+          </ul>
+        ) : isRussian ? (
           <ul class="space-y-2 text-xs text-ink-muted">
             <li><a href="/ru/kalkulyator-obema-parallelepipeda" class="hover:text-primary transition-colors">Объем коробки и параллелепипеда</a></li>
             <li><a href="/ru/kalkulyator-obema-tsilindra" class="hover:text-primary transition-colors">Объем цилиндра</a></li>
@@ -144,9 +200,77 @@ const isGerman = pathname === '/de' || pathname === '/de/' || pathname.startsWit
       <!-- Col 3: All 16 Tools Hub -->
       <div>
         <h3 class="text-xs font-bold uppercase tracking-wider text-ink mb-3">
-          {isRussian ? 'Все 16 фигур' : isItalian ? 'Le 16 forme' : isPortuguese ? 'As 16 formas' : isFrench ? 'Les 16 formes' : isSpanish ? 'Las 16 figuras' : isGerman ? 'Alle 16 Körper' : 'All Tools Hub'}
+          {isHindi ? 'सभी 16 आकृतियां' : isArabic ? 'جميع المجسمات الـ 16' : isChinese ? '全16种立体' : isJapanese ? '全16種類の立体' : isRussian ? 'Все 16 фигур' : isItalian ? 'Le 16 forme' : isPortuguese ? 'As 16 formas' : isFrench ? 'Les 16 formes' : isSpanish ? 'Las 16 figuras' : isGerman ? 'Alle 16 Körper' : 'All Tools Hub'}
         </h3>
-        {isRussian ? (
+        {isHindi ? (
+          <ul class="space-y-2 text-xs text-ink-muted">
+            <li>
+              <a href="/hi/" aria-label="सभी 16 आयतन कैलकुलेटरों की सूची" class="font-semibold text-primary hover:underline flex items-center gap-1">
+                <span>सभी 16 आयतन कैलकुलेटर</span>
+                <span>→</span>
+              </a>
+            </li>
+            <li><a href="/hi/conical-frustum-volume-calculator" class="hover:text-primary transition-colors">बाल्टी और शंकु छिन्नक</a></li>
+            <li><a href="/hi/spherical-cap-volume-calculator" class="hover:text-primary transition-colors">गुंबद और गोलीय चाप</a></li>
+            <li><a href="/hi/square-pyramid-volume-calculator" class="hover:text-primary transition-colors">वर्गाकार पिरामिड</a></li>
+            <li><a href="/hi/rectangular-pyramid-volume-calculator" class="hover:text-primary transition-colors">आयताकार पिरामिड</a></li>
+            <li><a href="/hi/triangular-prism-volume-calculator" class="hover:text-primary transition-colors">त्रिभुजाकार प्रिज्म और टेंट</a></li>
+            <li><a href="/hi/trapezoidal-prism-volume-calculator" class="hover:text-primary transition-colors">समलंब प्रिज्म और खाई</a></li>
+            <li><a href="/hi/torus-volume-calculator" class="hover:text-primary transition-colors">टोरस और ओ-रिंग</a></li>
+            <li><a href="/hi/ellipsoid-volume-calculator" class="hover:text-primary transition-colors">दीर्घवृत्तज आयतन</a></li>
+          </ul>
+        ) : isArabic ? (
+          <ul class="space-y-2 text-xs text-ink-muted">
+            <li>
+              <a href="/ar/" aria-label="فهرس حاسبات الحجم الـ 16" class="font-semibold text-primary hover:underline flex items-center gap-1">
+                <span>فهرس حاسبات الحجم الـ 16</span>
+                <span>←</span>
+              </a>
+            </li>
+            <li><a href="/ar/conical-frustum-volume-calculator" class="hover:text-primary transition-colors">المخروط الناقص والدلو</a></li>
+            <li><a href="/ar/spherical-cap-volume-calculator" class="hover:text-primary transition-colors">القبة والقطعة الكروية</a></li>
+            <li><a href="/ar/square-pyramid-volume-calculator" class="hover:text-primary transition-colors">الهرم الرباعي المنتظم</a></li>
+            <li><a href="/ar/rectangular-pyramid-volume-calculator" class="hover:text-primary transition-colors">الهرم المستطيل</a></li>
+            <li><a href="/ar/triangular-prism-volume-calculator" class="hover:text-primary transition-colors">المنشور الثلاثي</a></li>
+            <li><a href="/ar/trapezoidal-prism-volume-calculator" class="hover:text-primary transition-colors">المنشور شبه المنحرف والخندق</a></li>
+            <li><a href="/ar/torus-volume-calculator" class="hover:text-primary transition-colors">حجم الطارة وحلقة O-ring</a></li>
+            <li><a href="/ar/ellipsoid-volume-calculator" class="hover:text-primary transition-colors">المجسم الإهليلجي</a></li>
+          </ul>
+        ) : isChinese ? (
+          <ul class="space-y-2 text-xs text-ink-muted">
+            <li>
+              <a href="/zh/" aria-label="全16种体积计算器列表" class="font-semibold text-primary hover:underline flex items-center gap-1">
+                <span>全16种体积计算器大全</span>
+                <span>→</span>
+              </a>
+            </li>
+            <li><a href="/zh/conical-frustum-volume-calculator" class="hover:text-primary transition-colors">圆台・水桶体积计算器</a></li>
+            <li><a href="/zh/spherical-cap-volume-calculator" class="hover:text-primary transition-colors">球冠・穹顶体积计算器</a></li>
+            <li><a href="/zh/square-pyramid-volume-calculator" class="hover:text-primary transition-colors">正四棱锥体积计算器</a></li>
+            <li><a href="/zh/rectangular-pyramid-volume-calculator" class="hover:text-primary transition-colors">长方四棱锥体积计算器</a></li>
+            <li><a href="/zh/triangular-prism-volume-calculator" class="hover:text-primary transition-colors">三棱柱・帐篷体积计算器</a></li>
+            <li><a href="/zh/trapezoidal-prism-volume-calculator" class="hover:text-primary transition-colors">梯形柱・水渠体积计算器</a></li>
+            <li><a href="/zh/torus-volume-calculator" class="hover:text-primary transition-colors">圆环体・O型圈体积计算器</a></li>
+            <li><a href="/zh/ellipsoid-volume-calculator" class="hover:text-primary transition-colors">椭球体体积计算器</a></li>
+          </ul>
+        ) : isJapanese ? (
+          <ul class="space-y-2 text-xs text-ink-muted">
+            <li>
+              <a href="/ja/" aria-label="全16種類の体積計算機一覧" class="font-semibold text-primary hover:underline flex items-center gap-1">
+                <span>全16種類の体積計算機一覧</span>
+                <span>→</span>
+              </a>
+            </li>
+            <li><a href="/ja/conical-frustum-volume-calculator" class="hover:text-primary transition-colors">円錐台・バケツの体積計算機</a></li>
+            <li><a href="/ja/spherical-cap-volume-calculator" class="hover:text-primary transition-colors">球冠・ドームの体積計算機</a></li>
+            <li><a href="/ja/square-pyramid-volume-calculator" class="hover:text-primary transition-colors">正四角錐の体積計算機</a></li>
+            <li><a href="/ja/rectangular-pyramid-volume-calculator" class="hover:text-primary transition-colors">長方形四角錐の体積計算機</a></li>
+            <li><a href="/ja/triangular-prism-volume-calculator" class="hover:text-primary transition-colors">三角柱・山型テントの体積計算機</a></li>
+            <li><a href="/ja/trapezoidal-prism-volume-calculator" class="hover:text-primary transition-colors">台形柱・溝の体積計算機</a></li>
+            <li><a href="/ja/torus-volume-calculator" class="hover:text-primary transition-colors">トーラス・Oリングの体積計算機</a></li>
+            <li><a href="/ja/ellipsoid-volume-calculator" class="hover:text-primary transition-colors">楕円体の体積計算機</a></li>
+          </ul>
+        ) : isRussian ? (
           <ul class="space-y-2 text-xs text-ink-muted">
             <li>
               <a href="/ru/kalkulyatory" aria-label="Каталог всех 16 калькуляторов" class="font-semibold text-primary hover:underline flex items-center gap-1">
@@ -270,12 +394,12 @@ const isGerman = pathname === '/de' || pathname === '/de/' || pathname.startsWit
       <!-- Col 4: Quick Links & Legal -->
       <div>
         <h3 class="text-xs font-bold uppercase tracking-wider text-ink mb-3">
-          {isRussian ? 'Быстрые ссылки' : isItalian ? 'Link rapidi' : isPortuguese ? 'Links rápidos' : isFrench ? 'Liens rapides' : isSpanish ? 'Enlaces rápidos' : isGerman ? 'Schnellzugriff' : 'Quick Links'}
+          {isHindi ? 'त्वरित लिंक' : isArabic ? 'روابط سريعة' : isChinese ? '快捷链接' : isJapanese ? 'クイックリンク' : isRussian ? 'Быстрые ссылки' : isItalian ? 'Link rapidi' : isPortuguese ? 'Links rápidos' : isFrench ? 'Liens rapides' : isSpanish ? 'Enlaces rápidos' : isGerman ? 'Schnellzugriff' : 'Quick Links'}
         </h3>
         <ul class="space-y-2 text-xs text-ink-muted">
-          <li><a href={isRussian ? '/ru/' : isItalian ? '/it/' : isPortuguese ? '/pt/' : isFrench ? '/fr/' : isSpanish ? '/es/' : isGerman ? '/de/' : '/'} class="hover:text-primary transition-colors">{isRussian ? 'Главная' : isItalian ? 'Home' : isPortuguese ? 'Início' : isFrench ? 'Accueil' : isSpanish ? 'Inicio' : isGerman ? 'Startseite' : 'Home'}</a></li>
-          <li><a href={isRussian ? '/ru/kalkulyatory' : isItalian ? '/it/calcolatori' : isPortuguese ? '/pt/calculadoras' : isFrench ? '/fr/calculateurs' : isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : '/calculators'} class="hover:text-primary transition-colors">{isRussian ? 'Калькуляторы' : isItalian ? 'Calcolatori' : isPortuguese ? 'Calculadoras' : isFrench ? 'Calculateurs' : isSpanish ? 'Calculadoras' : isGerman ? 'Rechner' : 'Calculators'}</a></li>
-          <li><a href={isRussian ? '/ru/metodologiya' : isItalian ? '/it/metodologia' : isPortuguese ? '/pt/metodologia' : isFrench ? '/fr/methodologie' : isSpanish ? '/es/metodologia' : isGerman ? '/de/methodik' : '/methodology'} class="hover:text-primary transition-colors">{isRussian ? 'Методология' : isItalian ? 'Metodologia' : isPortuguese ? 'Metodologia' : isFrench ? 'Méthodologie' : isSpanish ? 'Metodología' : isGerman ? 'Methodik' : 'Methodology'}</a></li>
+          <li><a href={isHindi ? '/hi/' : isArabic ? '/ar/' : isChinese ? '/zh/' : isJapanese ? '/ja/' : isRussian ? '/ru/' : isItalian ? '/it/' : isPortuguese ? '/pt/' : isFrench ? '/fr/' : isSpanish ? '/es/' : isGerman ? '/de/' : '/'} class="hover:text-primary transition-colors">{isHindi ? 'होम' : isArabic ? 'الرئيسية' : isChinese ? '首页' : isJapanese ? 'ホーム' : isRussian ? 'Главная' : isItalian ? 'Home' : isPortuguese ? 'Início' : isFrench ? 'Accueil' : isSpanish ? 'Inicio' : isGerman ? 'Startseite' : 'Home'}</a></li>
+          <li><a href={isHindi ? '/hi/' : isArabic ? '/ar/' : isChinese ? '/zh/' : isJapanese ? '/ja/' : isRussian ? '/ru/kalkulyatory' : isItalian ? '/it/calcolatori' : isPortuguese ? '/pt/calculadoras' : isFrench ? '/fr/calculateurs' : isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : '/calculators'} class="hover:text-primary transition-colors">{isHindi ? 'कैलकुलेटर सूची' : isArabic ? 'دليل الحاسبات' : isChinese ? '计算器大全' : isJapanese ? '計算機一覧' : isRussian ? 'Калькуляторы' : isItalian ? 'Calcolatori' : isPortuguese ? 'Calculadoras' : isFrench ? 'Calculateurs' : isSpanish ? 'Calculadoras' : isGerman ? 'Rechner' : 'Calculators'}</a></li>
+          <li><a href={isRussian ? '/ru/metodologiya' : isItalian ? '/it/metodologia' : isPortuguese ? '/pt/metodologia' : isFrench ? '/fr/methodologie' : isSpanish ? '/es/metodologia' : isGerman ? '/de/methodik' : '/methodology'} class="hover:text-primary transition-colors">{isHindi ? 'सूत्र और मानक' : isArabic ? 'الصيغ والمعايير' : isChinese ? '计算方法与公式' : isJapanese ? '計算方法と公式' : isRussian ? 'Методология' : isItalian ? 'Metodologia' : isPortuguese ? 'Metodologia' : isFrench ? 'Méthodologie' : isSpanish ? 'Metodología' : isGerman ? 'Methodik' : 'Methodology'}</a></li>
         </ul>
       </div>
     </div>
@@ -286,11 +410,19 @@ const isGerman = pathname === '/de' || pathname === '/de/' || pathname.startsWit
         <p>© {new Date().getFullYear()} thevolumecalculator.com.</p>
         <span class="hidden sm:inline text-hairline">|</span>
         <p>
-          {isRussian ? 'Разработано' : isItalian ? 'Sviluppato da' : isPortuguese ? 'Desenvolvido por' : isFrench ? 'Développé par' : isSpanish ? 'Desarrollado por' : isGerman ? 'Entwickelt von' : 'Engineered by'} <a href="https://x.com/devxkamlesh" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary hover:underline">Kamlesh Choudhary</a> <span class="text-ink-faint">(<a href="https://x.com/devxkamlesh" target="_blank" rel="noopener noreferrer" class="hover:underline">@devxkamlesh</a>)</span>
+          {isHindi ? 'डेवलपर' : isArabic ? 'تطوير' : isChinese ? '开发者' : isJapanese ? '開発者' : isRussian ? 'Разработано' : isItalian ? 'Sviluppato da' : isPortuguese ? 'Desenvolvido por' : isFrench ? 'Développé par' : isSpanish ? 'Desarrollado por' : isGerman ? 'Entwickelt von' : 'Engineered by'} <a href="https://x.com/devxkamlesh" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary hover:underline">Kamlesh Choudhary</a> <span class="text-ink-faint">(<a href="https://x.com/devxkamlesh" target="_blank" rel="noopener noreferrer" class="hover:underline">@devxkamlesh</a>)</span>
         </p>
       </div>
       <p class="text-[11px] text-ink-faint">
-        {isRussian
+        {isHindi
+          ? 'यूक्लिडीय ज्यामितीय सूत्रों के आधार पर गणना की शुद्धता सत्यापित की गई है।'
+          : isArabic
+          ? 'تم التحقق من دقة الحسابات وفق القوانين الرياضية الإقليدية القياسية.'
+          : isChinese
+          ? '基于欧几里得几何学标准公式验证计算精度。'
+          : isJapanese
+          ? 'ユークリッド幾何学の標準公式に基づき計算精度を検証済み。'
+          : isRussian
           ? 'Точность проверена по стандартным геометрическим формулам Евклида.'
           : isItalian
           ? 'Precisione verificata con formule matematiche euclidee standard.'

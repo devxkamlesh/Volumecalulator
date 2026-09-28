@@ -14,6 +14,9 @@ export class SingleToolCalculatorApp {
   private isItalian = false;
   private isRussian = false;
   private isJapanese = false;
+  private isChinese = false;
+  private isArabic = false;
+  private isHindi = false;
   private shapeDisplayName = '';
 
   constructor(cardEl: HTMLElement) {
@@ -31,6 +34,9 @@ export class SingleToolCalculatorApp {
     this.isItalian = lang === 'it';
     this.isRussian = lang === 'ru';
     this.isJapanese = lang === 'ja';
+    this.isChinese = lang === 'zh';
+    this.isArabic = lang === 'ar';
+    this.isHindi = lang === 'hi';
     this.shapeDisplayName = cardEl.getAttribute('data-shape-name') || this.shape.name;
     this.init();
   }
@@ -139,6 +145,54 @@ export class SingleToolCalculatorApp {
       return '計算を完了できませんでした。入力値を確認してください。';
     }
 
+    if (this.isChinese) {
+      if (msg.includes('inner radius must be smaller')) {
+        return '内半径必须小于外半径。';
+      }
+      if (msg.includes('minor radius cannot exceed')) {
+        return '管道截面半径（小半径）不能超过圆环中心主半径。';
+      }
+      if (msg.includes('liquid fill depth must be between')) {
+        return '液位深度必须介于 0 与储罐总直径之间。';
+      }
+      if (msg.includes('finite result')) {
+        return '计算未能产生有效数值。请检查所输入的尺寸。';
+      }
+      return '计算无法完成，请检查输入的数据。';
+    }
+
+    if (this.isArabic) {
+      if (msg.includes('inner radius must be smaller')) {
+        return 'يجب أن يكون نصف القطر الداخلي أصغر من نصف القطر الخارجي.';
+      }
+      if (msg.includes('minor radius cannot exceed')) {
+        return 'لا يمكن لنصف قطر المقطع الصغير أن يتجاوز نصف القطر الرئيسي للطارة.';
+      }
+      if (msg.includes('liquid fill depth must be between')) {
+        return 'يجب أن يكون عمق السائل بين 0 وكامل قطر الخزان.';
+      }
+      if (msg.includes('finite result')) {
+        return 'لم تنتج العملية نتيجة صالحة. يرجى التحقق من الأبعاد المدخلة.';
+      }
+      return 'تعذر إكمال الحساب. يرجى التحقق من الأبعاد المدخلة.';
+    }
+
+    if (this.isHindi) {
+      if (msg.includes('inner radius must be smaller')) {
+        return 'आंतरिक त्रिज्या बाहरी त्रिज्या से छोटी होनी चाहिए।';
+      }
+      if (msg.includes('minor radius cannot exceed')) {
+        return 'ट्यूब त्रिज्या (r) मुख्य केंद्र त्रिज्या (R) से अधिक नहीं हो सकती।';
+      }
+      if (msg.includes('liquid fill depth must be between')) {
+        return 'द्रव की गहराई 0 और टैंक के कुल व्यास के बीच होनी चाहिए।';
+      }
+      if (msg.includes('finite result')) {
+        return 'गणना से वैध संख्या प्राप्त नहीं हुई। कृपया दर्ज किए गए मान जांचें।';
+      }
+      return 'गणना पूरी नहीं हो सकी। कृपया इनपुट मान जांचें।';
+    }
+
     if (!this.isSpanish) return msg;
     if (msg.includes('inner radius must be smaller')) {
       return 'El radio interior debe ser menor que el radio exterior.';
@@ -239,7 +293,7 @@ export class SingleToolCalculatorApp {
   private initInputs(): void {
     // Initialize all inputs as blank (NaN) with default unit
     for (const input of this.shape.inputs) {
-      const defaultUnit = (this.isSpanish || this.isFrench || this.isGerman || this.isPortuguese || this.isItalian || this.isRussian) && (input.defaultUnit === 'in' || input.defaultUnit === 'ft') ? 'cm' : input.defaultUnit;
+      const defaultUnit = (this.isSpanish || this.isFrench || this.isGerman || this.isPortuguese || this.isItalian || this.isRussian || this.isJapanese || this.isChinese || this.isArabic || this.isHindi) && (input.defaultUnit === 'in' || input.defaultUnit === 'ft') ? 'cm' : input.defaultUnit;
       this.currentInputs[input.id] = { val: NaN, unit: defaultUnit };
     }
   }
@@ -316,12 +370,18 @@ export class SingleToolCalculatorApp {
           labelPrefix = `Объем: ${this.shapeDisplayName}`;
         } else if (this.isJapanese) {
           labelPrefix = `${this.shapeDisplayName}の体積`;
+        } else if (this.isChinese) {
+          labelPrefix = `${this.shapeDisplayName}体积`;
+        } else if (this.isArabic) {
+          labelPrefix = `حجم ${this.shapeDisplayName}`;
+        } else if (this.isHindi) {
+          labelPrefix = `${this.shapeDisplayName} का आयतन`;
         }
         const text = `${labelPrefix}: ${val} ${unitName}`;
         try {
           await navigator.clipboard.writeText(text);
           const original = copyBtn.textContent;
-          copyBtn.textContent = this.isSpanish ? '¡Copiado!' : (this.isGerman ? 'Kopiert!' : (this.isFrench ? 'Copié !' : (this.isPortuguese ? 'Copiado!' : (this.isItalian ? 'Copiato!' : (this.isRussian ? 'Скопировано!' : (this.isJapanese ? 'コピー完了！' : 'Copied!'))))));
+          copyBtn.textContent = this.isSpanish ? '¡Copiado!' : (this.isGerman ? 'Kopiert!' : (this.isFrench ? 'Copié !' : (this.isPortuguese ? 'Copiado!' : (this.isItalian ? 'Copiato!' : (this.isRussian ? 'Скопировано!' : (this.isJapanese ? 'コピー完了！' : (this.isChinese ? '已复制！' : (this.isArabic ? 'تم النسخ!' : (this.isHindi ? 'कॉपी हो गया!' : 'Copied!')))))))));
           setTimeout(() => {
             copyBtn.textContent = original;
           }, 1500);

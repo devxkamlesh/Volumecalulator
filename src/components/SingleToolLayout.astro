@@ -17,6 +17,10 @@ import { FRENCH_TOOLS } from '../i18n/french-tools';
 import { PORTUGUESE_TOOLS } from '../i18n/portuguese-tools';
 import { ITALIAN_TOOLS } from '../i18n/italian-tools';
 import { RUSSIAN_TOOLS } from '../i18n/russian-tools';
+import { JAPANESE_TOOLS } from '../i18n/japanese-tools';
+import { CHINESE_TOOLS } from '../i18n/chinese-tools';
+import { ARABIC_TOOLS } from '../i18n/arabic-tools';
+import { HINDI_TOOLS } from '../i18n/hindi-tools';
 
 const detail = TOOL_DETAILS[slug];
 if (!detail) {
@@ -51,6 +55,10 @@ const frenchCounterpart = Object.values(FRENCH_TOOLS).find((ft) => ft.englishSlu
 const portugueseCounterpart = Object.values(PORTUGUESE_TOOLS).find((pt) => pt.englishSlug === detail.slug);
 const italianCounterpart = Object.values(ITALIAN_TOOLS).find((it) => it.englishSlug === detail.slug);
 const russianCounterpart = Object.values(RUSSIAN_TOOLS).find((rt) => rt.englishSlug === detail.slug);
+const japaneseCounterpart = Object.values(JAPANESE_TOOLS).find((jt) => jt.englishSlug === detail.slug);
+const chineseCounterpart = Object.values(CHINESE_TOOLS).find((ct) => ct.englishSlug === detail.slug);
+const arabicCounterpart = Object.values(ARABIC_TOOLS).find((at) => at.englishSlug === detail.slug);
+const hindiCounterpart = Object.values(HINDI_TOOLS).find((ht) => ht.englishSlug === detail.slug);
 const alternates = [
   { hreflang: 'en', href: canonicalUrl },
   ...(spanishCounterpart ? [{ hreflang: 'es', href: `https://thevolumecalculator.com/es/${spanishCounterpart.slug}` }] : []),
@@ -59,6 +67,13 @@ const alternates = [
   ...(portugueseCounterpart ? [{ hreflang: 'pt', href: `https://thevolumecalculator.com/pt/${portugueseCounterpart.slug}` }] : []),
   ...(italianCounterpart ? [{ hreflang: 'it', href: `https://thevolumecalculator.com/it/${italianCounterpart.slug}` }] : []),
   ...(russianCounterpart ? [{ hreflang: 'ru', href: `https://thevolumecalculator.com/ru/${russianCounterpart.slug}` }] : []),
+  ...(japaneseCounterpart ? [{ hreflang: 'ja', href: `https://thevolumecalculator.com/ja/${japaneseCounterpart.slug}` }] : []),
+  ...(chineseCounterpart ? [
+    { hreflang: 'zh', href: `https://thevolumecalculator.com/zh/${chineseCounterpart.slug}` },
+    { hreflang: 'zh-Hans', href: `https://thevolumecalculator.com/zh/${chineseCounterpart.slug}` },
+  ] : []),
+  ...(arabicCounterpart ? [{ hreflang: 'ar', href: `https://thevolumecalculator.com/ar/${arabicCounterpart.slug}` }] : []),
+  ...(hindiCounterpart ? [{ hreflang: 'hi', href: `https://thevolumecalculator.com/hi/${hindiCounterpart.slug}` }] : []),
   { hreflang: 'x-default', href: canonicalUrl },
 ];
 

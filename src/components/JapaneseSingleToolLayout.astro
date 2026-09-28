@@ -1,0 +1,460 @@
+---
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SHAPES } from '../scripts/shapes';
+import { JAPANESE_TOOLS } from '../i18n/japanese-tools';
+import { SPANISH_TOOLS } from '../i18n/spanish-tools';
+import { GERMAN_TOOLS } from '../i18n/german-tools';
+import { FRENCH_TOOLS } from '../i18n/french-tools';
+import { PORTUGUESE_TOOLS } from '../i18n/portuguese-tools';
+import { ITALIAN_TOOLS } from '../i18n/italian-tools';
+import { RUSSIAN_TOOLS } from '../i18n/russian-tools';
+import { CHINESE_TOOLS } from '../i18n/chinese-tools';
+import { ARABIC_TOOLS } from '../i18n/arabic-tools';
+import { HINDI_TOOLS } from '../i18n/hindi-tools';
+import { getShapeSvg } from '../scripts/diagrams';
+
+const tool = JAPANESE_TOOLS[slug];
+if (!tool) {
+  throw new Error(`Japanese tool detail not found for slug: ${slug}`);
+}
+
+const shape = SHAPES[tool.shapeId];
+if (!shape) {
+  throw new Error(`Shape definition not found for ID: ${tool.shapeId}`);
+}
+
+const diagramSvg = getShapeSvg(shape.id);
+
+const units = [
+  { id: 'cm', label: 'センチメートル (cm)' },
+  { id: 'm', label: 'メートル (m)' },
+  { id: 'mm', label: 'ミリメートル (mm)' },
+  { id: 'in', label: 'インチ (in)' },
+  { id: 'ft', label: 'フィート (ft)' },
+  { id: 'yd', label: 'ヤード (yd)' },
+];
+
+const outputUnits = [
+  { id: 'l', label: 'リットル (L)' },
+  { id: 'm3', label: '立方メートル (m³)' },
+  { id: 'cm3', label: '立方センチメートル (cm³)' },
+  { id: 'gal', label: 'ガロン (gal)' },
+  { id: 'cu_ft', label: '立方フィート (ft³)' },
+  { id: 'cu_in', label: '立方インチ (in³)' },
+  { id: 'cu_yd', label: '立方ヤード (yd³)' },
+];
+
+const relatedTools = tool.relatedJapaneseSlugs.map((relatedSlug) => {
+  const related = JAPANESE_TOOLS[relatedSlug];
+  if (!related) throw new Error(`Related Japanese tool not found: ${relatedSlug}`);
+  return related;
+});
+
+const canonicalUrl = `https://thevolumecalculator.com/ja/${tool.slug}`;
+const englishUrl = `https://thevolumecalculator.com/${tool.englishSlug}`;
+
+const spanishCounterpart = Object.values(SPANISH_TOOLS).find((st) => st.englishSlug === tool.englishSlug);
+const germanCounterpart = Object.values(GERMAN_TOOLS).find((gt) => gt.englishSlug === tool.englishSlug);
+const frenchCounterpart = Object.values(FRENCH_TOOLS).find((ft) => ft.englishSlug === tool.englishSlug);
+const portugueseCounterpart = Object.values(PORTUGUESE_TOOLS).find((pt) => pt.englishSlug === tool.englishSlug);
+const italianCounterpart = Object.values(ITALIAN_TOOLS).find((it) => it.englishSlug === tool.englishSlug);
+const russianCounterpart = Object.values(RUSSIAN_TOOLS).find((rt) => rt.englishSlug === tool.englishSlug);
+const chineseCounterpart = Object.values(CHINESE_TOOLS).find((ct) => ct.englishSlug === tool.englishSlug);
+const arabicCounterpart = Object.values(ARABIC_TOOLS).find((at) => at.englishSlug === tool.englishSlug);
+const hindiCounterpart = Object.values(HINDI_TOOLS).find((ht) => ht.englishSlug === tool.englishSlug);
+
+const alternates = [
+  { hreflang: 'en', href: englishUrl },
+  ...(spanishCounterpart ? [{ hreflang: 'es', href: `https://thevolumecalculator.com/es/${spanishCounterpart.slug}` }] : []),
+  ...(germanCounterpart ? [{ hreflang: 'de', href: `https://thevolumecalculator.com/de/${germanCounterpart.slug}` }] : []),
+  ...(frenchCounterpart ? [{ hreflang: 'fr', href: `https://thevolumecalculator.com/fr/${frenchCounterpart.slug}` }] : []),
+  ...(portugueseCounterpart ? [{ hreflang: 'pt', href: `https://thevolumecalculator.com/pt/${portugueseCounterpart.slug}` }] : []),
+  ...(italianCounterpart ? [{ hreflang: 'it', href: `https://thevolumecalculator.com/it/${italianCounterpart.slug}` }] : []),
+  ...(russianCounterpart ? [{ hreflang: 'ru', href: `https://thevolumecalculator.com/ru/${russianCounterpart.slug}` }] : []),
+  { hreflang: 'ja', href: canonicalUrl },
+  ...(chineseCounterpart ? [
+    { hreflang: 'zh', href: `https://thevolumecalculator.com/zh/${chineseCounterpart.slug}` },
+    { hreflang: 'zh-Hans', href: `https://thevolumecalculator.com/zh/${chineseCounterpart.slug}` },
+  ] : []),
+  ...(arabicCounterpart ? [{ hreflang: 'ar', href: `https://thevolumecalculator.com/ar/${arabicCounterpart.slug}` }] : []),
+  ...(hindiCounterpart ? [{ hreflang: 'hi', href: `https://thevolumecalculator.com/hi/${hindiCounterpart.slug}` }] : []),
+  { hreflang: 'x-default', href: englishUrl },
+];
+
+const toolSchemaGraph: any[] = [
+  {
+    '@type': 'SoftwareApplication',
+    'name': tool.h1,
+    'applicationCategory': 'EducationalApplication',
+    'operatingSystem': 'Any',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'JPY',
+    },
+    'description': tool.metaDescription,
+    'url': canonicalUrl,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'ホーム',
+        'item': 'https://thevolumecalculator.com/ja/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': '体積計算機一覧',
+        'item': 'https://thevolumecalculator.com/ja/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 3,
+        'name': tool.shapeName,
+        'item': canonicalUrl,
+      },
+    ],
+  },
+  {
+    '@type': 'FAQPage',
+    'mainEntity': tool.faqs.map((faq) => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.answer,
+      },
+    })),
+  },
+];
+---
+
+<Layout
+  title={`${tool.title} | thevolumecalculator.com`}
+  description={tool.metaDescription}
+  keywords={tool.keywords}
+  canonical={canonicalUrl}
+  lang="ja"
+  dir="ltr"
+  ogLocale="ja_JP"
+  alternates={alternates}
+  schemaGraph={toolSchemaGraph}
+>
+  <Header />
+
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8 sm:space-y-12">
+    <!-- Breadcrumb navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="パンくずリスト">
+      <a href="/ja/" class="hover:text-primary transition-colors">ホーム</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">{tool.shapeName}</span>
+    </nav>
+
+    <!-- Hero header -->
+    <section class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 border border-primary/20 text-primary">
+        <span>{tool.categoryLabel}</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight">
+        {tool.h1}
+      </h1>
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-3xl">
+        {tool.shortTagline}
+      </p>
+    </section>
+
+    <!-- Interactive Calculator Card -->
+    <div
+      id="single-tool-card"
+      data-shape-id={shape.id}
+      data-shape-name={tool.shapeName}
+      data-default-unit="l"
+      data-lang="ja"
+      class="p-6 sm:p-8 rounded-2xl bg-white border border-hairline shadow-xs space-y-6"
+    >
+      <div class="flex items-center justify-between border-b border-hairline pb-4">
+        <div>
+          <h2 class="text-lg font-bold text-ink">
+            {tool.shapeName}の寸法を入力
+          </h2>
+          <p class="text-xs text-ink-muted mt-0.5">
+            数値を入力すると、体積と表面積がリアルタイムで自動計算されます。
+          </p>
+        </div>
+        <button
+          type="button"
+          id="single-clear-btn"
+          class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-hairline hover:bg-canvas-soft text-ink-muted hover:text-ink transition-colors cursor-pointer"
+        >
+          リセット
+        </button>
+      </div>
+
+      <!-- Calculation error message placeholder -->
+      <div
+        id="single-calculation-error"
+        class="hidden p-3.5 rounded-xl bg-accent-orange/10 border border-accent-orange/30 text-accent-orange text-xs font-medium"
+      >
+      </div>
+
+      <!-- Two-column input & diagram layout -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        <!-- Input fields -->
+        <div class="md:col-span-7 space-y-4">
+          {shape.inputs.map((input) => {
+            const inputLabel = tool.inputLabels[input.id] || input.label;
+            return (
+              <div class="space-y-1.5">
+                <label for={`single-input-${input.id}`} class="block text-xs font-bold text-ink">
+                  {inputLabel} ({input.symbol})
+                </label>
+                <div class="flex gap-2">
+                  <input
+                    type="number"
+                    id={`single-input-${input.id}`}
+                    name={input.id}
+                    step="any"
+                    min="0"
+                    placeholder="0"
+                    class="flex-1 px-3.5 py-2 text-sm font-mono font-medium rounded-xl border border-hairline bg-canvas-soft focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary text-ink transition-all"
+                  />
+                  <select
+                    id={`single-unit-${input.id}`}
+                    class="px-3 py-2 text-xs font-semibold rounded-xl border border-hairline bg-canvas-soft text-ink focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer transition-all"
+                    aria-label={`${inputLabel}の単位`}
+                  >
+                    {units.map((u) => (
+                      <option value={u.id} selected={u.id === 'cm'}>
+                        {u.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <!-- 2D Schematic Diagram Box -->
+        <div class="md:col-span-5 p-4 rounded-xl bg-canvas-soft border border-hairline flex flex-col items-center justify-center min-h-[200px]">
+          <div class="w-full flex items-center justify-center">
+            <Fragment set:html={diagramSvg} />
+          </div>
+          <span class="text-[11px] font-medium text-ink-muted mt-2 text-center">
+            測定寸法の図解: {tool.shapeName}
+          </span>
+        </div>
+      </div>
+
+      <!-- Output results card -->
+      <div class="p-5 sm:p-6 rounded-xl bg-canvas-soft border border-hairline flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-ink-muted">
+            計算した体積
+          </span>
+          <button
+            type="button"
+            id="single-copy-btn"
+            class="text-xs font-semibold px-3 py-1 rounded bg-white border border-hairline hover:border-ink-muted text-ink active:scale-95 transition-all cursor-pointer shadow-xs"
+          >
+            結果をコピー
+          </button>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2" role="status" aria-live="polite" aria-atomic="true">
+          <!-- Big volume display -->
+          <div class="my-1">
+            <span
+              id="single-volume-value"
+              class="text-4xl sm:text-5xl font-extrabold text-ink tracking-tight font-mono block leading-none"
+            >
+              0.00
+            </span>
+          </div>
+
+          <!-- Output unit selector -->
+          <div class="flex items-center gap-2 self-start sm:self-auto">
+            <label for="single-output-unit" class="text-xs font-semibold text-ink-muted">
+              結果の単位:
+            </label>
+            <select
+              id="single-output-unit"
+              class="px-3 py-1.5 text-xs sm:text-sm font-bold rounded-lg bg-white border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shadow-xs"
+            >
+              {outputUnits.map((ou) => (
+                <option value={ou.id} selected={ou.id === 'l'}>
+                  {ou.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <!-- Surface area secondary result -->
+        <div class="pt-3 border-t border-hairline flex items-center justify-between text-xs text-ink-muted">
+          <span>推定総表面積:</span>
+          <span id="single-surface-area" class="font-mono font-bold text-ink">
+            -
+          </span>
+        </div>
+      </div>
+
+      <!-- Step-by-step arithmetic substitution card -->
+      <div id="single-steps-card" class="hidden rounded-xl border border-hairline bg-canvas-soft/60 p-4 space-y-3">
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-ink">
+          <svg class="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"></path>
+            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+          </svg>
+          <span>計算ステップと途中式</span>
+        </div>
+        <div id="single-steps-container" class="space-y-2"></div>
+      </div>
+    </div>
+
+    <!-- How to calculate section -->
+    <section class="space-y-4 pt-4 border-t border-hairline">
+      <h2 class="text-xl sm:text-2xl font-bold text-ink tracking-tight">
+        {tool.shapeName}の体積の求め方
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {tool.howToCalculate.map((step, idx) => (
+          <div class="p-4 rounded-xl bg-canvas-soft border border-hairline flex flex-col gap-2">
+            <span class="w-6 h-6 rounded-full bg-primary text-white font-mono font-bold text-xs flex items-center justify-center shrink-0">
+              {idx + 1}
+            </span>
+            <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+              {step}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Formula detail box -->
+    <section class="p-5 sm:p-6 rounded-2xl bg-canvas-soft border border-hairline space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-ink">
+          幾何学の計算公式
+        </h2>
+        <span class="text-[11px] font-mono text-ink-muted">数学公式</span>
+      </div>
+
+      <div class="p-4 rounded-xl bg-white border border-hairline flex items-center justify-center">
+        <span class="font-mono text-xl sm:text-2xl font-bold text-primary tracking-wide">
+          {tool.formulaHtml}
+        </span>
+      </div>
+
+      <p class="text-xs text-ink-muted leading-relaxed">
+        {tool.formulaNote}
+      </p>
+    </section>
+
+    <!-- Practical examples and applications -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-bold text-ink tracking-tight">
+        実生活や実務での活用例
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {tool.practicalExamples.map((ex) => (
+          <div class="p-4 rounded-xl bg-white border border-hairline shadow-xs flex flex-col gap-1.5">
+            <h3 class="text-xs sm:text-sm font-bold text-ink">
+              {ex.title}
+            </h3>
+            <p class="text-xs text-ink-muted leading-relaxed" set:html={ex.desc} />
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- FAQ accordion section -->
+    <section class="space-y-4 pt-4 border-t border-hairline">
+      <div class="space-y-1">
+        <h2 class="text-xl sm:text-2xl font-bold text-ink tracking-tight">
+          よくある質問（FAQ）
+        </h2>
+        <p class="text-xs sm:text-sm text-ink-muted">
+          公式の成り立ち、寸法の測定方法、単位換算に関する回答です。
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        {tool.faqs.map((faq) => (
+          <details class="group p-4 rounded-xl bg-white border border-hairline shadow-xs transition-colors hover:border-ink-muted cursor-pointer">
+            <summary class="text-xs sm:text-sm font-bold text-ink flex items-center justify-between list-none">
+              <span>{faq.question}</span>
+              <span class="text-ink-muted group-open:rotate-180 transition-transform font-mono text-xs ml-2">
+                ▼
+              </span>
+            </summary>
+            <div class="text-xs sm:text-sm text-ink-secondary leading-relaxed pt-2.5 mt-2 border-t border-hairline/60">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Related calculators hub links -->
+    <section class="space-y-4 pt-6 border-t border-hairline">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base sm:text-lg font-bold text-ink tracking-tight">
+          関連する体積計算機
+        </h2>
+        <a href="/ja/" class="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+          <span>全16種類の計算機を見る</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {relatedTools.map((rel) => {
+          const relShape = SHAPES[rel.shapeId];
+          return (
+            <a
+              href={`/ja/${rel.slug}`}
+              class="p-3.5 rounded-xl bg-white border border-hairline hover:border-primary/40 hover:shadow-xs transition-all flex items-center gap-3 group"
+            >
+              <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <Fragment set:html={relShape.iconSvg} />
+              </span>
+              <div class="min-w-0">
+                <span class="block text-xs font-bold text-ink truncate group-hover:text-primary transition-colors">
+                  {rel.shapeName}
+                </span>
+                <span class="block text-[11px] text-ink-muted truncate">
+                  {rel.formulaHtml}
+                </span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  import { SingleToolCalculatorApp } from '../scripts/single-tool-calculator';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const cardEl = document.getElementById('single-tool-card');
+    if (cardEl) {
+      new SingleToolCalculatorApp(cardEl);
+    }
+  });
+</script>

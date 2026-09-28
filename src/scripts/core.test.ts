@@ -361,5 +361,146 @@ describe('localized home SEO integrity', () => {
       }
     }
   });
+
+  it('validates all 16 Japanese tools against requirements and guides', async () => {
+    const { JAPANESE_TOOLS } = await import('../i18n/japanese-tools');
+    const toolEntries = Object.entries(JAPANESE_TOOLS);
+    expect(toolEntries).toHaveLength(16);
+
+    for (const [key, tool] of toolEntries) {
+      expect(tool.slug).toBe(key);
+      expect(TOOL_DETAILS[tool.englishSlug]).toBeDefined();
+      expect(SHAPES[tool.shapeId as keyof typeof SHAPES]).toBeDefined();
+
+      // Title length must remain under 35 characters per all-tools-title-guide.md
+      expect(tool.title.length).toBeLessThanOrEqual(35);
+      expect(tool.title.length).toBeGreaterThan(5);
+
+      expect(tool.h1.length).toBeGreaterThan(5);
+      expect(tool.metaDescription.length).toBeGreaterThan(30);
+      expect(tool.keywords.split(',').length).toBeGreaterThanOrEqual(4);
+
+      expect(tool.faqs).toHaveLength(3);
+      for (const faq of tool.faqs) {
+        expect(faq.question.length).toBeGreaterThan(5);
+        expect(faq.answer.length).toBeGreaterThan(10);
+        expect(faq.question).not.toMatch(/[\u2013\u2014\u2018\u2019\u201c\u201d]/);
+        expect(faq.answer).not.toMatch(/[\u2013\u2014\u2018\u2019\u201c\u201d]/);
+      }
+
+      expect(tool.howToCalculate.length).toBeGreaterThanOrEqual(3);
+      expect(tool.practicalExamples.length).toBeGreaterThanOrEqual(2);
+      expect(tool.relatedJapaneseSlugs.length).toBeGreaterThanOrEqual(3);
+      for (const related of tool.relatedJapaneseSlugs) {
+        expect(JAPANESE_TOOLS[related]).toBeDefined();
+      }
+    }
+  });
+
+  it('validates all 16 Chinese tools against requirements and guides', async () => {
+    const { CHINESE_TOOLS } = await import('../i18n/chinese-tools');
+    const toolEntries = Object.entries(CHINESE_TOOLS);
+    expect(toolEntries).toHaveLength(16);
+
+    for (const [key, tool] of toolEntries) {
+      expect(tool.slug).toBe(key);
+      expect(TOOL_DETAILS[tool.englishSlug]).toBeDefined();
+      expect(SHAPES[tool.shapeId as keyof typeof SHAPES]).toBeDefined();
+
+      // Title length must remain under 35 characters per all-tools-title-guide.md
+      expect(tool.title.length).toBeLessThanOrEqual(35);
+      expect(tool.title.length).toBeGreaterThan(5);
+
+      expect(tool.h1.length).toBeGreaterThan(5);
+      expect(tool.metaDescription.length).toBeGreaterThan(30);
+      expect(tool.keywords.split(',').length).toBeGreaterThanOrEqual(4);
+
+      expect(tool.faqs).toHaveLength(3);
+      for (const faq of tool.faqs) {
+        expect(faq.question.length).toBeGreaterThan(5);
+        expect(faq.answer.length).toBeGreaterThan(10);
+        expect(faq.question).not.toMatch(/[\u2013\u2014\u2018\u2019\u201c\u201d]/);
+        expect(faq.answer).not.toMatch(/[\u2013\u2014\u2018\u2019\u201c\u201d]/);
+      }
+
+      expect(tool.howToCalculate.length).toBeGreaterThanOrEqual(3);
+      expect(tool.practicalExamples.length).toBeGreaterThanOrEqual(2);
+      expect(tool.relatedChineseSlugs.length).toBeGreaterThanOrEqual(3);
+      for (const related of tool.relatedChineseSlugs) {
+        expect(CHINESE_TOOLS[related]).toBeDefined();
+      }
+    }
+  });
+
+  it('validates all 16 Arabic tools against requirements and guides', async () => {
+    const { ARABIC_TOOLS } = await import('../i18n/arabic-tools');
+    const toolEntries = Object.entries(ARABIC_TOOLS);
+    expect(toolEntries).toHaveLength(16);
+
+    for (const [key, tool] of toolEntries) {
+      expect(tool.slug).toBe(key);
+      expect(TOOL_DETAILS[tool.englishSlug]).toBeDefined();
+      expect(SHAPES[tool.shapeId as keyof typeof SHAPES]).toBeDefined();
+
+      // Title length must remain under 35 characters per all-tools-title-guide.md
+      expect(tool.title.length).toBeLessThanOrEqual(35);
+      expect(tool.title.length).toBeGreaterThan(5);
+
+      expect(tool.h1.length).toBeGreaterThan(5);
+      expect(tool.metaDescription.length).toBeGreaterThan(30);
+      expect(tool.keywords.split(',').length).toBeGreaterThanOrEqual(2);
+
+      expect(tool.faqs).toHaveLength(3);
+      for (const faq of tool.faqs) {
+        expect(faq.question.length).toBeGreaterThan(5);
+        expect(faq.answer.length).toBeGreaterThan(10);
+        expect(faq.question).not.toMatch(/[\u2013\u2014\u2018\u2019\u201c\u201d]/);
+        expect(faq.answer).not.toMatch(/[\u2013\u2014\u2018\u2019\u201c\u201d]/);
+      }
+
+      expect(tool.howToCalculate.length).toBeGreaterThanOrEqual(3);
+      expect(tool.practicalExamples.length).toBeGreaterThanOrEqual(2);
+      expect(tool.relatedArabicSlugs.length).toBeGreaterThanOrEqual(3);
+      for (const related of tool.relatedArabicSlugs) {
+        expect(ARABIC_TOOLS[related]).toBeDefined();
+      }
+    }
+  });
+
+  it('validates all 16 Hindi tools against requirements and guides', async () => {
+    const { HINDI_TOOLS } = await import('../i18n/hindi-tools');
+    const toolEntries = Object.entries(HINDI_TOOLS);
+    expect(toolEntries).toHaveLength(16);
+
+    for (const [key, tool] of toolEntries) {
+      expect(tool.slug).toBe(key);
+      expect(TOOL_DETAILS[tool.englishSlug]).toBeDefined();
+      expect(SHAPES[tool.shapeId as keyof typeof SHAPES]).toBeDefined();
+
+      // Title length must remain under 35 characters per all-tools-title-guide.md
+      expect(tool.title.length).toBeLessThanOrEqual(35);
+      expect(tool.title.length).toBeGreaterThan(5);
+
+      expect(tool.h1.length).toBeGreaterThan(5);
+      expect(tool.metaDescription.length).toBeGreaterThan(30);
+      expect(tool.keywords.split(',').length).toBeGreaterThanOrEqual(2);
+
+      expect(tool.faqs).toHaveLength(3);
+      for (const faq of tool.faqs) {
+        expect(faq.question.length).toBeGreaterThan(5);
+        expect(faq.answer.length).toBeGreaterThan(10);
+        expect(faq.question).not.toMatch(/[\u2013\u2014\u2018\u2019\u201c\u201d]/);
+        expect(faq.answer).not.toMatch(/[\u2013\u2014\u2018\u2019\u201c\u201d]/);
+      }
+
+      expect(tool.howToCalculate.length).toBeGreaterThanOrEqual(3);
+      expect(tool.practicalExamples.length).toBeGreaterThanOrEqual(2);
+      expect(tool.relatedHindiSlugs.length).toBeGreaterThanOrEqual(3);
+      for (const related of tool.relatedHindiSlugs) {
+        expect(HINDI_TOOLS[related]).toBeDefined();
+      }
+    }
+  });
 });
+
 

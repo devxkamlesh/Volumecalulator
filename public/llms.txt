@@ -39,3 +39,7 @@ Calculations run in 64-bit floating-point precision. The platform converts measu
 - [French Calculators](https://thevolumecalculator.com/fr/calculateurs): Répertoire des 16 calculateurs de volume en français.
 - [Italian Calculators](https://thevolumecalculator.com/it/calcolatori): Raccolta dei 16 calcolatori di volume in italiano.
 - [Russian Calculators](https://thevolumecalculator.com/ru/kalkulyatory): Каталог всех 16 калькуляторов объема на русском языке.
+- [Japanese Calculators](https://thevolumecalculator.com/ja/): 全16種類の日本語版体積計算機。
+- [Chinese Calculators](https://thevolumecalculator.com/zh/): 全16种简体中文三维几何体体积计算器。
+- [Arabic Calculators](https://thevolumecalculator.com/ar/): دليل حاسبات الحجم الهندسية الـ 16 باللغة العربية.
+- [Hindi Calculators](https://thevolumecalculator.com/hi/): सभी 16 त्रिविमीय ज्यामितीय आयतन कैलकुलेटरों की सूची।

@@ -13,6 +13,7 @@ export class SingleToolCalculatorApp {
   private isPortuguese = false;
   private isItalian = false;
   private isRussian = false;
+  private isJapanese = false;
   private shapeDisplayName = '';
 
   constructor(cardEl: HTMLElement) {
@@ -29,6 +30,7 @@ export class SingleToolCalculatorApp {
     this.isPortuguese = lang === 'pt';
     this.isItalian = lang === 'it';
     this.isRussian = lang === 'ru';
+    this.isJapanese = lang === 'ja';
     this.shapeDisplayName = cardEl.getAttribute('data-shape-name') || this.shape.name;
     this.init();
   }
@@ -119,6 +121,22 @@ export class SingleToolCalculatorApp {
         return 'Вычисление не дало конечного результата. Проверьте введенные размеры.';
       }
       return 'Не удалось завершить расчет. Проверьте правильность введенных данных.';
+    }
+
+    if (this.isJapanese) {
+      if (msg.includes('inner radius must be smaller')) {
+        return '内半径（内側の半径）は外半径（外側の半径）より小さくする必要があります。';
+      }
+      if (msg.includes('minor radius cannot exceed')) {
+        return '管自体の半径（小半径）は大半径を超えることはできません。';
+      }
+      if (msg.includes('liquid fill depth must be between')) {
+        return '液面の深さは0からタンク全径の間で指定してください。';
+      }
+      if (msg.includes('finite result')) {
+        return '計算結果が有効な数値になりませんでした。測定値を確認してください。';
+      }
+      return '計算を完了できませんでした。入力値を確認してください。';
     }
 
     if (!this.isSpanish) return msg;

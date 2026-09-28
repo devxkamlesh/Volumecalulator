@@ -1,0 +1,121 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "The Volume Calculator",
+    "documentationUrl": "https://thevolumecalculator.com/methodology"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:thevolumecalculator.com:calculators:hub",
+      "displayName": "Volume Calculator Hub",
+      "type": "text/html",
+      "url": "https://thevolumecalculator.com/calculators",
+      "description": "Interactive directory of 16 three-dimensional geometric volume calculators with formulas and multi-unit conversions.",
+      "tags": ["volume", "geometry", "calculator", "math"],
+      "capabilities": ["CalculateVolume", "ConvertUnits"],
+      "representativeQueries": [
+        "calculate volume of 3D shapes",
+        "geometric volume formulas",
+        "convert cubic meters to gallons"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-09-29T00:00:00Z"
+    },
+    {
+      "identifier": "urn:air:thevolumecalculator.com:calculators:cylinder",
+      "displayName": "Cylinder Volume Calculator",
+      "type": "text/html",
+      "url": "https://thevolumecalculator.com/cylinder-volume-calculator",
+      "description": "Calculates cylinder volume from radius or diameter and vertical height with step-by-step mathematical formulas.",
+      "tags": ["cylinder", "volume", "geometry"],
+      "capabilities": ["CalculateCylinderVolume"],
+      "representativeQueries": [
+        "calculate cylinder volume",
+        "cylinder volume formula",
+        "water tank volume calculator"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-09-29T00:00:00Z"
+    },
+    {
+      "identifier": "urn:air:thevolumecalculator.com:calculators:sphere",
+      "displayName": "Sphere Volume Calculator",
+      "type": "text/html",
+      "url": "https://thevolumecalculator.com/sphere-volume-calculator",
+      "description": "Calculates spherical volume from radius, diameter, or circumference using exact equations.",
+      "tags": ["sphere", "volume", "geometry"],
+      "capabilities": ["CalculateSphereVolume"],
+      "representativeQueries": [
+        "calculate sphere volume",
+        "volume of a sphere formula",
+        "spherical tank capacity"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-09-29T00:00:00Z"
+    },
+    {
+      "identifier": "urn:air:thevolumecalculator.com:calculators:cone",
+      "displayName": "Cone Volume Calculator",
+      "type": "text/html",
+      "url": "https://thevolumecalculator.com/cone-volume-calculator",
+      "description": "Calculates circular cone volume and slant height from base radius and height.",
+      "tags": ["cone", "volume", "geometry"],
+      "capabilities": ["CalculateConeVolume"],
+      "representativeQueries": [
+        "calculate cone volume",
+        "volume of a cone formula",
+        "conical hopper capacity"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-09-29T00:00:00Z"
+    },
+    {
+      "identifier": "urn:air:thevolumecalculator.com:calculators:pool",
+      "displayName": "Pool Volume Calculator",
+      "type": "text/html",
+      "url": "https://thevolumecalculator.com/pool-volume-calculator",
+      "description": "Calculates swimming pool water capacity in gallons and litres for rectangular, oval, circular, and sloped pools.",
+      "tags": ["pool", "water", "gallons", "litres"],
+      "capabilities": ["CalculatePoolVolume"],
+      "representativeQueries": [
+        "calculate pool volume in gallons",
+        "swimming pool capacity calculator",
+        "pool water volume in litres"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-09-29T00:00:00Z"
+    },
+    {
+      "identifier": "urn:air:thevolumecalculator.com:calculators:cubic-feet",
+      "displayName": "Cubic Feet Calculator",
+      "type": "text/html",
+      "url": "https://thevolumecalculator.com/cubic-feet-calculator",
+      "description": "Converts dimensions in inches and feet into cubic feet, cubic yards, and freight dimensional weight.",
+      "tags": ["cubic feet", "shipping", "construction"],
+      "capabilities": ["CalculateCubicFeet"],
+      "representativeQueries": [
+        "calculate cubic feet from inches",
+        "cubic feet calculator",
+        "convert cubic feet to cubic yards"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-09-29T00:00:00Z"
+    },
+    {
+      "identifier": "urn:air:thevolumecalculator.com:documentation:llms-txt",
+      "displayName": "LLMs Text Index",
+      "type": "text/markdown",
+      "url": "https://thevolumecalculator.com/llms.txt",
+      "description": "Structured Markdown summary of mathematical principles, volume conversion constants, and tool references for language models.",
+      "tags": ["llms.txt", "agentic", "ai", "documentation"],
+      "capabilities": ["ReadSiteSummary"],
+      "representativeQueries": [
+        "the volume calculator llms.txt",
+        "geometric volume constants reference",
+        "volume formulas for language models"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-09-29T00:00:00Z"
+    }
+  ]
+}

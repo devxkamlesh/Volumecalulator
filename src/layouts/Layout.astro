@@ -146,6 +146,10 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
+    <!-- Agentic Discovery (llms.txt and ARD ai-catalog.json) -->
+    <link rel="describedby" type="text/markdown" href="/llms.txt" />
+    <link rel="ai-catalog" type="application/json" href="/.well-known/ai-catalog.json" />
+
     <!-- Structured Data (Schema.org JSON-LD) -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>

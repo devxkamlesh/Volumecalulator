@@ -1,0 +1,41 @@
+# The Volume Calculator
+
+> Multi-geometry volume calculation platform providing exact three-dimensional capacity computations, mathematical derivations, and unit conversions across 16 geometric shapes, verified against NIST SP 811 and ISO 80000-3.
+
+Calculations run in 64-bit floating-point precision. The platform converts measurements across metric units (cubic meters, litres, cubic centimeters, cubic millimeters) and imperial units (cubic feet, cubic inches, cubic yards, US liquid gallons, UK Imperial gallons). Density conversions for water mass calculations reference pure water maximum density of 1,000.00 kg/m³ at 3.98°C and 998.20 kg/m³ at 20°C standard ambient temperature.
+
+## Calculators
+
+- [Volume Calculator Directory](https://thevolumecalculator.com/calculators): Complete catalog of 16 three-dimensional geometric volume calculators.
+- [Cylinder Volume Calculator](https://thevolumecalculator.com/cylinder-volume-calculator): Calculate volume of circular cylinders using V = π × r² × h.
+- [Sphere Volume Calculator](https://thevolumecalculator.com/sphere-volume-calculator): Calculate volume of spheres from radius, diameter, or circumference using V = (4/3) × π × r³.
+- [Cone Volume Calculator](https://thevolumecalculator.com/cone-volume-calculator): Calculate volume of circular cones using V = (1/3) × π × r² × h.
+- [Cube Volume Calculator](https://thevolumecalculator.com/cube-volume-calculator): Calculate volume of regular cubes using V = a³.
+- [Rectangular Prism Volume Calculator](https://thevolumecalculator.com/rectangular-prism-volume-calculator): Calculate volume of boxes and cuboids using V = l × w × h.
+- [Square Pyramid Volume Calculator](https://thevolumecalculator.com/square-pyramid-volume-calculator): Calculate volume of square-based pyramids using V = (1/3) × a² × h.
+- [Rectangular Pyramid Volume Calculator](https://thevolumecalculator.com/rectangular-pyramid-volume-calculator): Calculate volume of rectangular-base pyramids using V = (1/3) × l × w × h.
+- [Triangular Prism Volume Calculator](https://thevolumecalculator.com/triangular-prism-volume-calculator): Calculate volume of triangular prisms using V = (1/2) × b × h_triangle × l.
+- [Trapezoidal Prism Volume Calculator](https://thevolumecalculator.com/trapezoidal-prism-volume-calculator): Calculate volume of trapezoidal prisms using V = (1/2) × (a + b) × h × l.
+- [Horizontal Tank Volume Calculator](https://thevolumecalculator.com/horizontal-tank-volume-calculator): Calculate partial liquid volume in horizontal cylindrical tanks using circular segment integration.
+- [Capsule Volume Calculator](https://thevolumecalculator.com/capsule-volume-calculator): Calculate volume of cylindrical containers with hemispherical caps using V = π × r² × ((4/3) × r + h).
+- [Conical Frustum Volume Calculator](https://thevolumecalculator.com/conical-frustum-volume-calculator): Calculate volume of truncated cones using V = (1/3) × π × h × (r1² + r1 × r2 + r2²).
+- [Ellipsoid Volume Calculator](https://thevolumecalculator.com/ellipsoid-volume-calculator): Calculate volume of tri-axial ellipsoids using V = (4/3) × π × a × b × c.
+- [Hollow Cylinder Volume Calculator](https://thevolumecalculator.com/hollow-cylinder-volume-calculator): Calculate material volume of cylindrical pipes using V = π × (r_outer² - r_inner²) × h.
+- [Spherical Cap Volume Calculator](https://thevolumecalculator.com/spherical-cap-volume-calculator): Calculate volume of spherical segments and domes using V = (1/3) × π × h² × (3R - h).
+- [Torus Volume Calculator](https://thevolumecalculator.com/torus-volume-calculator): Calculate volume of toroidal rings using V = 2 × π² × R × r².
+- [Pool Volume Calculator](https://thevolumecalculator.com/pool-volume-calculator): Calculate swimming pool water capacity in gallons and litres for rectangular, oval, circular, and sloped pools.
+- [Cubic Feet Calculator](https://thevolumecalculator.com/cubic-feet-calculator): Convert linear dimensions in inches and feet into cubic feet, cubic yards, and dimensional weight.
+
+## Documentation and Standards
+
+- [Methodology and Standards](https://thevolumecalculator.com/methodology): Mathematical derivations, physical density references, and unit conversion standards based on NIST SP 811 and ISO 80000-3.
+- [Full Technical Reference](https://thevolumecalculator.com/llms-full.txt): Complete mathematical formulas, conversion tables, and calculation algorithms formatted for language models.
+
+## Optional
+
+- [Spanish Calculators](https://thevolumecalculator.com/es/calculadoras): Directorio de las 16 calculadoras de volumen en español.
+- [Portuguese Calculators](https://thevolumecalculator.com/pt/calculadoras): Diretório das 16 calculadoras de volume em português.
+- [German Calculators](https://thevolumecalculator.com/de/rechner): Verzeichnis aller 16 Volumenrechner auf Deutsch.
+- [French Calculators](https://thevolumecalculator.com/fr/calculateurs): Répertoire des 16 calculateurs de volume en français.
+- [Italian Calculators](https://thevolumecalculator.com/it/calcolatori): Raccolta dei 16 calcolatori di volume in italiano.
+- [Russian Calculators](https://thevolumecalculator.com/ru/kalkulyatory): Каталог всех 16 калькуляторов объема на русском языке.

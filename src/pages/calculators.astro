@@ -49,12 +49,23 @@ const schemaGraph = [
     })),
   },
 ];
+
+const canonical = 'https://thevolumecalculator.com/calculators';
+const spanishUrl = 'https://thevolumecalculator.com/es/calculadoras';
+const germanUrl = 'https://thevolumecalculator.com/de/rechner';
+const alternates = [
+  { hreflang: 'en', href: canonical },
+  { hreflang: 'es', href: spanishUrl },
+  { hreflang: 'de', href: germanUrl },
+  { hreflang: 'x-default', href: canonical },
+];
 ---
 
 <Layout
   title="3D Volume Calculators Directory | thevolumecalculator.com"
   description="Directory of all 16 dedicated 3D volume calculators. Calculate volume for cubes, boxes, cylinders, spheres, cones, tanks, pipes, and pyramids with instant step-by-step math."
-  canonical="https://thevolumecalculator.com/calculators"
+  canonical={canonical}
+  alternates={alternates}
   schemaGraph={schemaGraph}
 >
   <Header />
@@ -64,7 +75,7 @@ const schemaGraph = [
     <section class="text-center max-w-3xl mx-auto pt-2 pb-2">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-hairline text-primary shadow-xs mb-3.5">
         <span class="w-2 h-2 rounded-full bg-primary"></span>
-        <span>Directory of 16 Dedicated Tools • 100% Free & Ad-Free</span>
+        <span>Directory of 16 Dedicated Tools • 100% Free</span>
       </div>
 
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight leading-tight mb-3">
@@ -80,6 +91,7 @@ const schemaGraph = [
         <input
           type="text"
           id="hub-search-input"
+          aria-label="Search volume calculators"
           placeholder="Search by shape (e.g. tank, cylinder, pipe)..."
           class="w-full px-4 py-2.5 pl-10 text-sm rounded-xl bg-white border border-hairline text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
         />
@@ -91,16 +103,15 @@ const schemaGraph = [
     </section>
 
     <!-- Category Filter Tabs -->
-    <div class="flex items-center justify-center gap-1.5 overflow-x-auto pb-2 scrollbar-none" role="tablist" aria-label="Filter calculators by category">
+    <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 px-1 sm:px-0 w-full scrollbar-none" aria-label="Filter calculators by category">
       {SHAPE_CATEGORIES.map((cat, idx) => (
         <button
           type="button"
-          role="tab"
-          aria-selected={idx === 0 ? 'true' : 'false'}
-          class={`hub-category-tab px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+          aria-pressed={idx === 0 ? 'true' : 'false'}
+          class={`hub-category-tab shrink-0 min-h-11 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
             idx === 0
               ? 'bg-primary text-white shadow-xs'
-              : 'bg-white text-ink-secondary border border-hairline hover:border-ink-muted'
+              : 'bg-white dark:bg-canvas-card text-ink-secondary border border-hairline hover:border-ink-muted'
           }`}
           data-category={cat.id}
         >
@@ -124,7 +135,7 @@ const schemaGraph = [
                 <div class="w-10 h-10 rounded-xl bg-canvas-soft border border-hairline flex items-center justify-center text-primary group-hover:scale-105 transition-transform shrink-0">
                   <Fragment set:html={t.shape.iconSvg} />
                 </div>
-                <span class={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${t.shape.badgeColor}`}>
+                <span class={`text-xs font-bold px-2.5 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${t.shape.badgeColor}`}>
                   {t.shape.categoryLabel}
                 </span>
               </div>
@@ -185,38 +196,38 @@ const schemaGraph = [
         </p>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs border-collapse">
+      <div class="overflow-x-auto scrollbar-none">
+        <table class="w-full min-w-[600px] text-left text-xs border-collapse">
           <thead>
             <tr class="border-b border-hairline bg-canvas-soft/70 text-ink-secondary font-semibold uppercase tracking-wider text-[11px]">
-              <th class="py-2.5 px-3">Shape</th>
-              <th class="py-2.5 px-3">Category</th>
-              <th class="py-2.5 px-3">Standard Formula</th>
-              <th class="py-2.5 px-3">Variables</th>
-              <th class="py-2.5 px-3 text-right">Tool Link</th>
+              <th class="py-2.5 px-3 whitespace-nowrap">Shape</th>
+              <th class="py-2.5 px-3 whitespace-nowrap">Category</th>
+              <th class="py-2.5 px-3 whitespace-nowrap">Standard Formula</th>
+              <th class="py-2.5 px-3 whitespace-nowrap">Variables</th>
+              <th class="py-2.5 px-3 text-right whitespace-nowrap">Tool Link</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-hairline">
             {toolsList.map((t) => (
               <tr class="hover:bg-canvas-soft/40 transition-colors">
-                <td class="py-2.5 px-3 font-bold text-ink flex items-center gap-2">
+                <td class="py-2.5 px-3 font-bold text-ink flex items-center gap-2 whitespace-nowrap">
                   <span class="w-4 h-4 text-primary shrink-0">
                     <Fragment set:html={t.shape.iconSvg} />
                   </span>
                   <span>{t.shape.name}</span>
                 </td>
-                <td class="py-2.5 px-3 text-ink-muted">
-                  <span class={`text-xs font-bold px-2 py-0.5 rounded-full border ${t.shape.badgeColor}`}>
+                <td class="py-2.5 px-3 text-ink-muted whitespace-nowrap">
+                  <span class={`inline-flex items-center text-xs font-bold px-2.5 py-0.5 rounded-full border whitespace-nowrap ${t.shape.badgeColor}`}>
                     {t.shape.categoryLabel}
                   </span>
                 </td>
-                <td class="py-2.5 px-3 font-mono font-bold text-primary">
+                <td class="py-2.5 px-3 font-mono font-bold text-primary whitespace-nowrap">
                   {t.shape.formula}
                 </td>
-                <td class="py-2.5 px-3 text-ink-muted font-mono">
+                <td class="py-2.5 px-3 text-ink-muted font-mono whitespace-nowrap">
                   {t.shape.inputs.map((i) => i.symbol).join(', ')}
                 </td>
-                <td class="py-2.5 px-3 text-right">
+                <td class="py-2.5 px-3 text-right whitespace-nowrap">
                   <a href={`/${t.slug}`} aria-label={`Calculate ${t.shape.name} volume`} class="text-primary font-semibold hover:underline">
                     Calculate →
                   </a>
@@ -285,7 +296,7 @@ const schemaGraph = [
               Cubic Feet Calculator (Cu Ft & Cu Yd)
             </h3>
             <p class="text-xs text-ink-secondary leading-relaxed">
-              Calculate volume in cubic feet ($ft^3$) and convert directly to cubic yards ($yd^3$) or cubic inches ($in^3$). Estimate materials for concrete slabs, mulch, and soil.
+              Calculate volume in cubic feet (ft³) and convert directly to cubic yards (yd³) or cubic inches (in³). Estimate materials for concrete slabs, mulch, and soil.
             </p>
           </div>
           <div class="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-xs text-ink-muted font-mono">
@@ -308,7 +319,8 @@ const schemaGraph = [
     const clearSearchBtn = document.getElementById('hub-clear-search');
 
     let activeCategory = 'all';
-    let searchQuery = '';
+    const initialQuery = new URLSearchParams(window.location.search).get('q') || '';
+    let searchQuery = initialQuery.trim().toLowerCase();
 
     function filterCards() {
       let visibleCount = 0;
@@ -338,8 +350,13 @@ const schemaGraph = [
     }
 
     if (searchInput) {
+      searchInput.value = initialQuery;
       searchInput.addEventListener('input', () => {
         searchQuery = searchInput.value.trim().toLowerCase();
+        const params = new URLSearchParams(window.location.search);
+        if (searchInput.value.trim()) params.set('q', searchInput.value.trim());
+        else params.delete('q');
+        history.replaceState(null, '', `${window.location.pathname}${params.toString() ? `?${params}` : ''}`);
         filterCards();
       });
     }
@@ -355,15 +372,17 @@ const schemaGraph = [
     categoryTabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         categoryTabs.forEach((t) => {
-          t.className = 'hub-category-tab px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer bg-white text-ink-secondary border border-hairline hover:border-ink-muted';
-          t.setAttribute('aria-selected', 'false');
+          t.className = 'hub-category-tab shrink-0 min-h-11 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer bg-white text-ink-secondary border border-hairline hover:border-ink-muted';
+          t.setAttribute('aria-pressed', 'false');
         });
-        tab.className = 'hub-category-tab px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer bg-primary text-white shadow-xs';
-        tab.setAttribute('aria-selected', 'true');
+        tab.className = 'hub-category-tab shrink-0 min-h-11 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer bg-primary text-white shadow-xs';
+        tab.setAttribute('aria-pressed', 'true');
 
         activeCategory = tab.getAttribute('data-category') || 'all';
         filterCards();
       });
     });
+
+    filterCards();
   </script>
 </Layout>

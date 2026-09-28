@@ -7,16 +7,24 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "check": "astro check",
+    "test": "vitest run",
+    "validate": "npm run check && npm run test && npm run build",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "npm run build && npx wrangler pages deploy dist --project-name=thevolumecalculator --branch master --commit-dirty=true"
+    "deploy": "npm run validate && npx wrangler pages deploy dist --project-name=thevolumecalculator --branch master --commit-dirty=true"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.2",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   },
   "allowScripts": {
     "esbuild": true

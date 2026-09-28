@@ -184,6 +184,23 @@ export function getShapeSvg(shapeId: string): string {
         </svg>
       `;
 
+    case 'rectangular_pyramid':
+      return `
+        <svg viewBox="0 0 220 170" class="w-full h-full max-h-[220px]" role="img" aria-label="Rectangular pyramid showing base length, base width, and vertical height">
+          <polygon points="35,125 120,150 190,115 105,92" fill="${fill}" fill-opacity="0.16" stroke="${stroke}" stroke-width="2"/>
+          <polygon points="105,20 35,125 120,150" fill="${fill}" fill-opacity="0.1" stroke="${stroke}" stroke-width="2"/>
+          <polygon points="105,20 120,150 190,115" fill="${fill}" fill-opacity="0.2" stroke="${stroke}" stroke-width="2"/>
+          <line x1="105" y1="20" x2="35" y2="125" stroke="${stroke}" stroke-width="2"/>
+          <line x1="105" y1="20" x2="190" y2="115" stroke="${stroke}" stroke-width="2"/>
+          <line x1="105" y1="20" x2="105" y2="108" stroke="${guide}" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="111" y="67" fill="${guide}" font-weight="700" font-size="14" font-family="Inter, sans-serif">h</text>
+          <line x1="35" y1="137" x2="120" y2="162" stroke="${guide}" stroke-width="2"/>
+          <text x="73" y="158" fill="${guide}" font-weight="700" font-size="14" font-family="Inter, sans-serif">l</text>
+          <line x1="126" y1="158" x2="196" y2="123" stroke="${guide}" stroke-width="2"/>
+          <text x="167" y="150" fill="${guide}" font-weight="700" font-size="14" font-family="Inter, sans-serif">w</text>
+        </svg>
+      `;
+
     case 'triangular_prism':
       return `
         <svg viewBox="0 0 220 160" class="w-full h-full max-h-[220px]">
@@ -219,6 +236,41 @@ export function getShapeSvg(shapeId: string): string {
           <text x="112" y="41" fill="${guide}" font-weight="700" font-size="13" font-family="Inter, sans-serif">r</text>
           <line x1="100" y1="45" x2="160" y2="45" stroke="${stroke}" stroke-width="1.5" stroke-dasharray="2,2"/>
           <text x="145" y="41" fill="${stroke}" font-weight="700" font-size="13" font-family="Inter, sans-serif">R</text>
+        </svg>
+      `;
+
+    case 'torus':
+      return `
+        <svg viewBox="0 0 220 170" class="w-full h-full max-h-[220px]" role="img" aria-label="Torus showing major centerline radius and minor tube radius">
+          <ellipse cx="110" cy="85" rx="82" ry="52" fill="${fill}" fill-opacity="0.15" stroke="${stroke}" stroke-width="2"/>
+          <ellipse cx="110" cy="85" rx="36" ry="21" fill="var(--color-canvas-soft, #f6f5f4)" stroke="${stroke}" stroke-width="2"/>
+          <path d="M28,85 C42,112 75,128 110,128 C145,128 178,112 192,85" fill="none" stroke="${stroke}" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <path d="M74,85 C82,75 94,70 110,70 C126,70 138,75 146,85" fill="none" stroke="${stroke}" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <circle cx="110" cy="85" r="3" fill="${guide}"/>
+          <line x1="110" y1="85" x2="164" y2="85" stroke="${guide}" stroke-width="2"/>
+          <text x="134" y="79" fill="${guide}" font-weight="700" font-size="14" font-family="Inter, sans-serif">R</text>
+          <line x1="164" y1="85" x2="192" y2="85" stroke="${guide}" stroke-width="2"/>
+          <text x="177" y="79" fill="${guide}" font-weight="700" font-size="14" font-family="Inter, sans-serif">r</text>
+        </svg>
+      `;
+
+    case 'trapezoidal_prism':
+      return `
+        <svg viewBox="0 0 230 170" class="w-full h-full max-h-[220px]" role="img" aria-label="Trapezoidal prism showing top width, bottom width, depth, and length">
+          <polygon points="30,45 125,45 105,125 52,125" fill="${fill}" fill-opacity="0.18" stroke="${stroke}" stroke-width="2"/>
+          <polygon points="125,45 200,68 178,145 105,125" fill="${fill}" fill-opacity="0.1" stroke="${stroke}" stroke-width="2"/>
+          <line x1="30" y1="45" x2="105" y2="68" stroke="${stroke}" stroke-width="2"/>
+          <line x1="52" y1="125" x2="125" y2="145" stroke="${stroke}" stroke-width="2" stroke-dasharray="4,3"/>
+          <line x1="105" y1="68" x2="200" y2="68" stroke="${stroke}" stroke-width="2"/>
+          <line x1="125" y1="145" x2="178" y2="145" stroke="${stroke}" stroke-width="2"/>
+          <line x1="30" y1="34" x2="125" y2="34" stroke="${guide}" stroke-width="2"/>
+          <text x="75" y="28" fill="${guide}" font-weight="700" font-size="14" font-family="Inter, sans-serif">a</text>
+          <line x1="52" y1="137" x2="105" y2="137" stroke="${guide}" stroke-width="2"/>
+          <text x="75" y="154" fill="${guide}" font-weight="700" font-size="14" font-family="Inter, sans-serif">b</text>
+          <line x1="20" y1="45" x2="42" y2="125" stroke="${guide}" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="18" y="88" fill="${guide}" font-weight="700" font-size="14" font-family="Inter, sans-serif">h</text>
+          <line x1="130" y1="36" x2="205" y2="59" stroke="${guide}" stroke-width="2"/>
+          <text x="171" y="42" fill="${guide}" font-weight="700" font-size="14" font-family="Inter, sans-serif">l</text>
         </svg>
       `;
 

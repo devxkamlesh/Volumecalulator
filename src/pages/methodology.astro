@@ -6,6 +6,14 @@ import Footer from '../components/Footer.astro';
 const title = 'Formula Standards & Methodology';
 const description = 'Documentation of geometric formulas, physical conversion factors, numerical precision, and verification standards used across thevolumecalculator.com.';
 const canonical = 'https://thevolumecalculator.com/methodology';
+const spanishUrl = 'https://thevolumecalculator.com/es/metodologia';
+const germanUrl = 'https://thevolumecalculator.com/de/methodik';
+const alternates = [
+  { hreflang: 'en', href: canonical },
+  { hreflang: 'es', href: spanishUrl },
+  { hreflang: 'de', href: germanUrl },
+  { hreflang: 'x-default', href: canonical },
+];
 
 const schemaGraph = [
   {
@@ -38,6 +46,7 @@ const schemaGraph = [
   title={`${title} | thevolumecalculator.com`}
   description={description}
   canonical={canonical}
+  alternates={alternates}
   schemaGraph={schemaGraph}
 >
   <Header />

@@ -1,0 +1,308 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SHAPES } from '../../scripts/shapes';
+import { GERMAN_TOOLS } from '../../i18n/german-tools';
+
+const GERMAN_CATEGORIES = [
+  { id: 'all', label: 'Alle Körper' },
+  { id: 'basic', label: 'Grundkörper' },
+  { id: 'curved', label: 'Runde Körper und Kegel' },
+  { id: 'prisms_pyramids', label: 'Prismen und Pyramiden' },
+  { id: 'tanks_pipes', label: 'Tanks und Rohre' },
+];
+
+const germanToolsList = Object.values(GERMAN_TOOLS).map((tool) => {
+  const shape = SHAPES[tool.shapeId];
+  return {
+    ...tool,
+    shape,
+  };
+});
+
+const canonical = 'https://thevolumecalculator.com/de/rechner';
+const englishUrl = 'https://thevolumecalculator.com/calculators';
+const spanishUrl = 'https://thevolumecalculator.com/es/calculadoras';
+
+const alternates = [
+  { hreflang: 'en', href: englishUrl },
+  { hreflang: 'de', href: canonical },
+  { hreflang: 'es', href: spanishUrl },
+  { hreflang: 'x-default', href: englishUrl },
+];
+
+const ogLocaleAlternates = ['de_AT', 'de_CH'];
+
+const schemaGraph = [
+  {
+    '@type': 'CollectionPage',
+    'name': 'Verzeichnis aller 16 3D-Volumenrechner',
+    'description': 'Vollständiges Verzeichnis aller 16 Volumenrechner mit Formeln, Schritt-für-Schritt-Berechnung und Einheitenumrechnung in Liter und Kubikmeter.',
+    'url': canonical,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Startseite',
+        'item': 'https://thevolumecalculator.com/de/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Rechner',
+        'item': canonical,
+      },
+    ],
+  },
+  {
+    '@type': 'ItemList',
+    'name': '3D-Volumenrechner auf Deutsch',
+    'numberOfItems': germanToolsList.length,
+    'itemListElement': germanToolsList.map((tool, idx) => ({
+      '@type': 'ListItem',
+      'position': idx + 1,
+      'name': tool.h1,
+      'url': `https://thevolumecalculator.com/de/${tool.slug}`,
+    })),
+  },
+];
+---
+
+<Layout
+  title="Verzeichnis aller Volumenrechner | thevolumecalculator.com"
+  description="Übersicht aller 16 3D-Volumenrechner auf Deutsch. Sofortige Formelberechnung, Rechenschritte und Umrechnung in Liter, Kubikmeter und Gallonen."
+  canonical={canonical}
+  lang="de"
+  dir="ltr"
+  ogLocale="de_DE"
+  ogLocaleAlternates={ogLocaleAlternates}
+  alternates={alternates}
+  schemaGraph={schemaGraph}
+>
+  <Header />
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 sm:space-y-14">
+    <!-- Hub Page Hero -->
+    <section class="text-center max-w-3xl mx-auto pt-2 pb-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-hairline text-primary shadow-xs mb-3.5">
+        <span class="w-2 h-2 rounded-full bg-primary"></span>
+        <span>Verzeichnis von 16 Rechenwerkzeugen • Kostenlos</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight leading-tight mb-3">
+        Alle 16 3D-Volumenrechner im Überblick
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-2xl mx-auto">
+        Entdecke die vollständige Sammlung von 16 dreidimensionalen Rechenwerkzeugen. Jeder Rechner enthält geometrische Formeln, schrittweise Zahlenwerte und sofortige Einheitenumrechnung.
+      </p>
+
+      <!-- Instant Live Search Bar -->
+      <div class="mt-6 max-w-md mx-auto relative">
+        <div class="relative flex items-center">
+          <svg class="w-4 h-4 text-ink-muted absolute left-3.5 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="search"
+            id="hub-search-input"
+            placeholder="Rechner nach Form oder Stichwort filtern..."
+            class="w-full pl-10 pr-4 py-2.5 rounded-full bg-white border border-hairline hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/15 text-xs sm:text-sm text-ink font-medium shadow-xs focus:outline-hidden transition-all"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Filter Tabs -->
+    <section class="space-y-6">
+      <div class="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+        {GERMAN_CATEGORIES.map((cat, idx) => (
+          <button
+            type="button"
+            data-category={cat.id}
+            class={`hub-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+              idx === 0
+                ? 'bg-primary text-white shadow-xs'
+                : 'bg-white border border-hairline text-ink-secondary hover:text-ink hover:bg-canvas-soft'
+            }`}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      <!-- 16 Interactive Cards Grid -->
+      <div id="hub-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        {germanToolsList.map((tool) => (
+          <article
+            class="hub-tool-card bg-white rounded-2xl border border-hairline p-5 hover:border-primary/50 hover:shadow-md transition-all flex flex-col justify-between group"
+            data-category={tool.shape?.category || 'basic'}
+            data-title={tool.shapeName.toLowerCase()}
+            data-keywords={tool.keywords.toLowerCase()}
+          >
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class={`w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0 transition-transform group-hover:scale-105`}>
+                  <Fragment set:html={tool.shape?.iconSvg} />
+                </span>
+                <span class={`text-[10px] font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${tool.shape?.badgeColor}`}>
+                  {tool.categoryLabel}
+                </span>
+              </div>
+
+              <div>
+                <h2 class="font-bold text-base text-ink group-hover:text-primary transition-colors">
+                  <a href={`/de/${tool.slug}`} class="focus:outline-hidden">
+                    {tool.shapeName}
+                  </a>
+                </h2>
+                <p class="text-xs text-ink-muted line-clamp-2 mt-1 leading-relaxed">
+                  {tool.shortTagline}
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-hairline flex items-center justify-between">
+              <span class="font-mono text-xs font-bold text-primary">
+                {tool.formulaHtml}
+              </span>
+              <a
+                href={`/de/${tool.slug}`}
+                class="inline-flex items-center text-xs font-semibold text-ink-secondary group-hover:text-primary transition-colors"
+                aria-label={`Zum Rechner für ${tool.shapeName}`}
+              >
+                Rechnen →
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Zero-match Empty State -->
+      <div id="hub-empty-state" class="hidden text-center py-12 space-y-3 bg-white rounded-2xl border border-hairline p-8">
+        <div class="w-12 h-12 mx-auto rounded-full bg-canvas-soft flex items-center justify-center text-ink-muted">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+        <h3 class="font-bold text-sm text-ink">Keine Rechner gefunden</h3>
+        <p class="text-xs text-ink-muted max-w-sm mx-auto">
+          Es gibt keine Rechenwerkzeuge, die deinen Suchbegriffen entsprechen. Setze den Filter zurück oder versuche einen anderen Begriff.
+        </p>
+      </div>
+    </section>
+
+    <!-- Standards and Quality Guarantee -->
+    <section class="bg-white rounded-2xl border border-hairline p-6 sm:p-8 space-y-6">
+      <div class="max-w-2xl">
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-1.5">
+          Präzision und Rechenstandards
+        </h2>
+        <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+          Alle 16 mathematischen Berechnungen basieren auf den standardisierten SI-Einheiten und den Umrechnungsfaktoren des National Institute of Standards and Technology (NIST SP 811).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+        <div class="p-4 rounded-xl bg-canvas-soft/80 border border-hairline space-y-1">
+          <div class="font-bold text-xs text-ink">NIST SP 811 Konformität</div>
+          <div class="text-[11px] text-ink-muted leading-relaxed">
+            Exakte Umrechnungsfaktoren für Liter (1.000 l = 1 m³), US-Gallonen und imperiale Maße.
+          </div>
+        </div>
+        <div class="p-4 rounded-xl bg-canvas-soft/80 border border-hairline space-y-1">
+          <div class="font-bold text-xs text-ink">Genaue IEEE 754 Arithmetik</div>
+          <div class="text-[11px] text-ink-muted leading-relaxed">
+            Berechnung mit doppelter Genauigkeit und strukturierter Eingabeprüfung.
+          </div>
+        </div>
+        <div class="p-4 rounded-xl bg-canvas-soft/80 border border-hairline space-y-1">
+          <div class="font-bold text-xs text-ink">Vollständige Transparenz</div>
+          <div class="text-[11px] text-ink-muted leading-relaxed">
+            Jeder Rechenschritt wird mit Formel, Zwischenschritten und Einheiten aufgeführt.
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 border-t border-hairline flex items-center justify-between flex-wrap gap-3">
+        <span class="text-xs text-ink-muted">
+          Detaillierte Rechenwege und geometrische Herleitungen sind verfügbar.
+        </span>
+        <a href="/de/methodik" class="text-xs font-bold text-primary hover:underline">
+          Zur Rechenmethodik und den Standards →
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  // Hub page live search and category filter controller
+  const searchInput = document.getElementById('hub-search-input') as HTMLInputElement | null;
+  const filterBtns = document.querySelectorAll('.hub-filter-btn');
+  const cards = document.querySelectorAll('.hub-tool-card') as NodeListOf<HTMLElement>;
+  const emptyState = document.getElementById('hub-empty-state');
+
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  function filterCards() {
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const cardCategory = card.getAttribute('data-category') || '';
+      const cardTitle = card.getAttribute('data-title') || '';
+      const cardKeywords = card.getAttribute('data-keywords') || '';
+
+      const matchesCat = activeCategory === 'all' || cardCategory === activeCategory;
+      const matchesSearch =
+        searchQuery === '' ||
+        cardTitle.includes(searchQuery) ||
+        cardKeywords.includes(searchQuery);
+
+      if (matchesCat && matchesSearch) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    if (emptyState) {
+      if (visibleCount === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+    }
+  }
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach((b) => {
+        b.classList.remove('bg-primary', 'text-white', 'shadow-xs');
+        b.classList.add('bg-white', 'border', 'border-hairline', 'text-ink-secondary');
+      });
+      btn.classList.remove('bg-white', 'border', 'border-hairline', 'text-ink-secondary');
+      btn.classList.add('bg-primary', 'text-white', 'shadow-xs');
+
+      activeCategory = btn.getAttribute('data-category') || 'all';
+      filterCards();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value.trim().toLowerCase();
+      filterCards();
+    });
+  }
+</script>

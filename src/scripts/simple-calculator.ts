@@ -103,6 +103,7 @@ export class SimpleCalculatorApp {
   private activeShape: SimpleShape = SIMPLE_SHAPES.box;
   private currentInputs: Record<string, { val: number; unit: string }> = {};
   private activeUnit = 'gal';
+  private unitSystem: 'metric' | 'imperial' = 'imperial';
 
   constructor() {
     this.init();
@@ -111,9 +112,34 @@ export class SimpleCalculatorApp {
   private init(): void {
     this.setupShapeTabs();
     this.setupOutputUnitSelect();
+    this.setupUnitSystem();
     this.setupReset();
     this.setupCopy();
     this.selectShape(SIMPLE_SHAPES.box);
+  }
+
+  private setupUnitSystem(): void {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.simple-system-btn');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        this.unitSystem = button.dataset.system === 'metric' ? 'metric' : 'imperial';
+        buttons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle('bg-primary', active);
+          item.classList.toggle('text-white', active);
+          item.classList.toggle('text-ink-muted', !active);
+          item.setAttribute('aria-pressed', String(active));
+        });
+        this.activeUnit = this.unitSystem === 'metric' ? 'L' : 'gal';
+        const output = document.getElementById('simple-output-unit-select') as HTMLSelectElement | null;
+        if (output) output.value = this.activeUnit;
+        for (const input of this.activeShape.inputs) {
+          this.currentInputs[input.id] = { val: NaN, unit: this.unitSystem === 'metric' ? 'cm' : 'in' };
+        }
+        this.renderInputs();
+        this.recalculate();
+      });
+    });
   }
 
   private setupShapeTabs(): void {
@@ -185,7 +211,7 @@ export class SimpleCalculatorApp {
 
     // Initialize inputs with NaN (empty, no auto-filled data)
     for (const input of shape.inputs) {
-      this.currentInputs[input.id] = { val: NaN, unit: input.defaultUnit };
+      this.currentInputs[input.id] = { val: NaN, unit: this.unitSystem === 'metric' ? 'cm' : input.defaultUnit };
     }
 
     // Update UI header with clean SVG badge

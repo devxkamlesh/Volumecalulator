@@ -70,12 +70,7 @@ export function formatNumber(val: number, precision = 4): string {
     return val.toExponential(4).replace('e+', 'e');
   }
 
-  // Choose appropriate decimal places
-  let decimals = precision;
-  if (abs >= 1000) decimals = 2;
-  else if (abs >= 10) decimals = 3;
-  else if (abs >= 1) decimals = 4;
-  else decimals = 5;
+  const decimals = Math.max(0, Math.min(10, precision));
 
   const rounded = Number(val.toFixed(decimals));
   return new Intl.NumberFormat('en-US', {

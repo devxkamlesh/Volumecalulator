@@ -1,0 +1,204 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const title = 'Methodik und Rechenstandards';
+const description = 'Dokumentation der euklidischen Formeln, physikalischen Umrechnungsfaktoren und numerischen Präzisionsmodelle auf thevolumecalculator.com.';
+const canonical = 'https://thevolumecalculator.com/de/methodik';
+const englishUrl = 'https://thevolumecalculator.com/methodology';
+const spanishUrl = 'https://thevolumecalculator.com/es/metodologia';
+
+const alternates = [
+  { hreflang: 'en', href: englishUrl },
+  { hreflang: 'de', href: canonical },
+  { hreflang: 'es', href: spanishUrl },
+  { hreflang: 'x-default', href: englishUrl },
+];
+
+const ogLocaleAlternates = ['de_AT', 'de_CH'];
+
+const schemaGraph = [
+  {
+    '@type': 'AboutPage',
+    'name': 'Mathematische Standards und Rechenmethodik',
+    'description': description,
+    'url': canonical,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Startseite',
+        'item': 'https://thevolumecalculator.com/de/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Methodik',
+        'item': canonical,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`${title} | thevolumecalculator.com`}
+  description={description}
+  canonical={canonical}
+  lang="de"
+  dir="ltr"
+  ogLocale="de_DE"
+  ogLocaleAlternates={ogLocaleAlternates}
+  alternates={alternates}
+  schemaGraph={schemaGraph}
+>
+  <Header />
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 sm:space-y-12">
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="Breadcrumb">
+      <a href="/de/" class="hover:text-primary transition-colors">Startseite</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">Methodik</span>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-hairline text-primary shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>Mathematische Verifikation und Standards</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight leading-tight">
+        Mathematische Standards und Rechenmethodik
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
+        Dieses Dokument beschreibt die euklidischen Formeln, physikalischen Umrechnungsfaktoren und Rechenmodelle aller 16 Volumenrechner auf thevolumecalculator.com.
+      </p>
+    </section>
+
+    <!-- Section 1: Standard Constants -->
+    <section class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        1. Physikalische Umrechnungsfaktoren und Konstanten
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Alle Berechnungen wandeln die eingegebenen Längenmaße zuerst in die SI-Basiseinheit Meter um, bevor die geometrischen Gleichungen ausgewertet werden. Die Umrechnungsfaktoren basieren auf den Normen des National Institute of Standards and Technology (NIST SP 811) und ISO 80000-3.
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-hairline text-ink-muted">
+              <th class="py-2.5 px-3 font-semibold">Einheit</th>
+              <th class="py-2.5 px-3 font-semibold">Symbol</th>
+              <th class="py-2.5 px-3 font-semibold">Exakter SI-Bezug</th>
+              <th class="py-2.5 px-3 font-semibold">Standard</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline font-mono text-xs">
+            <tr>
+              <td class="py-2 px-3 font-sans text-ink">Zentimeter</td>
+              <td class="py-2 px-3 text-ink-secondary">cm</td>
+              <td class="py-2 px-3 text-ink font-semibold">1 × 10⁻² m</td>
+              <td class="py-2 px-3 font-sans text-ink-muted">BIPM SI-Broschüre</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-sans text-ink">Millimeter</td>
+              <td class="py-2 px-3 text-ink-secondary">mm</td>
+              <td class="py-2 px-3 text-ink font-semibold">1 × 10⁻³ m</td>
+              <td class="py-2 px-3 font-sans text-ink-muted">BIPM SI-Broschüre</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-sans text-ink">Zoll / Inch</td>
+              <td class="py-2 px-3 text-ink-secondary">in</td>
+              <td class="py-2 px-3 text-ink font-semibold">0,0254 m</td>
+              <td class="py-2 px-3 font-sans text-ink-muted">NIST SP 811 (1959)</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-sans text-ink">Fuß / Foot</td>
+              <td class="py-2 px-3 text-ink-secondary">ft</td>
+              <td class="py-2 px-3 text-ink font-semibold">0,3048 m</td>
+              <td class="py-2 px-3 font-sans text-ink-muted">NIST SP 811</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-sans text-ink">Yard</td>
+              <td class="py-2 px-3 text-ink-secondary">yd</td>
+              <td class="py-2 px-3 text-ink font-semibold">0,9144 m</td>
+              <td class="py-2 px-3 font-sans text-ink-muted">NIST SP 811</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-sans text-ink">Liter</td>
+              <td class="py-2 px-3 text-ink-secondary">l</td>
+              <td class="py-2 px-3 text-ink font-semibold">1 × 10⁻³ m³ (1.000 l = 1 m³)</td>
+              <td class="py-2 px-3 font-sans text-ink-muted">12. CGPM (1964)</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 font-sans text-ink">US-Gallone (Flüssigkeit)</td>
+              <td class="py-2 px-3 text-ink-secondary">gal</td>
+              <td class="py-2 px-3 text-ink font-semibold">0,003785411784 m³</td>
+              <td class="py-2 px-3 font-sans text-ink-muted">NIST Handbook 44</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2: Mathematical Precision -->
+    <section class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        2. Rechengenauigkeit nach IEEE 754
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Alle Rechenoperationen werden im standardisierten 64-Bit-Gleitkommaformat (IEEE 754) ausgeführt. Dies gewährleistet 53 Bits Mantissenpräzision (rund 15 bis 17 signifikante Dezimalstellen). Die Kreiszahl Pi wird über die native Konstante Math.PI mit 16 Dezimalstellen (3.141592653589793) eingebunden.
+      </p>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Zur Vermeidung von Rundungsfehlern bei trigonometrischen Funktionen im liegenden Zylindertank wird das Argument für Math.acos vor der Auswertung strikt auf das reelle Intervall [-1, 1] begrenzt.
+      </p>
+    </section>
+
+    <!-- Section 3: Geometric Validation -->
+    <section class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        3. Strukturierte Geometrieprüfung und Fehlerbehandlung
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Vor der Ausgabe von Volumenwerten überprüft das Rechenmodul alle geometrischen Randbedingungen:
+      </p>
+      <ul class="space-y-2 text-xs sm:text-sm text-ink-secondary list-disc list-inside leading-relaxed">
+        <li>
+          Hohlzylinder und Rohre: Der Innenradius ri muss zwingend kleiner als der Außenradius ra sein.
+        </li>
+        <li>
+          Torus und O-Ringe: Der Rohrradius r darf den Hauptradius R nicht überschreiten, um Selbstüberschneidungen zu verhindern.
+        </li>
+        <li>
+          Liegender Zylindertank: Die gemessene Flüssigkeitstiefe d muss im Intervall zwischen 0 und dem Gesamtdurchmesser (2r) liegen.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 4: Directory Link CTA -->
+    <section class="p-6 rounded-2xl bg-canvas-soft border border-hairline flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <h3 class="font-bold text-sm text-ink">Möchtest du ein Volumen berechnen?</h3>
+        <p class="text-xs text-ink-muted mt-0.5">
+          Wähle eine Figur aus dem vollständigen Verzeichnis der 16 3D-Volumenrechner.
+        </p>
+      </div>
+      <a
+        href="/de/rechner"
+        class="px-4 py-2 rounded-lg bg-primary text-white text-xs font-semibold hover:bg-primary-active transition-colors shrink-0 shadow-xs"
+      >
+        Zum Rechner-Verzeichnis →
+      </a>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

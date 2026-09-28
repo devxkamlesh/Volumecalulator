@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { ICONS } from '../scripts/icons';
+import { CUBIC_FEET_FAQS } from '../scripts/specialized-content';
 
 const title = 'Cubic Feet Calculator (Cu Ft) - Convert Cu Ft to Cu Yd';
 const description = 'Free online cubic feet calculator (cu ft). Calculate volume in cubic feet and cubic yards from inches, feet, or meters. Instant material estimator for soil, mulch, concrete, and freight.';
@@ -48,40 +49,11 @@ const schemaGraph = [
   },
   {
     '@type': 'FAQPage',
-    'mainEntity': [
-      {
-        '@type': 'Question',
-        'name': 'How do you calculate cubic feet?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'To calculate cubic feet, multiply Length (ft) × Width (ft) × Depth/Height (ft). If your measurements are in inches, multiply Length (in) × Width (in) × Height (in) and divide the total by 1,728.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'How do you convert cubic feet to cubic yards (cu ft to cu yd)?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'Divide the total cubic feet by 27: Cubic Yards = Cubic Feet / 27. For example, 54 cubic feet equals 2 cubic yards.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'How many cubic inches are in a cubic foot?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'There are exactly 1,728 cubic inches in one cubic foot (12 inches × 12 inches × 12 inches = 1,728 in³).'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'How many cubic feet of mulch or soil do I need?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'Multiply your garden bed length in feet by width in feet, then multiply by desired depth in inches, and divide by 12. For example, a 10 ft × 12 ft garden bed with 3 inches of mulch requires (10 × 12 × 3) / 12 = 30 cubic feet (or 1.11 cubic yards).'
-        }
-      }
-    ]
+    'mainEntity': CUBIC_FEET_FAQS.map((faq) => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': { '@type': 'Answer', 'text': faq.answer }
+    }))
   }
 ];
 ---
@@ -136,13 +108,12 @@ const schemaGraph = [
       <!-- Top Control Bar -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-hairline">
         <!-- Mode Tabs -->
-        <div class="flex items-center gap-1.5 p-1 rounded-xl bg-canvas-soft border border-hairline overflow-x-auto" role="tablist">
+        <div class="flex items-center gap-1.5 p-1 rounded-xl bg-canvas-soft border border-hairline overflow-x-auto" aria-label="Calculation mode">
           <button
             type="button"
             data-mode="box"
             class="cuft-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-white shadow-xs text-primary border border-hairline/80"
-            role="tab"
-            aria-selected="true"
+            aria-pressed="true"
           >
             Rectangular (L × W × H)
           </button>
@@ -150,8 +121,7 @@ const schemaGraph = [
             type="button"
             data-mode="cylinder"
             class="cuft-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-ink-muted hover:text-ink"
-            role="tab"
-            aria-selected="false"
+            aria-pressed="false"
           >
             Circular Column / Hole
           </button>
@@ -159,8 +129,7 @@ const schemaGraph = [
             type="button"
             data-mode="direct"
             class="cuft-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-ink-muted hover:text-ink"
-            role="tab"
-            aria-selected="false"
+            aria-pressed="false"
           >
             Quick Unit Converter
           </button>
@@ -360,7 +329,7 @@ const schemaGraph = [
       <!-- Results Grid -->
       <div class="pt-4 border-t border-hairline space-y-4">
         <!-- Double Highlight Card: Cu Ft + Cu Yd -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="status" aria-live="polite" aria-atomic="true">
           <!-- Card 1: Cubic Feet -->
           <div class="p-4 rounded-xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800 flex items-center justify-between">
             <div>
@@ -517,35 +486,15 @@ const schemaGraph = [
         </h2>
 
         <div class="space-y-3">
-          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
-            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
-              <span>How do I convert inches to cubic feet?</span>
-              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
-            </summary>
-            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
-              Multiply length (in) × width (in) × height (in) to get total cubic inches, then divide by 1,728. For example: 24 in × 18 in × 12 in = 5,184 in³. Then 5,184 ÷ 1,728 = <strong>3 cubic feet</strong>.
-            </p>
-          </details>
-
-          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
-            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
-              <span>How do I calculate concrete volume for a slab?</span>
-              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
-            </summary>
-            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
-              Convert the slab thickness from inches into feet (e.g. 4 inches = 4/12 = 0.333 ft). Multiply length (ft) × width (ft) × thickness (ft) to get cubic feet, then divide by 27 to get the cubic yards of ready-mix concrete to order.
-            </p>
-          </details>
-
-          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
-            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
-              <span>How many cubic feet are in a cubic yard?</span>
-              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
-            </summary>
-            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
-              There are exactly <strong>27 cubic feet</strong> in one cubic yard (3 ft × 3 ft × 3 ft = 27 ft³).
-            </p>
-          </details>
+          {CUBIC_FEET_FAQS.map((faq) => (
+            <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
+              <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+                <span>{faq.question}</span>
+                <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+              </summary>
+              <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">{faq.answer}</p>
+            </details>
+          ))}
         </div>
       </section>
     </article>
@@ -556,27 +505,28 @@ const schemaGraph = [
   <!-- Client-side Script -->
   <script>
     function initCuFtCalculator() {
-      let activeMode = 'box';
+      type CubicFeetMode = 'box' | 'cylinder' | 'direct';
+      let activeMode: CubicFeetMode = 'box';
 
-      const tabs = document.querySelectorAll('.cuft-tab');
+      const tabs = document.querySelectorAll<HTMLButtonElement>('.cuft-tab');
       const secBox = document.getElementById('section-box-inputs');
       const secCyl = document.getElementById('section-cyl-inputs');
       const secDirect = document.getElementById('section-direct-inputs');
 
-      const inLen = document.getElementById('cuft-in-len');
-      const unitLen = document.getElementById('cuft-unit-len');
-      const inWidth = document.getElementById('cuft-in-width');
-      const unitWidth = document.getElementById('cuft-unit-width');
-      const inDepth = document.getElementById('cuft-in-depth');
-      const unitDepth = document.getElementById('cuft-unit-depth');
+      const inLen = document.querySelector<HTMLInputElement>('#cuft-in-len');
+      const unitLen = document.querySelector<HTMLSelectElement>('#cuft-unit-len');
+      const inWidth = document.querySelector<HTMLInputElement>('#cuft-in-width');
+      const unitWidth = document.querySelector<HTMLSelectElement>('#cuft-unit-width');
+      const inDepth = document.querySelector<HTMLInputElement>('#cuft-in-depth');
+      const unitDepth = document.querySelector<HTMLSelectElement>('#cuft-unit-depth');
 
-      const inDia = document.getElementById('cuft-in-dia');
-      const unitDia = document.getElementById('cuft-unit-dia');
-      const inCylDepth = document.getElementById('cuft-in-cyl-depth');
-      const unitCylDepth = document.getElementById('cuft-unit-cyl-depth');
+      const inDia = document.querySelector<HTMLInputElement>('#cuft-in-dia');
+      const unitDia = document.querySelector<HTMLSelectElement>('#cuft-unit-dia');
+      const inCylDepth = document.querySelector<HTMLInputElement>('#cuft-in-cyl-depth');
+      const unitCylDepth = document.querySelector<HTMLSelectElement>('#cuft-unit-cyl-depth');
 
-      const inDirect = document.getElementById('cuft-in-direct');
-      const unitDirect = document.getElementById('cuft-unit-direct');
+      const inDirect = document.querySelector<HTMLInputElement>('#cuft-in-direct');
+      const unitDirect = document.querySelector<HTMLSelectElement>('#cuft-unit-direct');
 
       const resCuFt = document.getElementById('res-cuft');
       const resCuYd = document.getElementById('res-cuyd');
@@ -590,7 +540,7 @@ const schemaGraph = [
       const copyCuFtBtn = document.getElementById('btn-copy-cuft');
       const copyCuYdBtn = document.getElementById('btn-copy-cuyd');
 
-      function toFeet(val, unit) {
+      function toFeet(val: number, unit: string): number {
         if (isNaN(val) || val <= 0) return 0;
         if (unit === 'ft') return val;
         if (unit === 'in') return val / 12;
@@ -669,13 +619,14 @@ const schemaGraph = [
           tabs.forEach((t) => {
             t.classList.remove('bg-white', 'shadow-xs', 'text-primary', 'border', 'border-hairline/80');
             t.classList.add('text-ink-muted');
-            t.setAttribute('aria-selected', 'false');
+            t.setAttribute('aria-pressed', 'false');
           });
           tab.classList.add('bg-white', 'shadow-xs', 'text-primary', 'border', 'border-hairline/80');
           tab.classList.remove('text-ink-muted');
-          tab.setAttribute('aria-selected', 'true');
+          tab.setAttribute('aria-pressed', 'true');
 
-          activeMode = tab.getAttribute('data-mode') || 'box';
+          const nextMode = tab.getAttribute('data-mode');
+          activeMode = nextMode === 'cylinder' || nextMode === 'direct' ? nextMode : 'box';
           if (activeMode === 'box') {
             secBox?.classList.remove('hidden');
             secCyl?.classList.add('hidden');

@@ -1,28 +1,102 @@
 ---
-// Header.astro - Notion-inspired clean minimalist navigation (Desktop & Mobile-Optimized with Fluid Animations)
+// Header.astro - Clean, fast, minimalist navigation with Featured Tools Sub-Menu
 import { ICONS } from '../scripts/icons';
+import { LOCALE_CODES, LOCALIZED_HOMES } from '../i18n/home-locales';
+
+const pathname = Astro.url.pathname;
+const isSpanish = pathname === '/es' || pathname === '/es/' || pathname.startsWith('/es/');
+const isGerman = pathname === '/de' || pathname === '/de/' || pathname.startsWith('/de/');
+const isFrench = pathname === '/fr' || pathname === '/fr/' || pathname.startsWith('/fr/');
+const activeLocale = isSpanish ? 'es' : isGerman ? 'de' : isFrench ? 'fr' : LOCALE_CODES.find((code) => pathname === `/${code}/` || pathname.startsWith(`/${code}/`)) || 'en';
+const activeLanguageName = activeLocale === 'en' ? 'English' : LOCALIZED_HOMES[activeLocale]?.languageName || (isGerman ? 'Deutsch' : isFrench ? 'Français' : 'Español');
+const languageLinks = [
+  { code: 'en', lang: 'en', name: 'English', href: '/' },
+  ...LOCALE_CODES.map((code) => ({ code, lang: LOCALIZED_HOMES[code].lang, name: LOCALIZED_HOMES[code].languageName, href: `/${code}/` })),
+];
+
+const homeHref = isSpanish ? '/es/' : isGerman ? '/de/' : isFrench ? '/fr/' : '/';
+const hubHref = isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : isFrench ? '/fr/calculateurs' : '/calculators';
+const methodologyHref = isSpanish ? '/es/metodologia' : isGerman ? '/de/methodik' : isFrench ? '/fr/methodologie' : '/methodology';
 
 // Popular shape shortcuts for mobile menu quick access
-const POPULAR_TOOLS = [
-  { name: 'Box', href: '/box-volume-calculator', icon: ICONS.box },
-  { name: 'Cylinder', href: '/cylinder-volume-calculator', icon: ICONS.cylinder },
-  { name: 'Sphere', href: '/sphere-volume-calculator', icon: ICONS.sphere },
-  { name: 'Cone', href: '/cone-volume-calculator', icon: ICONS.cone },
-  { name: 'Tank', href: '/horizontal-tank-volume-calculator', icon: ICONS.horizontalTank },
-  { name: 'Cube', href: '/cube-volume-calculator', icon: ICONS.cube },
-];
+const POPULAR_TOOLS = isFrench
+  ? [
+      { name: 'Pavé droit', href: '/fr/calculateur-volume-pave-droit', icon: ICONS.box },
+      { name: 'Cylindre', href: '/fr/calculateur-volume-cylindre', icon: ICONS.cylinder },
+      { name: 'Sphère', href: '/fr/calculateur-volume-sphere', icon: ICONS.sphere },
+      { name: 'Cône', href: '/fr/calculateur-volume-cone', icon: ICONS.cone },
+      { name: 'Cuve', href: '/fr/calculateur-volume-cuve-horizontale', icon: ICONS.horizontalTank },
+      { name: 'Cube', href: '/fr/calculateur-volume-cube', icon: ICONS.cube },
+    ]
+  : isSpanish
+  ? [
+      { name: 'Caja', href: '/es/calculadora-volumen-prisma-rectangular', icon: ICONS.box },
+      { name: 'Cilindro', href: '/es/calculadora-volumen-cilindro', icon: ICONS.cylinder },
+      { name: 'Esfera', href: '/es/calculadora-volumen-esfera', icon: ICONS.sphere },
+      { name: 'Cono', href: '/es/calculadora-volumen-cono', icon: ICONS.cone },
+      { name: 'Tanque', href: '/es/calculadora-volumen-tanque-cilindrico-horizontal', icon: ICONS.horizontalTank },
+      { name: 'Cubo', href: '/es/calculadora-volumen-cubo', icon: ICONS.cube },
+    ]
+  : isGerman
+  ? [
+      { name: 'Quader', href: '/de/quader-volumen-rechner', icon: ICONS.box },
+      { name: 'Zylinder', href: '/de/zylinder-volumen-rechner', icon: ICONS.cylinder },
+      { name: 'Kugel', href: '/de/kugel-volumen-rechner', icon: ICONS.sphere },
+      { name: 'Kegel', href: '/de/kegel-volumen-rechner', icon: ICONS.cone },
+      { name: 'Tank', href: '/de/liegender-zylindertank-volumen-rechner', icon: ICONS.horizontalTank },
+      { name: 'Würfel', href: '/de/wuerfel-volumen-rechner', icon: ICONS.cube },
+    ]
+  : [
+      { name: 'Box', href: '/box-volume-calculator', icon: ICONS.box },
+      { name: 'Cylinder', href: '/cylinder-volume-calculator', icon: ICONS.cylinder },
+      { name: 'Sphere', href: '/sphere-volume-calculator', icon: ICONS.sphere },
+      { name: 'Cone', href: '/cone-volume-calculator', icon: ICONS.cone },
+      { name: 'Tank', href: '/horizontal-tank-volume-calculator', icon: ICONS.horizontalTank },
+      { name: 'Cube', href: '/cube-volume-calculator', icon: ICONS.cube },
+    ];
+const featuredTools = isFrench
+  ? [
+      { name: 'Volume d\'un cylindre', href: '/fr/calculateur-volume-cylindre', icon: ICONS.cylinder, note: 'V = π · r² · h' },
+      { name: 'Volume d\'un pavé droit', href: '/fr/calculateur-volume-pave-droit', icon: ICONS.box, note: 'V = L · l · h' },
+      { name: 'Volume d\'un cube', href: '/fr/calculateur-volume-cube', icon: ICONS.cube, note: 'V = a³' },
+      { name: 'Volume d\'une sphère', href: '/fr/calculateur-volume-sphere', icon: ICONS.sphere, note: 'V = ⁴⁄₃ · π · r³' },
+      { name: 'Cuve cylindrique', href: '/fr/calculateur-volume-cuve-horizontale', icon: ICONS.fuel, note: 'Jauge horizontale' },
+    ]
+  : isSpanish
+  ? [
+      { name: 'Volumen de cilindro', href: '/es/calculadora-volumen-cilindro', icon: ICONS.cylinder, note: 'V = π · r² · h' },
+      { name: 'Volumen de prisma / caja', href: '/es/calculadora-volumen-prisma-rectangular', icon: ICONS.box, note: 'V = l · w · h' },
+      { name: 'Volumen de cubo', href: '/es/calculadora-volumen-cubo', icon: ICONS.cube, note: 'V = a³' },
+      { name: 'Volumen de esfera', href: '/es/calculadora-volumen-esfera', icon: ICONS.sphere, note: 'V = ⁴⁄₃ · π · r³' },
+      { name: 'Tanque horizontal', href: '/es/calculadora-volumen-tanque-cilindrico-horizontal', icon: ICONS.fuel, note: 'Aforo por varilla' },
+    ]
+  : isGerman
+  ? [
+      { name: 'Zylinder Volumen', href: '/de/zylinder-volumen-rechner', icon: ICONS.cylinder, note: 'V = π · r² · h' },
+      { name: 'Quader Volumen', href: '/de/quader-volumen-rechner', icon: ICONS.box, note: 'V = l · b · h' },
+      { name: 'Würfel Volumen', href: '/de/wuerfel-volumen-rechner', icon: ICONS.cube, note: 'V = a³' },
+      { name: 'Kugel Volumen', href: '/de/kugel-volumen-rechner', icon: ICONS.sphere, note: 'V = ⁴⁄₃ · π · r³' },
+      { name: 'Liegender Tank', href: '/de/liegender-zylindertank-volumen-rechner', icon: ICONS.fuel, note: 'Peilstab Füllstand' },
+    ]
+  : [
+      { name: 'Cylinder Volume', href: '/cylinder-volume-calculator', icon: ICONS.cylinder, note: 'V = π · r² · h' },
+      { name: 'Pool Volume Calculator', href: '/pool-volume-calculator', icon: ICONS.pool, note: 'Gallons & water capacity' },
+      { name: 'Cubic Volume', href: '/cubic-feet-calculator', icon: ICONS.cube, note: 'Cu ft & cubic yards' },
+      { name: 'Sphere Formula', href: '/sphere-volume-calculator', icon: ICONS.sphere, note: 'V = (4/3) · π · r³' },
+      { name: 'Pyramid Volume Formula', href: '/square-pyramid-volume-calculator', icon: ICONS.cone, note: 'V = (1/3) · a² · h' },
+    ];
 ---
 
 <header class="sticky top-0 z-40 w-full border-b border-hairline bg-surface/95 backdrop-blur-md transition-colors">
   <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
     <!-- Brand Logo -->
     <a
-      href="/"
+      href={homeHref}
       class="flex items-center gap-2 sm:gap-2.5 group min-w-0 shrink"
       aria-label="The Volume Calculator Homepage"
     >
-      <!-- 3D Cube Icon (Black in Light Mode, White in Dark Mode - Enlarged) -->
-      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white dark:bg-[#1e1e1e] border border-hairline shadow-xs flex items-center justify-center p-1 transition-all group-hover:scale-105 shrink-0">
+      <!-- 3D Cube Icon (Black in Light Mode, White in Dark Mode) -->
+      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white dark:bg-[#1e1e1e] border border-hairline shadow-xs flex items-center justify-center p-1 transition-transform group-hover:scale-105 shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-black dark:text-white" viewBox="0 0 64 64" fill="none">
           <polygon points="32,6 56,19 32,32 8,19" fill="currentColor" />
           <polygon points="8,23 30.5,35 30.5,57 8,45" fill="currentColor" opacity="0.38" />
@@ -30,7 +104,7 @@ const POPULAR_TOOLS = [
         </svg>
       </div>
 
-      <!-- Brand Name (Responsive: Omits 'The ' and '.com' on narrow screens to prevent crowding) -->
+      <!-- Brand Name -->
       <div class="flex items-center gap-1.5 min-w-0">
         <span class="font-bold text-sm sm:text-base md:text-lg tracking-tight text-ink truncate">
           <span class="hidden sm:inline">The </span>Volume Calculator
@@ -42,40 +116,117 @@ const POPULAR_TOOLS = [
     </a>
 
     <!-- Desktop Nav Links (Hidden on Mobile) -->
-    <nav class="hidden md:flex items-center gap-5 lg:gap-6 text-sm text-ink-secondary">
-      <a href="/" class="hover:text-primary transition-colors font-medium">Quick Calculator</a>
-      <a href="/calculators" class="hover:text-primary transition-colors font-medium flex items-center gap-1.5" aria-label="All 16 Volume Calculators Directory">
-        <span>All Calculators</span>
-        <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-primary/10 text-primary font-bold">16 Tools</span>
+    <nav class="hidden md:flex items-center gap-5 lg:gap-6 text-sm text-ink-secondary font-medium">
+      <a href={homeHref} class="hover:text-primary transition-colors whitespace-nowrap">{isFrench ? 'Calcul rapide' : isSpanish ? 'Calculadora rápida' : isGerman ? 'Schnellrechner' : 'Quick Calculator'}</a>
+
+      <!-- Featured Calculators Sub-Menu Dropdown -->
+      <div class="relative group" id="featured-dropdown-container">
+        <button
+          type="button"
+          id="featured-dropdown-btn"
+          class="hover:text-primary transition-colors flex items-center gap-1.5 font-medium py-1.5 text-ink-secondary hover:text-ink cursor-pointer"
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          <span>{isFrench ? 'Calculateurs populaires' : isSpanish ? 'Calculadoras destacadas' : isGerman ? 'Beliebte Rechner' : 'Featured Calculators'}</span>
+          <svg class="w-3.5 h-3.5 text-ink-muted group-hover:text-primary transition-transform group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <!-- Sub-Menu Floating Panel -->
+        <div
+          id="featured-dropdown-menu"
+          class="hidden group-hover:block md:group-focus-within:block absolute left-0 top-full pt-2 z-50 w-72"
+        >
+          <div class="p-2 rounded-2xl bg-surface dark:bg-[#1c1c1e] border border-hairline shadow-xl space-y-1">
+            <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-ink-muted">
+              {isFrench ? 'Outils et formules populaires' : isSpanish ? 'Herramientas y fórmulas destacadas' : isGerman ? 'Beliebte Rechner und Formeln' : 'Featured Tools & Formulas'}
+            </div>
+
+            {featuredTools.map((tool) => (
+              <a
+                href={tool.href}
+                class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-canvas-soft transition-colors group/item"
+              >
+                <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <Fragment set:html={tool.icon} />
+                </span>
+                <div class="min-w-0">
+                  <div class="font-semibold text-xs text-ink group-hover/item:text-primary transition-colors">
+                    {tool.name}
+                  </div>
+                  <div class="text-[11px] text-ink-muted font-mono">{tool.note}</div>
+                </div>
+              </a>
+            ))}
+
+            <div class="pt-1.5 mt-1 border-t border-hairline">
+              <a
+                href={hubHref}
+                class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold text-primary hover:bg-primary/10 transition-colors"
+              >
+                <span>{isFrench ? 'Voir les 16 calculateurs' : isSpanish ? 'Ver las 16 calculadoras' : isGerman ? 'Alle 16 Rechner ansehen' : 'Browse All 16 Calculators'}</span>
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href={hubHref} class="hover:text-primary transition-colors flex items-center gap-1.5 whitespace-nowrap" aria-label={isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'All 16 Volume Calculators Directory'}>
+        <span>{isFrench ? 'Calculateurs' : isSpanish ? 'Calculadoras' : isGerman ? 'Rechner' : 'All Calculators'}</span>
+        <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-primary/10 text-primary font-bold">{isFrench ? '16 formes' : isSpanish ? '16 figuras' : isGerman ? '16 Körper' : '16 Tools'}</span>
       </a>
-      <a href="/calculators#hub-grid" class="hover:text-primary transition-colors font-medium" aria-label="3D Volume formulas and reference table">Formulas</a>
-      <a href="/#faq" class="hover:text-primary transition-colors font-medium" aria-label="Frequently Asked Questions">FAQ</a>
+
+      <!-- Desktop Language Selector -->
+      <div class="relative group" id="language-dropdown-container">
+        <button
+          type="button"
+          id="language-dropdown-btn"
+          class="min-h-11 hover:text-primary transition-colors flex items-center gap-1.5 font-medium text-ink-secondary cursor-pointer"
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-controls="language-dropdown-menu"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+          <span>{activeLanguageName}</span>
+          <svg class="w-3.5 h-3.5 text-ink-muted transition-transform group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div id="language-dropdown-menu" class="hidden group-hover:block md:group-focus-within:block absolute right-0 top-full pt-2 z-50 w-64">
+          <div class="p-2 rounded-2xl bg-surface dark:bg-[#1c1c1e] border border-hairline shadow-xl">
+            <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-ink-muted">Choose language</div>
+            <div class="grid grid-cols-2 gap-1 mt-1">
+              {languageLinks.map((language) => (
+                <a
+                  href={language.href}
+                  lang={language.lang}
+                  hreflang={language.lang}
+                  aria-current={language.code === activeLocale ? 'page' : undefined}
+                  class={`min-h-11 px-3 rounded-lg flex items-center text-xs font-semibold transition-colors ${language.code === activeLocale ? 'bg-primary/10 text-primary border border-primary/20' : 'text-ink hover:bg-canvas-soft'}`}
+                >
+                  {language.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
 
-    <!-- Right Controls (Desktop & Mobile) -->
+    <!-- Right Controls -->
     <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-      <!-- Mobile-only compact 16 Tools Chip (shown on screens >= 400px, hidden on narrowest 320px screens) -->
-      <a
-        href="/calculators"
-        class="hidden xs:inline-flex sm:hidden items-center gap-1 px-2.5 py-1 text-xs font-bold rounded-full bg-primary text-white hover:bg-primary-active active:scale-95 transition-all shadow-2xs whitespace-nowrap"
-        aria-label="View all 16 volume calculators"
-        title="View all 16 calculators"
-      >
-        <span>16 Tools</span>
-        <span class="text-[10px]">→</span>
-      </a>
-
       <!-- Desktop Hub CTA Button -->
       <a
-        href="/calculators"
-        aria-label="Directory of all 16 volume calculators"
+        href={hubHref}
+        aria-label={isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'Directory of all 16 volume calculators'}
         class="hidden sm:inline-flex items-center justify-center px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold rounded-full bg-primary text-white hover:bg-primary-active active:scale-95 transition-all shadow-xs whitespace-nowrap"
       >
-        <span>All 16 Calculators Hub</span>
+        <span>{isSpanish ? 'Las 16 figuras' : isGerman ? 'Alle 16 Körper' : 'All 16 Tools'}</span>
         <span class="ml-1">→</span>
       </a>
 
-      <!-- Theme Toggle Button (Desktop & Mobile Top Bar) -->
+      <!-- Theme Toggle Button -->
       <button
         type="button"
         id="theme-toggle-btn"
@@ -101,66 +252,93 @@ const POPULAR_TOOLS = [
         </svg>
       </button>
 
-      <!-- Mobile Menu Toggle Button (Smooth Morphing Animated Hamburger) -->
+      <!-- Mobile Menu Toggle Button (Clean Two-State SVG with Zero Lag) -->
       <button
         type="button"
         id="mobile-menu-toggle"
-        class="md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-lg text-ink-secondary hover:text-ink hover:bg-canvas-soft border border-hairline transition-colors cursor-pointer flex items-center justify-center shrink-0 relative"
+        class="md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-lg text-ink-secondary hover:text-ink hover:bg-canvas-soft border border-hairline transition-colors cursor-pointer flex items-center justify-center shrink-0"
         aria-label="Toggle Navigation Menu"
         aria-expanded="false"
       >
-        <svg class="w-4 h-4 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="6" x2="21" y2="6" id="nav-line-top"></line>
-          <line x1="3" y1="12" x2="21" y2="12" id="nav-line-mid"></line>
-          <line x1="3" y1="18" x2="21" y2="18" id="nav-line-bot"></line>
+        <!-- Hamburger Icon (Default) -->
+        <svg id="hamburger-icon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <!-- Close Icon (Shown when open) -->
+        <svg id="close-icon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
     </div>
   </div>
 
-  <!-- Mobile Collapsible Menu Drawer (Elevated Notion Card Layout with Fluid Animation) -->
+  <!-- Mobile Collapsible Menu (Simple, Snappy, Zero-Lag Dropdown) -->
   <div
     id="mobile-nav-menu"
-    class="md:hidden border-b border-hairline bg-surface/98 backdrop-blur-xl shadow-xl overflow-hidden menu-closed"
+    class="hidden md:hidden border-b border-hairline bg-surface shadow-lg overflow-hidden"
   >
     <div class="px-4 py-4 space-y-4 max-h-[calc(100vh-3.5rem)] overflow-y-auto">
-      <!-- 1. Featured Hub Card (Large 1-Tap Access) -->
-      <div class="nav-anim-item">
+      <!-- 1. Featured Hub Card -->
+      <div>
         <a
-          href="/calculators"
-          aria-label="Browse all 16 volume calculators directory"
-          class="mobile-nav-link p-3.5 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-between group active:scale-[0.99] transition-all"
+          href={hubHref}
+          aria-label={isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'Browse all 16 volume calculators directory'}
+          class="mobile-nav-link p-3 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-between group active:scale-[0.99] transition-all"
         >
           <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-sm shadow-xs shrink-0">
+            <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs shadow-xs shrink-0">
               16
             </div>
             <div>
               <div class="font-bold text-sm text-ink group-hover:text-primary transition-colors leading-tight">
-                All 16 Volume Calculators Hub
+                {isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'All 16 Volume Calculators Hub'}
               </div>
               <div class="text-[11px] text-ink-muted mt-0.5">
-                Cubes, tanks, cylinders, cones, pipes & more
+                {isFrench ? 'Cubes, cuves, cylindres, cônes, tubes et plus' : isSpanish ? 'Cubos, tanques, cilindros, conos, tubos y más' : isGerman ? 'Würfel, Tanks, Zylinder, Kegel, Rohre und mehr' : 'Cubes, tanks, cylinders, cones, pipes & more'}
               </div>
             </div>
           </div>
           <span class="text-xs font-bold text-primary group-hover:translate-x-0.5 transition-transform ml-2 shrink-0">
-            Browse →
+            {isFrench ? 'Explorer →' : isSpanish ? 'Explorar →' : isGerman ? 'Öffnen →' : 'Browse →'}
           </span>
         </a>
       </div>
 
-      <!-- 2. Popular Shape Fast Jump Micro-Grid -->
-      <div class="nav-anim-item">
+      <!-- 2. Featured Calculators Sub-Menu Section (Mobile) -->
+      <div>
         <span class="text-[11px] font-bold uppercase tracking-wider text-ink-muted px-1 block mb-2">
-          Popular Calculators
+          {isFrench ? 'Calculateurs populaires' : isSpanish ? 'Calculadoras destacadas' : isGerman ? 'Beliebte Rechner' : 'Featured Calculators & Formulas'}
+        </span>
+        <div class="space-y-1">
+          {featuredTools.map((tool) => (
+            <a
+              href={tool.href}
+              class="mobile-nav-link p-2.5 rounded-xl bg-canvas-soft/80 border border-hairline hover:border-primary/50 hover:bg-surface flex items-center justify-between text-xs font-semibold text-ink active:scale-98 transition-all"
+            >
+              <span class="flex items-center gap-2.5">
+                <span class="w-5 h-5 text-primary flex items-center justify-center shrink-0"><Fragment set:html={tool.icon} /></span>
+                <span>{tool.name}</span>
+              </span>
+              <span class="text-[11px] font-mono text-ink-muted">{tool.note}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- 3. Popular Shape Fast Jump Grid -->
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-wider text-ink-muted px-1 block mb-2">
+          {isFrench ? 'Autres formes' : isSpanish ? 'Otras figuras' : isGerman ? 'Weitere Körper' : 'Other Shapes'}
         </span>
         <div class="grid grid-cols-3 gap-2">
           {POPULAR_TOOLS.map((tool) => (
             <a
               href={tool.href}
               aria-label={`${tool.name} Volume Calculator`}
-              class="mobile-nav-link p-2.5 rounded-xl bg-canvas-soft/70 border border-hairline hover:border-primary/50 hover:bg-surface flex flex-col items-center justify-center gap-1.5 text-center active:scale-95 transition-all"
+              class="mobile-nav-link p-2.5 rounded-xl bg-canvas-soft/80 border border-hairline hover:border-primary/50 hover:bg-surface flex flex-col items-center justify-center gap-1.5 text-center active:scale-95 transition-all"
             >
               <span class="w-5 h-5 text-primary flex items-center justify-center shrink-0">
                 <Fragment set:html={tool.icon} />
@@ -173,44 +351,63 @@ const POPULAR_TOOLS = [
         </div>
       </div>
 
-      <!-- 3. Primary Site Links -->
-      <nav class="nav-anim-item flex flex-col space-y-1 pt-2 border-t border-hairline">
+      <!-- 4. Primary Site Links -->
+      <nav class="flex flex-col space-y-1 pt-2 border-t border-hairline">
         <a
-          href="/"
-          class="mobile-nav-link min-h-[44px] px-3 rounded-lg hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between text-sm font-medium text-ink-secondary"
+          href={homeHref}
+          class="mobile-nav-link min-h-[42px] px-3 rounded-lg hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between text-sm font-medium text-ink-secondary"
         >
           <span class="flex items-center gap-2.5">
             <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-            <span>Quick Everyday Calculator</span>
+            <span>{isFrench ? 'Calcul rapide d\'accueil' : isSpanish ? 'Calculadora rápida de inicio' : isGerman ? 'Schnellrechner auf Startseite' : 'Quick Everyday Calculator'}</span>
           </span>
-          <span class="text-xs text-ink-faint">Home →</span>
+          <span class="text-xs text-ink-faint">{isFrench ? 'Accueil →' : isSpanish ? 'Inicio →' : isGerman ? 'Start →' : 'Home →'}</span>
         </a>
 
         <a
-          href="/calculators#hub-grid"
-          class="mobile-nav-link min-h-[44px] px-3 rounded-lg hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between text-sm font-medium text-ink-secondary"
+          href={hubHref}
+          class="mobile-nav-link min-h-[42px] px-3 rounded-lg hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between text-sm font-medium text-ink-secondary"
         >
           <span class="flex items-center gap-2.5">
-            <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-            <span>Formulas & Reference Table</span>
+            <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            <span>{isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Rechner' : 'All 16 Calculators Directory'}</span>
           </span>
-          <span class="text-xs text-ink-faint">Guide →</span>
+          <span class="text-xs text-primary font-bold">{isFrench ? '16 formes →' : isSpanish ? '16 figuras →' : isGerman ? '16 Körper →' : '16 Tools →'}</span>
         </a>
 
         <a
-          href="/#faq"
-          class="mobile-nav-link min-h-[44px] px-3 rounded-lg hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between text-sm font-medium text-ink-secondary"
+          href={methodologyHref}
+          class="mobile-nav-link min-h-[42px] px-3 rounded-lg hover:bg-canvas-soft hover:text-primary transition-colors flex items-center justify-between text-sm font-medium text-ink-secondary"
         >
           <span class="flex items-center gap-2.5">
-            <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-            <span>Frequently Asked Questions</span>
+            <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span>{isFrench ? 'Méthodologie et normes' : isSpanish ? 'Metodología y estándares' : isGerman ? 'Methodik und Standards' : 'Methodology & Standards'}</span>
           </span>
-          <span class="text-xs text-ink-faint">FAQ →</span>
+          <span class="text-xs text-ink-faint">{isFrench ? 'Normes →' : isSpanish ? 'Estándares →' : isGerman ? 'Standards →' : 'Standards →'}</span>
         </a>
       </nav>
 
-      <!-- 4. Mobile Theme Switcher Bar -->
-      <div class="nav-anim-item pt-3 border-t border-hairline">
+      <!-- 5. Language Selector (Mobile) -->
+      <div class="pt-3 border-t border-hairline">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-ink-muted px-1 block mb-2">Language / Idioma</span>
+        <div class="grid grid-cols-2 gap-2">
+          {languageLinks.map((language) => (
+            <a
+              href={language.href}
+              lang={language.lang}
+              hreflang={language.lang}
+              aria-current={language.code === activeLocale ? 'page' : undefined}
+              class={`mobile-nav-link min-h-11 px-3 rounded-xl border flex items-center justify-between text-xs font-semibold transition-colors ${language.code === activeLocale ? 'border-primary bg-primary/10 text-primary' : 'border-hairline bg-canvas-soft/70 text-ink hover:border-primary'}`}
+            >
+              <span>{language.name}</span>
+              {language.code === activeLocale && <span aria-hidden="true">✓</span>}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- 6. Mobile Theme Switcher Bar -->
+      <div class="pt-3 border-t border-hairline">
         <button
           type="button"
           id="mobile-theme-toggle-btn"
@@ -245,66 +442,15 @@ const POPULAR_TOOLS = [
 </header>
 
 <style>
-  /* Fluid Slide & Fade Drawer Animation */
-  #mobile-nav-menu {
-    transition: max-height 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.24s ease,
-                transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-                visibility 0.32s;
-    will-change: max-height, opacity, transform;
+  /* Lightweight, hardware-accelerated drawer transition */
+  #mobile-nav-menu:not(.hidden) {
+    animation: menuFadeIn 0.16s ease-out forwards;
   }
 
-  #mobile-nav-menu.menu-closed {
-    max-height: 0 !important;
-    opacity: 0 !important;
-    transform: translateY(-8px);
-    pointer-events: none;
-    visibility: hidden;
-  }
-
-  #mobile-nav-menu.menu-open {
-    max-height: 85vh !important;
-    opacity: 1 !important;
-    transform: translateY(0);
-    pointer-events: auto;
-    visibility: visible;
-  }
-
-  /* Morphing Hamburger SVG Lines */
-  #nav-line-top,
-  #nav-line-mid,
-  #nav-line-bot {
-    transform-box: fill-box;
-    transform-origin: center;
-    transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
-  }
-
-  #mobile-menu-toggle.is-active #nav-line-top {
-    transform: translateY(6px) rotate(45deg);
-  }
-
-  #mobile-menu-toggle.is-active #nav-line-mid {
-    opacity: 0;
-    transform: scaleX(0);
-  }
-
-  #mobile-menu-toggle.is-active #nav-line-bot {
-    transform: translateY(-6px) rotate(-45deg);
-  }
-
-  /* Micro-stagger for drawer contents when opened */
-  #mobile-nav-menu.menu-open .nav-anim-item {
-    animation: navFadeSlideIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-  }
-  #mobile-nav-menu.menu-open .nav-anim-item:nth-child(1) { animation-delay: 0.04s; }
-  #mobile-nav-menu.menu-open .nav-anim-item:nth-child(2) { animation-delay: 0.08s; }
-  #mobile-nav-menu.menu-open .nav-anim-item:nth-child(3) { animation-delay: 0.12s; }
-  #mobile-nav-menu.menu-open .nav-anim-item:nth-child(4) { animation-delay: 0.16s; }
-
-  @keyframes navFadeSlideIn {
+  @keyframes menuFadeIn {
     from {
       opacity: 0;
-      transform: translateY(-6px);
+      transform: translateY(-4px);
     }
     to {
       opacity: 1;
@@ -314,68 +460,108 @@ const POPULAR_TOOLS = [
 </style>
 
 <script>
-  // Mobile navigation drawer toggle & keyboard/click-outside dismissal
+  // Mobile navigation drawer toggle & dismissals
   const menuToggle = document.getElementById('mobile-menu-toggle');
   const mobileNav = document.getElementById('mobile-nav-menu');
-  const navLinks = document.querySelectorAll('.mobile-nav-link');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
 
-  const closeMobileMenu = () => {
-    if (mobileNav && mobileNav.classList.contains('menu-open')) {
-      mobileNav.classList.remove('menu-open');
-      mobileNav.classList.add('menu-closed');
-      if (menuToggle) {
-        menuToggle.classList.remove('is-active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      }
-    }
-  };
-
-  const openMobileMenu = () => {
-    if (mobileNav) {
-      mobileNav.classList.remove('menu-closed');
-      mobileNav.classList.add('menu-open');
-      if (menuToggle) {
-        menuToggle.classList.add('is-active');
-        menuToggle.setAttribute('aria-expanded', 'true');
-      }
+  const setMenuState = (isOpen: boolean) => {
+    if (!mobileNav || !menuToggle) return;
+    if (isOpen) {
+      mobileNav.classList.remove('hidden');
+      hamburgerIcon?.classList.add('hidden');
+      closeIcon?.classList.remove('hidden');
+      menuToggle.setAttribute('aria-expanded', 'true');
+    } else {
+      mobileNav.classList.add('hidden');
+      hamburgerIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      menuToggle.setAttribute('aria-expanded', 'false');
     }
   };
 
   if (menuToggle && mobileNav) {
     menuToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      const isOpen = mobileNav.classList.contains('menu-open');
-      if (isOpen) {
-        closeMobileMenu();
-      } else {
-        openMobileMenu();
-      }
+      const isCurrentlyOpen = !mobileNav.classList.contains('hidden');
+      setMenuState(!isCurrentlyOpen);
     });
 
-    // Close when clicking any link inside the drawer
-    navLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        closeMobileMenu();
-      });
-    });
-
-    // Close on click outside
+    // Close when clicking outside the menu
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
-      if (mobileNav && !mobileNav.contains(target) && menuToggle && !menuToggle.contains(target)) {
-        closeMobileMenu();
+      if (!mobileNav.contains(target) && !menuToggle.contains(target)) {
+        setMenuState(false);
       }
     });
 
     // Close on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        closeMobileMenu();
+        setMenuState(false);
       }
     });
   }
 
-  // Dark / Light Theme Toggle Handler (Desktop & Mobile buttons synchronized)
+  // Desktop Featured Calculators Sub-Menu Dropdown Toggle & Dismissals
+  const dropdownBtn = document.getElementById('featured-dropdown-btn');
+  const dropdownMenu = document.getElementById('featured-dropdown-menu');
+
+  if (dropdownBtn && dropdownMenu) {
+    dropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isExpanded = dropdownBtn.getAttribute('aria-expanded') === 'true';
+      dropdownBtn.setAttribute('aria-expanded', String(!isExpanded));
+      dropdownMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (!dropdownMenu.contains(target) && !dropdownBtn.contains(target)) {
+        dropdownMenu.classList.add('hidden');
+        dropdownBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdownMenu.classList.add('hidden');
+        dropdownBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // Desktop language dropdown toggle and dismissal
+  const languageDropdownBtn = document.getElementById('language-dropdown-btn');
+  const languageDropdownMenu = document.getElementById('language-dropdown-menu');
+
+  if (languageDropdownBtn && languageDropdownMenu) {
+    languageDropdownBtn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const isExpanded = languageDropdownBtn.getAttribute('aria-expanded') === 'true';
+      languageDropdownBtn.setAttribute('aria-expanded', String(!isExpanded));
+      languageDropdownMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (event) => {
+      const target = event.target as Node;
+      if (!languageDropdownMenu.contains(target) && !languageDropdownBtn.contains(target)) {
+        languageDropdownMenu.classList.add('hidden');
+        languageDropdownBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        languageDropdownMenu.classList.add('hidden');
+        languageDropdownBtn.setAttribute('aria-expanded', 'false');
+        languageDropdownBtn.focus();
+      }
+    });
+  }
+
+  // Dark / Light Theme Toggle Handler (Desktop & Mobile synchronized)
   const toggleTheme = () => {
     const isDark = document.documentElement.classList.toggle('dark');
     try {

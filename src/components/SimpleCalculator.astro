@@ -41,6 +41,10 @@ const shapes = Object.values(SIMPLE_SHAPES);
       </p>
     </div>
     <div class="flex items-center gap-2 self-start sm:self-auto">
+      <div class="inline-flex p-1 rounded-lg bg-canvas-soft border border-hairline" aria-label="Unit system">
+        <button type="button" class="simple-system-btn min-h-11 px-3 py-2 rounded-md text-xs font-bold text-ink-muted" data-system="metric" aria-pressed="false">Metric</button>
+        <button type="button" class="simple-system-btn min-h-11 px-3 py-2 rounded-md text-xs font-bold bg-primary text-white" data-system="imperial" aria-pressed="true">Imperial</button>
+      </div>
       <a
         id="simple-dedicated-link"
         href="/box-volume-calculator"
@@ -85,7 +89,7 @@ const shapes = Object.values(SIMPLE_SHAPES);
         </div>
 
         <!-- Big Volume Display -->
-        <div class="my-2">
+        <div class="my-2" role="status" aria-live="polite" aria-atomic="true">
           <span id="simple-volume-value" class="text-4xl sm:text-5xl font-extrabold text-ink tracking-tight font-mono block leading-none">
             0.00
           </span>

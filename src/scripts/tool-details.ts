@@ -56,7 +56,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Multiply the three dimensions together: Volume = Length × Width × Height.',
       'Select your preferred output unit (gallons, liters, cubic feet, or cubic meters) to see the capacity.',
     ],
-    formulaHtml: 'V = l \\times w \\times h',
+    formulaHtml: 'V = l × w × h',
     formulaNote: 'Where l = length, w = width, and h = height. Total Surface Area is A = 2(lw + lh + wh).',
     practicalExamples: [
       { title: 'Parcel Shipping & Cargo Freight', desc: 'Calculate dimensional weight for shipping boxes, or use our dedicated <a href="/cubic-feet-calculator" class="text-primary hover:underline font-medium">Cubic Feet Calculator</a> to estimate total freight container space.' },
@@ -84,7 +84,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Square the radius (r × r) and multiply by Pi (π ≈ 3.14159265). This gives the circular base area.',
       'Multiply the base area by the cylinder height (h): Volume = π × r² × h.',
     ],
-    formulaHtml: 'V = \\pi r^2 h',
+    formulaHtml: 'V = πr²h',
     formulaNote: 'Where r = radius of the circular base, h = height. If you know diameter d, r = d/2.',
     practicalExamples: [
       { title: '55-Gallon Steel Drums', desc: 'Industrial chemical and oil drums with 11.25 in radius and 33.5 in height hold ~55 US gallons.' },
@@ -112,7 +112,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Cube the radius (r × r × r).',
       'Multiply by 4/3 and by Pi (π): Volume = (4/3) × π × r³.',
     ],
-    formulaHtml: 'V = \\frac{4}{3} \\pi r^3',
+    formulaHtml: 'V = ⁴⁄₃πr³',
     formulaNote: 'Where r is radius. Total surface area is A = 4πr².',
     practicalExamples: [
       { title: 'Sports Balls', desc: 'Calculate the air volume inside regulation basketballs (r ≈ 12.1 cm), soccer balls, and tennis balls.' },
@@ -139,7 +139,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Calculate the base area: A = π × r².',
       'Multiply by height and divide by 3: Volume = (1/3) × π × r² × h (exactly 1/3 the volume of a cylinder with identical base and height).',
     ],
-    formulaHtml: 'V = \\frac{1}{3} \\pi r^2 h',
+    formulaHtml: 'V = ⅓πr²h',
     formulaNote: 'Where r = base radius, h = vertical height, and slant height s = √(r² + h²).',
     practicalExamples: [
       { title: 'Stockpile Gravel & Mulch Cones', desc: 'Quarry managers calculate tons of sand or soil piled in natural conical mounds.' },
@@ -167,7 +167,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Calculate the central cylinder volume: V_cylinder = π × r² × a.',
       'Add both volumes together: Total Volume = π × r² × ((4/3)r + a).',
     ],
-    formulaHtml: 'V = \\pi r^2 (\\frac{4}{3}r + a)',
+    formulaHtml: 'V = πr²(⁴⁄₃r + a)',
     formulaNote: 'Where r = end cap radius, a = cylindrical body length. Total length = a + 2r.',
     practicalExamples: [
       { title: 'Propane & LPG Bullet Tanks', desc: 'Rounded hemispherical ends resist internal pressure evenly without corner stress.' },
@@ -191,7 +191,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Measure base radius (r) of the circular cutoff flat base and height (h) of the cap.',
       'Substitute into the spherical cap equation: V = (π × h / 6) × (3r² + h²).',
     ],
-    formulaHtml: 'V = \\frac{\\pi h}{6}(3r^2 + h^2)',
+    formulaHtml: 'V = (πh⁄6)(3r² + h²)',
     formulaNote: 'Where r = base radius, h = cap height. Alternatively, with sphere radius R: V = (πh²/3)(3R - h).',
     practicalExamples: [
       { title: 'Observatory & Stadium Domes', desc: 'Calculate indoor air capacity and HVAC requirements for domed structures.' },
@@ -216,7 +216,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Compute (r₁² + r₁ × r₂ + r₂²).',
       'Multiply by (π × h / 3): Volume = (π × h / 3) × (r₁² + r₁r₂ + r₂²).',
     ],
-    formulaHtml: 'V = \\frac{\\pi h}{3}(r_1^2 + r_1 r_2 + r_2^2)',
+    formulaHtml: 'V = (πh⁄3)(r₁² + r₁r₂ + r₂²)',
     formulaNote: 'Where r₁ = top radius, r₂ = bottom radius, and h = vertical height between bases.',
     practicalExamples: [
       { title: '5-Gallon Utility Buckets', desc: 'Standard hardware store buckets have tapered sides for easy nesting when stacked.' },
@@ -242,7 +242,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Multiply all three semi-axes: (a × b × c).',
       'Multiply by (4/3) × π: Volume = (4/3) × π × a × b × c.',
     ],
-    formulaHtml: 'V = \\frac{4}{3} \\pi a b c',
+    formulaHtml: 'V = ⁴⁄₃πabc',
     formulaNote: 'Where a, b, and c are the semi-principal axes (half of each total dimension).',
     practicalExamples: [
       { title: 'American Footballs & Rugby Balls', desc: 'Prolate spheroids with two equal equatorial axes and one longer longitudinal axis.' },
@@ -267,7 +267,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Measure vertical height (h) perpendicular from base center to the apex.',
       'Calculate base area (a²) and multiply by height divided by 3: Volume = (1/3) × a² × h.',
     ],
-    formulaHtml: 'V = \\frac{1}{3} a^2 h',
+    formulaHtml: 'V = ⅓a²h',
     formulaNote: 'Where a = base side length, h = vertical height. Slant height s = √((a/2)² + h²).',
     practicalExamples: [
       { title: 'Great Pyramid of Giza', desc: 'Original base of 230.3 m and height of 146.6 m yields approx. 2.58 million m³ of stone.' },
@@ -292,7 +292,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Compute base area: A = l × w.',
       'Multiply base area by height and divide by 3: Volume = (1/3) × l × w × h.',
     ],
-    formulaHtml: 'V = \\frac{1}{3} l w h',
+    formulaHtml: 'V = ⅓lwh',
     formulaNote: 'Where l = base length, w = base width, and h = vertical height to apex.',
     practicalExamples: [
       { title: 'Building Roof Caps', desc: 'Calculating attic volume for rectangular pyramid roofs.' },
@@ -316,7 +316,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Calculate the triangular end area: A_tri = (1/2) × b × h.',
       'Multiply by the length of the prism (l): Volume = (1/2) × b × h × l.',
     ],
-    formulaHtml: 'V = \\frac{1}{2} b h l',
+    formulaHtml: 'V = ½bhl',
     formulaNote: 'Where b = triangle base, h = triangle height, and l = prism length.',
     practicalExamples: [
       { title: 'Camping A-Frame Tents', desc: 'Determine interior air volume and sleeping space inside triangular ridge tents.' },
@@ -341,7 +341,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'To find pipe wall material: V_wall = π × (R² - r²) × h.',
       'To find fluid capacity inside the pipe: V_fluid = π × r² × h.',
     ],
-    formulaHtml: 'V_{wall} = \\pi (R^2 - r^2) h',
+    formulaHtml: 'Vwall = π(R² - r²)h',
     formulaNote: 'Where R = outer radius, r = inner radius, and h = pipe length. Internal fluid capacity is V_fluid = πr²h.',
     practicalExamples: [
       { title: 'Plumbing & Drainage Pipes', desc: 'Calculate gallons of water contained inside long underground sewer and supply mains.' },
@@ -368,7 +368,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Measure minor radius (r), which is the radius of the circular tube itself.',
       'Apply the Pappus centroid theorem: Volume = 2 × π² × R × r².',
     ],
-    formulaHtml: 'V = 2 \\pi^2 R r^2',
+    formulaHtml: 'V = 2π²Rr²',
     formulaNote: 'Where R = center-to-tube radius, r = circular cross-section tube radius (r must be ≤ R).',
     practicalExamples: [
       { title: 'Rubber O-Rings & Gaskets', desc: 'Calculate rubber material volume required for automotive and aerospace seal manufacturing.' },
@@ -393,7 +393,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Calculate trapezoidal cross-section area: A_cross = (a + b) / 2 × h.',
       'Multiply by length: Volume = A_cross × l.',
     ],
-    formulaHtml: 'V = \\frac{a + b}{2} \\times h \\times l',
+    formulaHtml: 'V = ((a + b)⁄2) × h × l',
     formulaNote: 'Where a = top width, b = bottom width, h = depth, and l = length.',
     practicalExamples: [
       { title: 'Excavation & Drainage Trenches', desc: 'Calculate cubic yards of dirt removed during ditch digging or gravel backfill required.' },
@@ -418,7 +418,7 @@ export const TOOL_DETAILS: Record<string, ToolDetail> = {
       'Our engine integrates the circular segment area: A_seg = r² arccos((r-d)/r) - (r-d)√(2rd - d²).',
       'Multiplies by tank length L to give exact fluid volume in gallons, liters, and fill percentage.',
     ],
-    formulaHtml: 'V_{fill} = [r^2 \\arccos(\\frac{r-d}{r}) - (r-d)\\sqrt{2rd - d^2}] \\times L',
+    formulaHtml: 'Vfill = [r² arccos((r-d)⁄r) - (r-d)√(2rd-d²)] × L',
     formulaNote: 'Where r = tank radius, L = length, d = liquid depth (d ≤ 2r). Total tank capacity is V_total = πr²L.',
     practicalExamples: [
       { title: 'Above-Ground Fuel & Diesel Tanks', desc: 'Use a wooden dipstick to measure liquid inches and convert directly to remaining gallons.' },

@@ -1,0 +1,14 @@
+---
+import LocalizedHome from '../../components/LocalizedHome.astro';
+import { LOCALIZED_HOMES, LOCALE_CODES, type LocaleCode } from '../../i18n/home-locales';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props { locale: LocaleCode }
+const { locale } = Astro.props;
+const content = LOCALIZED_HOMES[locale];
+if (!content) throw new Error(`Unsupported locale: ${locale}`);
+---
+<LocalizedHome content={content} />

@@ -1,0 +1,395 @@
+---
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SHAPES } from '../scripts/shapes';
+import { GERMAN_TOOLS } from '../i18n/german-tools';
+import { getShapeSvg } from '../scripts/diagrams';
+
+const tool = GERMAN_TOOLS[slug];
+if (!tool) {
+  throw new Error(`German tool detail not found for slug: ${slug}`);
+}
+
+const shape = SHAPES[tool.shapeId];
+if (!shape) {
+  throw new Error(`Shape definition not found for ID: ${tool.shapeId}`);
+}
+
+const diagramSvg = getShapeSvg(shape.id);
+
+const units = [
+  { id: 'cm', label: 'Zentimeter (cm)' },
+  { id: 'm', label: 'Meter (m)' },
+  { id: 'mm', label: 'Millimeter (mm)' },
+  { id: 'in', label: 'Zoll (in)' },
+  { id: 'ft', label: 'Fuß (ft)' },
+  { id: 'yd', label: 'Yard (yd)' },
+];
+
+const outputUnits = [
+  { id: 'l', label: 'Liter (l)' },
+  { id: 'm3', label: 'Kubikmeter (m³)' },
+  { id: 'cm3', label: 'Kubikzentimeter (cm³)' },
+  { id: 'gal', label: 'Gallonen (gal)' },
+  { id: 'cu_ft', label: 'Kubikfuß (ft³)' },
+  { id: 'cu_in', label: 'Kubikzoll (in³)' },
+  { id: 'cu_yd', label: 'Kubikyard (yd³)' },
+];
+
+const relatedTools = tool.relatedGermanSlugs.map((relatedSlug) => {
+  const related = GERMAN_TOOLS[relatedSlug];
+  if (!related) throw new Error(`Related German tool not found: ${relatedSlug}`);
+  return related;
+});
+
+const canonicalUrl = `https://thevolumecalculator.com/de/${tool.slug}`;
+const englishUrl = `https://thevolumecalculator.com/${tool.englishSlug}`;
+const spanishUrl = `https://thevolumecalculator.com/es/${tool.spanishSlug}`;
+
+const alternates = [
+  { hreflang: 'en', href: englishUrl },
+  { hreflang: 'de', href: canonicalUrl },
+  { hreflang: 'es', href: spanishUrl },
+  { hreflang: 'x-default', href: englishUrl },
+];
+
+const ogLocaleAlternates = ['de_AT', 'de_CH'];
+
+const toolSchemaGraph: any[] = [
+  {
+    '@type': 'SoftwareApplication',
+    'name': tool.h1,
+    'applicationCategory': 'EducationalApplication',
+    'operatingSystem': 'Any',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'EUR',
+    },
+    'description': tool.metaDescription,
+    'url': canonicalUrl,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Startseite',
+        'item': 'https://thevolumecalculator.com/de/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Rechner',
+        'item': 'https://thevolumecalculator.com/de/rechner',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 3,
+        'name': tool.shapeName,
+        'item': canonicalUrl,
+      },
+    ],
+  },
+  {
+    '@type': 'FAQPage',
+    'mainEntity': tool.faqs.map((faq) => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.answer,
+      },
+    })),
+  },
+];
+---
+
+<Layout
+  title={tool.title}
+  description={tool.metaDescription}
+  keywords={tool.keywords}
+  canonical={canonicalUrl}
+  lang="de"
+  ogLocale="de_DE"
+  ogLocaleAlternates={ogLocaleAlternates}
+  alternates={alternates}
+  schemaGraph={toolSchemaGraph}
+>
+  <Header />
+
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8 sm:space-y-12">
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="Breadcrumb">
+      <a href="/de/" class="hover:text-primary transition-colors">Startseite</a>
+      <span>/</span>
+      <a href="/de/rechner" class="hover:text-primary transition-colors">Rechner</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">{tool.shapeName}</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <section class="space-y-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${shape.badgeColor}`}>
+          {tool.categoryLabel}
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-ink tracking-tight flex items-center gap-3">
+        <span class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
+          <Fragment set:html={shape.iconSvg} />
+        </span>
+        <span>{tool.h1}</span>
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary max-w-3xl leading-relaxed">
+        {tool.shortTagline} Trage die Maße in die Eingabefelder ein, um das Volumen sofort in Litern, Kubikmetern oder Gallonen zu berechnen.
+      </p>
+    </section>
+
+    <!-- Main Interactive Calculator Card -->
+    <div
+      id="single-tool-card"
+      data-shape-id={shape.id}
+      data-shape-name={tool.shapeName}
+      data-lang="de"
+      data-default-unit="l"
+      class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-6"
+    >
+      <div class="flex flex-col lg:flex-row lg:items-start gap-8">
+        <!-- Left: Inputs Form -->
+        <div class="flex-1 space-y-5">
+          <div class="flex items-center justify-between border-b border-hairline pb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-ink-muted">Maße eingeben</span>
+            <button
+              type="button"
+              id="single-clear-btn"
+              class="text-xs font-semibold text-ink-muted hover:text-red-600 transition-colors cursor-pointer"
+            >
+              Zurücksetzen
+            </button>
+          </div>
+
+          <div id="single-inputs-container" class="space-y-4">
+            {shape.inputs.map((input) => (
+              <div class="space-y-1.5" data-input-id={input.id}>
+                <label for={`single-input-${input.id}`} class="block text-xs font-bold text-ink flex items-center justify-between">
+                  <span>{tool.inputLabels[input.id] || input.label}</span>
+                  <span class="font-mono text-ink-muted text-[11px] font-normal">{input.symbol}</span>
+                </label>
+                <div class="flex rounded-xl border border-hairline bg-surface hover:border-primary/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15 transition-all overflow-hidden">
+                  <input
+                    type="number"
+                    id={`single-input-${input.id}`}
+                    name={input.id}
+                    value={input.defaultVal}
+                    step={input.step || 'any'}
+                    min={input.min !== undefined ? input.min : '0'}
+                    class="single-dim-input flex-1 px-3.5 py-2.5 bg-transparent text-sm font-semibold text-ink focus:outline-hidden"
+                    placeholder="0"
+                  />
+                  <select
+                    id={`single-unit-${input.id}`}
+                    class="single-dim-unit bg-canvas-soft border-l border-hairline px-3 py-2.5 text-xs font-semibold text-ink-secondary focus:outline-hidden cursor-pointer hover:bg-canvas-subtle"
+                  >
+                    {units.map((u) => (
+                      <option value={u.id} selected={u.id === input.defaultUnit}>
+                        {u.id}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Live Output Selector & Primary Result -->
+          <div class="pt-4 border-t border-hairline space-y-3">
+            <div class="flex items-center justify-between gap-3">
+              <label for="single-output-unit" class="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                Ergebniseinheit
+              </label>
+              <select
+                id="single-output-unit"
+                class="bg-canvas-soft border border-hairline rounded-lg px-2.5 py-1.5 text-xs font-bold text-ink focus:outline-hidden focus:border-primary cursor-pointer hover:bg-canvas-subtle"
+              >
+                {outputUnits.map((u) => (
+                  <option value={u.id} selected={u.id === 'l'}>
+                    {u.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <!-- Volume Result Box -->
+            <div class="p-4 sm:p-5 rounded-xl bg-canvas-soft/80 border border-hairline space-y-2">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-ink-muted">
+                Berechnetes Volumen
+              </div>
+              <div class="flex items-baseline gap-2 flex-wrap">
+                <span id="single-result-val" class="font-mono text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">
+                  —
+                </span>
+                <span id="single-result-unit" class="font-mono text-base sm:text-lg font-bold text-ink-secondary">
+                  l
+                </span>
+              </div>
+              <div id="single-surface-area" class="text-xs text-ink-muted font-medium pt-1 border-t border-hairline/60">
+                Oberfläche: <span id="single-surface-val" class="font-mono font-bold text-ink">—</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons: Copy & Share -->
+            <div class="flex items-center gap-2 pt-1">
+              <button
+                type="button"
+                id="single-copy-btn"
+                class="flex-1 py-2 px-3 rounded-lg border border-hairline bg-surface hover:bg-canvas-soft text-xs font-semibold text-ink transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <svg class="w-3.5 h-3.5 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Ergebnis kopieren</span>
+              </button>
+              <button
+                type="button"
+                id="single-share-btn"
+                class="flex-1 py-2 px-3 rounded-lg border border-hairline bg-surface hover:bg-canvas-soft text-xs font-semibold text-ink transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <svg class="w-3.5 h-3.5 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                  <polyline points="16 6 12 2 8 6"></polyline>
+                  <line x1="12" y1="2" x2="12" y2="15"></line>
+                </svg>
+                <span>Link teilen</span>
+              </button>
+            </div>
+            <div id="single-copy-toast" class="hidden text-[11px] text-center font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 p-1.5 rounded-lg border border-emerald-200">
+              In die Zwischenablage kopiert.
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Diagram & Preset Sizes -->
+        <div class="w-full lg:w-72 xl:w-80 space-y-4">
+          <div class="rounded-xl border border-hairline bg-canvas-soft/40 p-4 flex flex-col items-center">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-ink-muted mb-2">3D-Geometrie</span>
+            <div class="w-48 h-48 sm:w-56 sm:h-56 flex items-center justify-center">
+              <Fragment set:html={diagramSvg} />
+            </div>
+          </div>
+
+          <!-- Formula Pill -->
+          <div class="rounded-xl border border-hairline bg-white p-3.5 space-y-1">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-ink-muted">Formel</span>
+            <div class="font-mono text-sm sm:text-base font-bold text-primary">
+              {tool.formulaHtml}
+            </div>
+            <p class="text-[11px] text-ink-muted leading-relaxed">
+              {tool.formulaNote}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Mathematical Evaluation -->
+      <div id="single-steps-card" class="hidden border-t border-hairline pt-5 space-y-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-ink-muted">Schrittweise Berechnung</span>
+        <div id="single-steps-container" class="space-y-2"></div>
+      </div>
+
+      <!-- Error Message Banner -->
+      <div id="single-calc-error" class="hidden p-3.5 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-700 dark:text-red-300 text-xs"></div>
+    </div>
+
+    <!-- Educational Guide: How to Calculate -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-bold text-ink">Formel und Berechnung</h2>
+      <div class="bg-white rounded-2xl border border-hairline p-5 sm:p-6 space-y-4">
+        <ol class="space-y-3 list-decimal list-inside text-sm text-ink-secondary leading-relaxed">
+          {tool.howToCalculate.map((step) => (
+            <li class="pl-1">{step}</li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Practical Examples -->
+    <section class="space-y-4">
+      <h2 class="text-xl sm:text-2xl font-bold text-ink">Praktische Anwendungsbeispiele</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {tool.practicalExamples.map((ex) => (
+          <div class="bg-white rounded-xl border border-hairline p-4 sm:p-5 space-y-2">
+            <h3 class="font-bold text-sm text-ink">{ex.title}</h3>
+            <p class="text-xs text-ink-secondary leading-relaxed">{ex.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- FAQs Accordion Section -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl sm:text-2xl font-bold text-ink">Häufig gestellte Fragen</h2>
+        <span class="text-xs font-medium text-ink-muted">3 Fragen und Antworten</span>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-hairline divide-y divide-hairline">
+        {tool.faqs.map((faq, idx) => (
+          <details class="group p-4 sm:p-5 cursor-pointer" open={idx === 0}>
+            <summary class="flex items-center justify-between font-bold text-sm text-ink list-none select-none">
+              <span>{faq.question}</span>
+              <span class="w-5 h-5 rounded-full bg-canvas-soft border border-hairline flex items-center justify-center text-ink-muted text-xs group-open:rotate-180 transition-transform shrink-0 ml-3">
+                ↓
+              </span>
+            </summary>
+            <div class="mt-3 text-xs sm:text-sm text-ink-secondary leading-relaxed border-t border-hairline/60 pt-3">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Related Volume Calculators Grid -->
+    <section class="space-y-4 pt-4 border-t border-hairline">
+      <h2 class="text-lg sm:text-xl font-bold text-ink">Verwandte Volumenrechner</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+        {relatedTools.map((rel) => (
+          <a
+            href={`/de/${rel.slug}`}
+            class="p-3.5 rounded-xl bg-white border border-hairline hover:border-primary/50 hover:shadow-xs transition-all flex flex-col justify-between group"
+          >
+            <div class="space-y-1">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-ink-muted">
+                {rel.categoryLabel}
+              </span>
+              <div class="font-bold text-xs sm:text-sm text-ink group-hover:text-primary transition-colors">
+                {rel.shapeName}
+              </div>
+            </div>
+            <div class="mt-2 text-[11px] font-mono text-primary font-medium">
+              {rel.formulaHtml}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  import '../scripts/single-tool-calculator';
+</script>

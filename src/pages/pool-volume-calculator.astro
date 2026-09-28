@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { ICONS } from '../scripts/icons';
+import { POOL_FAQS } from '../scripts/specialized-content';
 
 const title = 'Pool Volume Calculator - Gallons & Water Capacity';
 const description = 'Free swimming pool volume calculator. Calculate pool water volume in gallons, liters, and cubic feet for rectangular, round, and oval pools with sloped shallow & deep ends.';
@@ -48,40 +49,11 @@ const schemaGraph = [
   },
   {
     '@type': 'FAQPage',
-    'mainEntity': [
-      {
-        '@type': 'Question',
-        'name': 'How do I calculate the volume of a swimming pool in gallons?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'For a rectangular pool, multiply Length (ft) × Width (ft) × Average Depth (ft) × 7.48. For a circular pool, multiply π × Radius² × Average Depth × 7.48 (or Diameter² × Depth × 5.9). For an oval pool, multiply Length × Width × Average Depth × 5.9.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'How do I calculate pool volume with a shallow end and deep end?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'Calculate the average depth by adding the shallow end depth to the deep end depth and dividing by 2: Average Depth = (Shallow Depth + Deep Depth) / 2. Then multiply by your pool surface dimensions.'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'How many gallons of water are in a 16x32 pool?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'A standard 16x32 ft inground pool with an average depth of 4.5 feet holds approximately 17,235 gallons of water (16 × 32 × 4.5 × 7.48).'
-        }
-      },
-      {
-        '@type': 'Question',
-        'name': 'How much does pool water weigh?',
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': 'One US liquid gallon of fresh water weighs approximately 8.34 pounds (3.785 kilograms). A 15,000-gallon swimming pool holds about 125,100 lbs (over 62 tons) of water.'
-        }
-      }
-    ]
+    'mainEntity': POOL_FAQS.map((faq) => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': { '@type': 'Answer', 'text': faq.answer }
+    }))
   }
 ];
 ---
@@ -136,13 +108,12 @@ const schemaGraph = [
       <!-- Top Control Bar: Shape Tabs & Clear Button -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-hairline">
         <!-- Pool Shape Switcher -->
-        <div class="flex items-center gap-1.5 p-1 rounded-xl bg-canvas-soft border border-hairline overflow-x-auto" role="tablist">
+        <div class="flex items-center gap-1.5 p-1 rounded-xl bg-canvas-soft border border-hairline overflow-x-auto" aria-label="Pool shape">
           <button
             type="button"
             data-shape="rect"
             class="pool-shape-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-white shadow-xs text-primary border border-hairline/80"
-            role="tab"
-            aria-selected="true"
+            aria-pressed="true"
           >
             Rectangular Pool
           </button>
@@ -150,8 +121,7 @@ const schemaGraph = [
             type="button"
             data-shape="round"
             class="pool-shape-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-ink-muted hover:text-ink"
-            role="tab"
-            aria-selected="false"
+            aria-pressed="false"
           >
             Round / Circular Pool
           </button>
@@ -159,8 +129,7 @@ const schemaGraph = [
             type="button"
             data-shape="oval"
             class="pool-shape-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-ink-muted hover:text-ink"
-            role="tab"
-            aria-selected="false"
+            aria-pressed="false"
           >
             Oval Pool
           </button>
@@ -367,7 +336,7 @@ const schemaGraph = [
       <!-- Live Results Showcase Matrix -->
       <div class="pt-4 border-t border-hairline space-y-4">
         <!-- Main Highlight Card: US Gallons -->
-        <div class="p-4 sm:p-5 rounded-xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="p-4 sm:p-5 rounded-xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3" role="status" aria-live="polite" aria-atomic="true">
           <div>
             <span class="text-xs font-bold uppercase tracking-wider text-sky-700 dark:text-sky-300">
               Total Swimming Pool Water Capacity
@@ -522,45 +491,15 @@ const schemaGraph = [
         </h2>
 
         <div class="space-y-3">
-          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
-            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
-              <span>How do I calculate pool volume with a shallow end and deep end?</span>
-              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
-            </summary>
-            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
-              Add the shallow depth to the deep end depth and divide by 2 to get the average depth: <strong>Average Depth = (Shallow Depth + Deep Depth) / 2</strong>. For example, if your pool is 3 feet at the shallow end and 8 feet at the deep end, your average depth is (3 + 8) / 2 = 5.5 feet.
-            </p>
-          </details>
-
-          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
-            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
-              <span>Why is knowing exact pool volume important for chemicals?</span>
-              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
-            </summary>
-            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
-              Pool chemicals like chlorine shock, algaecide, muriatic acid, and stabilizer are dosed strictly per 10,000 gallons. Under-dosing leads to cloudy water and algae blooms, while over-dosing can burn swimmers' skin and damage pool liners.
-            </p>
-          </details>
-
-          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
-            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
-              <span>How many gallons is a 12x24 pool?</span>
-              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
-            </summary>
-            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
-              A 12x24 rectangular pool with an average depth of 4.5 feet holds roughly <strong>9,700 gallons</strong> (36,700 liters). If it has a constant depth of 4 feet, it holds approximately <strong>8,617 gallons</strong>.
-            </p>
-          </details>
-
-          <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
-            <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
-              <span>How do I size a pool pump based on gallon capacity?</span>
-              <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
-            </summary>
-            <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">
-              A residential pool pump should cycle all the water once every 8 hours. Divide your total gallons by 480 minutes (8 hours) to find the minimum gallons-per-minute (GPM) rating your pump must produce.
-            </p>
-          </details>
+          {POOL_FAQS.map((faq) => (
+            <details class="group rounded-xl border border-hairline p-4 transition-colors open:bg-canvas-soft/30">
+              <summary class="font-semibold text-xs sm:text-sm text-ink cursor-pointer list-none flex items-center justify-between gap-2">
+                <span>{faq.question}</span>
+                <span class="text-ink-muted transition-transform group-open:rotate-180 text-xs">▼</span>
+              </summary>
+              <p class="mt-2.5 pt-2.5 border-t border-hairline text-xs text-ink-secondary leading-relaxed">{faq.answer}</p>
+            </details>
+          ))}
         </div>
       </section>
     </article>
@@ -571,30 +510,31 @@ const schemaGraph = [
   <!-- Client-side Pool Calculation Script -->
   <script>
     function initPoolCalculator() {
-      let currentShape = 'rect';
-      let currentDepthMode = 'flat';
+      type PoolShape = 'rect' | 'round' | 'oval';
+      type DepthMode = 'flat' | 'sloped';
+      let currentShape: PoolShape = 'rect';
+      let currentDepthMode: DepthMode = 'flat';
 
-      const shapeTabs = document.querySelectorAll('.pool-shape-tab');
+      const shapeTabs = document.querySelectorAll<HTMLButtonElement>('.pool-shape-tab');
       const depthModeFlat = document.getElementById('depth-mode-flat');
       const depthModeSloped = document.getElementById('depth-mode-sloped');
 
-      const groupLength = document.getElementById('group-length');
       const groupWidth = document.getElementById('group-width');
       const groupFlatDepth = document.getElementById('group-flat-depth');
       const groupSlopedDepth = document.getElementById('group-sloped-depth');
       const labelLenText = document.getElementById('label-len-text');
 
-      const inLen = document.getElementById('pool-in-len');
-      const unitLen = document.getElementById('pool-unit-len');
-      const inWidth = document.getElementById('pool-in-width');
-      const unitWidth = document.getElementById('pool-unit-width');
-      const inDepth = document.getElementById('pool-in-depth');
-      const unitDepth = document.getElementById('pool-unit-depth');
+      const inLen = document.querySelector<HTMLInputElement>('#pool-in-len');
+      const unitLen = document.querySelector<HTMLSelectElement>('#pool-unit-len');
+      const inWidth = document.querySelector<HTMLInputElement>('#pool-in-width');
+      const unitWidth = document.querySelector<HTMLSelectElement>('#pool-unit-width');
+      const inDepth = document.querySelector<HTMLInputElement>('#pool-in-depth');
+      const unitDepth = document.querySelector<HTMLSelectElement>('#pool-unit-depth');
 
-      const inShallow = document.getElementById('pool-in-shallow');
-      const unitShallow = document.getElementById('pool-unit-shallow');
-      const inDeep = document.getElementById('pool-in-deep');
-      const unitDeep = document.getElementById('pool-unit-deep');
+      const inShallow = document.querySelector<HTMLInputElement>('#pool-in-shallow');
+      const unitShallow = document.querySelector<HTMLSelectElement>('#pool-unit-shallow');
+      const inDeep = document.querySelector<HTMLInputElement>('#pool-in-deep');
+      const unitDeep = document.querySelector<HTMLSelectElement>('#pool-unit-deep');
 
       const resGallons = document.getElementById('result-gallons');
       const resLiters = document.getElementById('result-liters-sub');
@@ -607,7 +547,7 @@ const schemaGraph = [
       const clearBtn = document.getElementById('pool-clear-btn');
       const copyBtn = document.getElementById('pool-copy-btn');
 
-      function toFeet(val, unit) {
+      function toFeet(val: number, unit: string): number {
         if (isNaN(val) || val <= 0) return 0;
         if (unit === 'ft') return val;
         if (unit === 'in') return val / 12;
@@ -692,13 +632,14 @@ const schemaGraph = [
           shapeTabs.forEach((t) => {
             t.classList.remove('bg-white', 'shadow-xs', 'text-primary', 'border', 'border-hairline/80');
             t.classList.add('text-ink-muted');
-            t.setAttribute('aria-selected', 'false');
+            t.setAttribute('aria-pressed', 'false');
           });
           tab.classList.add('bg-white', 'shadow-xs', 'text-primary', 'border', 'border-hairline/80');
           tab.classList.remove('text-ink-muted');
-          tab.setAttribute('aria-selected', 'true');
+          tab.setAttribute('aria-pressed', 'true');
 
-          currentShape = tab.getAttribute('data-shape') || 'rect';
+          const nextShape = tab.getAttribute('data-shape');
+          currentShape = nextShape === 'round' || nextShape === 'oval' ? nextShape : 'rect';
           if (currentShape === 'round') {
             if (groupWidth) groupWidth.classList.add('hidden');
             if (labelLenText) labelLenText.textContent = 'Diameter (d)';

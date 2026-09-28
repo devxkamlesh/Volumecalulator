@@ -2,8 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import SimpleCalculator from '../components/SimpleCalculator.astro';
+import FeaturedToolsSection from '../components/FeaturedToolsSection.astro';
 import HomeSeoArticle, { HOME_FAQS } from '../components/HomeSeoArticle.astro';
 import Footer from '../components/Footer.astro';
+import { HOME_ALTERNATES, LOCALE_CODES, LOCALIZED_HOMES } from '../i18n/home-locales';
 
 const title = 'Volume Calculator - Gallons, Litres & Cu Ft';
 const description = 'Free online volume calculator to calculate volume for 16 3D shapes. Convert cubic volume in gallons, litres, cu ft, and m³ with instant step-by-step formulas.';
@@ -14,20 +16,40 @@ const ogImageAlt = 'Volume Calculator - Calculate cubic volume and liquid capaci
 
 const schemaGraph = [
   {
-    '@type': 'WebSite',
-    'name': 'The Volume Calculator',
-    'url': 'https://thevolumecalculator.com/',
-    'potentialAction': {
-      '@type': 'SearchAction',
-      'target': 'https://thevolumecalculator.com/calculators?q={search_term_string}',
-      'query-input': 'required name=search_term_string',
+    '@type': 'Person',
+    '@id': 'https://thevolumecalculator.com/#author',
+    'name': 'Kamlesh Choudhary',
+    'alternateName': 'devxkamlesh',
+    'url': 'https://x.com/devxkamlesh',
+    'image': 'https://thevolumecalculator.com/author.jpg',
+    'jobTitle': 'Full Stack Engineer & AI Systems Architect',
+    'alumniOf': {
+      '@type': 'EducationalOrganization',
+      'name': 'Mahatma Jyoti Rao Phoole University (MJRPU)',
     },
+    'address': {
+      '@type': 'PostalAddress',
+      'addressLocality': 'Jaipur',
+      'addressCountry': 'IN',
+    },
+    'sameAs': [
+      'https://in.linkedin.com/in/devxkamlesh',
+      'https://x.com/devxkamlesh',
+      'https://github.com/devxkamlesh',
+      'https://modrinth.com/user/devxkamlesh',
+    ],
   },
   {
     '@type': 'SoftwareApplication',
     'name': 'Volume Calculator',
     'applicationCategory': 'EducationalApplication',
     'operatingSystem': 'Any',
+    'author': {
+      '@id': 'https://thevolumecalculator.com/#author',
+    },
+    'creator': {
+      '@id': 'https://thevolumecalculator.com/#author',
+    },
     'offers': {
       '@type': 'Offer',
       'price': '0',
@@ -70,6 +92,11 @@ const schemaGraph = [
   ogImage={ogImage}
   ogImageAlt={ogImageAlt}
   schemaGraph={schemaGraph}
+  lang="en"
+  dir="ltr"
+  ogLocale="en_US"
+  ogLocaleAlternates={LOCALE_CODES.map((code) => LOCALIZED_HOMES[code].ogLocale)}
+  alternates={HOME_ALTERNATES}
 >
   <Header />
 
@@ -93,8 +120,24 @@ const schemaGraph = [
     <!-- Simple, Easy-to-Use Calculator Card for Everyday Users -->
     <SimpleCalculator />
 
+    <!-- Featured Calculators & Formulas Section for High-Intent SEO Links -->
+    <FeaturedToolsSection />
+
     <!-- In-Depth SEO Guide & 12 IMP FAQs (1000 - 1500 Words) -->
     <HomeSeoArticle />
+
+    <nav aria-label="Language" class="max-w-4xl mx-auto bg-white rounded-2xl border border-hairline p-5 sm:p-6 shadow-xs">
+      <h2 class="text-base font-bold text-ink mb-1">Volume calculator languages</h2>
+      <p class="text-xs text-ink-muted mb-4">Choose a fully localized calculator with metric defaults and native mathematical terminology.</p>
+      <div class="flex flex-wrap gap-2">
+        <a href="/" lang="en" hreflang="en" aria-current="page" class="min-h-11 inline-flex items-center px-3 rounded-lg border border-primary bg-primary/10 text-primary text-xs font-bold">English</a>
+        {LOCALE_CODES.map((code) => (
+          <a href={`/${code}/`} lang={LOCALIZED_HOMES[code].lang} hreflang={LOCALIZED_HOMES[code].lang} class="min-h-11 inline-flex items-center px-3 rounded-lg border border-hairline text-ink text-xs font-semibold hover:border-primary hover:text-primary transition-colors">
+            {LOCALIZED_HOMES[code].languageName}
+          </a>
+        ))}
+      </div>
+    </nav>
   </main>
 
   <Footer />

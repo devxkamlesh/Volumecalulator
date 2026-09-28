@@ -1,0 +1,187 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const title = 'Metodología y Estándares';
+const description = 'Documentación de fórmulas geométricas euclidianas, factores de conversión física y modelos de precisión numérica en thevolumecalculator.com.';
+const canonical = 'https://thevolumecalculator.com/es/metodologia';
+const englishUrl = 'https://thevolumecalculator.com/methodology';
+const germanUrl = 'https://thevolumecalculator.com/de/methodik';
+
+const alternates = [
+  { hreflang: 'en', href: englishUrl },
+  { hreflang: 'es', href: canonical },
+  { hreflang: 'de', href: germanUrl },
+  { hreflang: 'x-default', href: englishUrl },
+];
+
+const ogLocaleAlternates = ['es_MX', 'es_CO', 'es_AR', 'es_PE', 'es_CL', 'es_US'];
+
+const schemaGraph = [
+  {
+    '@type': 'AboutPage',
+    'name': 'Estándares matemáticos y metodología',
+    'description': description,
+    'url': canonical,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Inicio',
+        'item': 'https://thevolumecalculator.com/es/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Metodología',
+        'item': canonical,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`${title} | thevolumecalculator.com`}
+  description={description}
+  canonical={canonical}
+  lang="es"
+  dir="ltr"
+  ogLocale="es_ES"
+  ogLocaleAlternates={ogLocaleAlternates}
+  alternates={alternates}
+  schemaGraph={schemaGraph}
+>
+  <Header />
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 sm:space-y-12">
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="Breadcrumb">
+      <a href="/es/" class="hover:text-primary transition-colors">Inicio</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">Metodología</span>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-canvas-card border border-hairline text-primary shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-accent-green"></span>
+        <span>Verificación matemática y estándares</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight leading-tight">
+        Estándares matemáticos y metodología
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
+        Este documento especifica las fórmulas geométricas euclidianas, las constantes de conversión física y los modelos de precisión computacional implementados en las 16 calculadoras de thevolumecalculator.com.
+      </p>
+    </section>
+
+    <!-- Section 1: Standard Constants -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        1. Factores de conversión universales y constantes físicas
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Todos los cálculos convierten las longitudes iniciales a unidades base del Sistema Internacional (metros) antes de aplicar las ecuaciones volumétricas. Las relaciones de conversión derivan de las definiciones publicadas por el National Institute of Standards and Technology (NIST SP 811) y la norma ISO 80000-3.
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-hairline text-ink-muted">
+              <th class="py-2.5 px-3 font-semibold">Unidad</th>
+              <th class="py-2.5 px-3 font-semibold">Símbolo</th>
+              <th class="py-2.5 px-3 font-semibold">Relación exacta en SI</th>
+              <th class="py-2.5 px-3 font-semibold">Organismo emisor</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline text-ink-secondary">
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Litro</td>
+              <td class="py-2.5 px-3 font-mono">L</td>
+              <td class="py-2.5 px-3 font-mono">1 L = 0,001 m³</td>
+              <td class="py-2.5 px-3">BIPM / Derivada SI</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Galón líquido (EE. UU.)</td>
+              <td class="py-2.5 px-3 font-mono">gal</td>
+              <td class="py-2.5 px-3 font-mono">1 gal = 231 in³ = 0,003785411784 m³</td>
+              <td class="py-2.5 px-3">NIST SP 811</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Pie cúbico</td>
+              <td class="py-2.5 px-3 font-mono">ft³</td>
+              <td class="py-2.5 px-3 font-mono">1 ft³ = 1.728 in³ = 0,028316846592 m³</td>
+              <td class="py-2.5 px-3">ISO 80000-3</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Yarda cúbica</td>
+              <td class="py-2.5 px-3 font-mono">yd³</td>
+              <td class="py-2.5 px-3 font-mono">1 yd³ = 27 ft³ = 0,764554857984 m³</td>
+              <td class="py-2.5 px-3">ISO 80000-3</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Onza líquida (EE. UU.)</td>
+              <td class="py-2.5 px-3 font-mono">fl oz</td>
+              <td class="py-2.5 px-3 font-mono">1/128 gal = 29,5735295625 mL</td>
+              <td class="py-2.5 px-3">NIST SP 811</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2: Mathematical Proofs & Formulas -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        2. Deducciones de fórmulas geométricas
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Los cálculos emplean ecuaciones euclidianas cerradas comprobadas con las tablas CRC Standard Mathematical Tables. Las geometrías no lineales complejas utilizan integrales analíticas:
+      </p>
+
+      <ul class="space-y-3 text-xs sm:text-sm text-ink-secondary list-disc pl-5">
+        <li>
+          Tanques cilíndricos horizontales: El volumen de llenado calcula el área del segmento circular como A = r² arccos((r - d) / r) - (r - d)√(2rd - d²), multiplicada por la longitud L.
+        </li>
+        <li>
+          Casquetes esféricos y domos: El volumen integra láminas de disco perpendiculares al eje vertical, produciendo V = (πh / 6)(3r² + h²), donde r representa el radio de la base y h representa la altura del casquete.
+        </li>
+        <li>
+          Troncos de cono: La evaluación utiliza la integral de tronco cónico V = (πh / 3)(r₁² + r₁r₂ + r₂²), evitando aproximaciones escalonadas.
+        </li>
+        <li>
+          Toroides y anillos: La deducción aplica el teorema de centroide de Pappus como V = 2π²Rr², donde R es el radio mayor y r es el radio menor del tubo.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 3: Computational Precision -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        3. Precisión de punto flotante y políticas de redondeo
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        La aritmética interna procesa números en precisión doble de 64 bits bajo el estándar IEEE 754 con la constante pi fijada en 15 posiciones decimales (3.141592653589793). El redondeo se aplica únicamente en la fase de presentación visual para prevenir acumulación de errores intermedios.
+      </p>
+    </section>
+
+    <!-- Section 4: Review Standards -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        4. Ciclo de revisión y verificación editorial
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Cada fórmula, constante de conversión y cálculo de ejemplo se valida mediante pruebas de límites extremos, comprobaciones de equivalencia dimensional y control de densidad con agua a 4°C (1 kg/L).
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

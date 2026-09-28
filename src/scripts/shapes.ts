@@ -24,6 +24,11 @@ export interface CalculationResult {
   lateralAreaM2?: number;
   formulaDisplay: string;
   steps: { label: string; equation: string; note?: string }[];
+  error?: {
+    code: 'invalid_relation' | 'out_of_range' | 'non_finite_result';
+    message: string;
+    fieldIds?: string[];
+  };
 }
 
 export interface ShapeDefinition {
@@ -87,7 +92,7 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Basic 3D',
     badgeColor: 'bg-[#e0f2fe] dark:bg-[#0369a1]/40 text-[#0c4a6e] dark:text-[#7dd3fc] border-[#7dd3fc] dark:border-[#0284c7]',
     summary: 'A 3D box shape with six rectangular faces (also called cuboid).',
-    formula: 'V = l \\times w \\times h',
+    formula: 'V = l × w × h',
     surfaceAreaFormula: 'A = 2(lw + lh + wh)',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><path d="M2 17L9 21L22 14L15 10L2 17Z"/><path d="M2 7L9 11L22 4L15 0.5L2 7Z"/><path d="M2 7V17"/><path d="M9 11V21"/><path d="M22 4V14"/></svg>`,
     inputs: [
@@ -128,8 +133,8 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Curved Shapes',
     badgeColor: 'bg-[#ccfbf1] dark:bg-[#115e59]/40 text-[#134e4a] dark:text-[#5eead4] border-[#5eead4] dark:border-[#0f766e]',
     summary: 'A geometric solid with parallel circular bases connected by a curved surface.',
-    formula: 'V = \\pi r^2 h',
-    surfaceAreaFormula: 'A = 2\\pi r(r + h)',
+    formula: 'V = πr²h',
+    surfaceAreaFormula: 'A = 2πr(r + h)',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5V19C4 20.66 7.58 22 12 22C16.42 22 20 20.66 20 19V5"/><path d="M4 12C4 13.66 7.58 15 12 15C16.42 15 20 13.66 20 12"/></svg>`,
     inputs: [
       { id: 'radius', label: 'Radius', symbol: 'r', defaultVal: 1, defaultUnit: 'm', min: 0 },
@@ -169,8 +174,8 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Curved Shapes',
     badgeColor: 'bg-[#fce7f3] dark:bg-[#9d174d]/40 text-[#831843] dark:text-[#f472b6] border-[#f472b6] dark:border-[#be185d]',
     summary: 'A perfectly round 3D geometrical object where every point is equidistant from the center.',
-    formula: 'V = \\frac{4}{3} \\pi r^3',
-    surfaceAreaFormula: 'A = 4\\pi r^2',
+    formula: 'V = ⁴⁄₃πr³',
+    surfaceAreaFormula: 'A = 4πr²',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="9" ry="3.5"/></svg>`,
     inputs: [
       { id: 'radius', label: 'Radius', symbol: 'r', defaultVal: 1, defaultUnit: 'm', min: 0 },
@@ -206,8 +211,8 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Curved Shapes',
     badgeColor: 'bg-[#ffedd5] dark:bg-[#9a3412]/40 text-[#7c2d12] dark:text-[#fb923c] border-[#fb923c] dark:border-[#c2410c]',
     summary: 'A 3D shape that tapers smoothly from a flat circular base to a point called the apex.',
-    formula: 'V = \\frac{1}{3} \\pi r^2 h',
-    surfaceAreaFormula: 'A = \\pi r(r + \\sqrt{h^2 + r^2})',
+    formula: 'V = ⅓πr²h',
+    surfaceAreaFormula: 'A = πr(r + √(h² + r²))',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><path d="M12 2L3 19C3 20.66 7 22 12 22C17 22 21 20.66 21 19L12 2Z"/><ellipse cx="12" cy="19" rx="9" ry="3"/></svg>`,
     inputs: [
       { id: 'radius', label: 'Base Radius', symbol: 'r', defaultVal: 1, defaultUnit: 'm', min: 0 },
@@ -245,8 +250,8 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Curved Shapes',
     badgeColor: 'bg-[#dcfce7] dark:bg-[#166534]/40 text-[#14532d] dark:text-[#4ade80] border-[#4ade80] dark:border-[#15803d]',
     summary: 'A cylinder with hemispherical ends (caps), common in pharmaceuticals and pressure vessels.',
-    formula: 'V = \\pi r^2 (\\frac{4}{3}r + a)',
-    surfaceAreaFormula: 'A = 2\\pi r(2r + a)',
+    formula: 'V = πr²(⁴⁄₃r + a)',
+    surfaceAreaFormula: 'A = 2πr(2r + a)',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><path d="M5 8C5 4.13 8.13 1 12 1C15.87 1 19 4.13 19 8V16C19 19.87 15.87 23 12 23C8.13 23 5 19.87 5 16V8Z"/><path d="M5 8H19"/><path d="M5 16H19"/></svg>`,
     inputs: [
       { id: 'radius', label: 'Radius', symbol: 'r', defaultVal: 1, defaultUnit: 'm', min: 0 },
@@ -283,8 +288,8 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Curved Shapes',
     badgeColor: 'bg-[#f3e8ff] dark:bg-[#581c87]/40 text-[#581c87] dark:text-[#d8b4fe] border-[#d8b4fe] dark:border-[#7e22ce]',
     summary: 'A portion of a sphere cut off by a plane (dome or bowl shape).',
-    formula: 'V = \\frac{\\pi h}{6}(3r^2 + h^2)',
-    surfaceAreaFormula: 'A = \\pi(r^2 + h^2)',
+    formula: 'V = (πh⁄6)(3r² + h²)',
+    surfaceAreaFormula: 'A = π(r² + h²)',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><path d="M3 15C3 8.37 7.03 3 12 3C16.97 3 21 8.37 21 15"/><ellipse cx="12" cy="15" rx="9" ry="3"/></svg>`,
     inputs: [
       { id: 'baseRadius', label: 'Base Radius', symbol: 'r', defaultVal: 1.5, defaultUnit: 'm', min: 0 },
@@ -321,7 +326,7 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Curved Shapes',
     badgeColor: 'bg-[#e0f2fe] dark:bg-[#0369a1]/40 text-[#0c4a6e] dark:text-[#7dd3fc] border-[#7dd3fc] dark:border-[#0284c7]',
     summary: 'The portion of a cone that lies between two parallel planes cutting it (e.g. buckets, cups, flower pots).',
-    formula: 'V = \\frac{\\pi h}{3}(r_1^2 + r_1 r_2 + r_2^2)',
+    formula: 'V = (πh⁄3)(r₁² + r₁r₂ + r₂²)',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><ellipse cx="12" cy="5" rx="5" ry="2"/><ellipse cx="12" cy="19" rx="8" ry="3"/><path d="M7 5L4 19"/><path d="M17 5L20 19"/></svg>`,
     inputs: [
       { id: 'topRadius', label: 'Top Radius', symbol: 'r₁', defaultVal: 0.8, defaultUnit: 'm', min: 0 },
@@ -360,7 +365,7 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Curved Shapes',
     badgeColor: 'bg-[#ccfbf1] dark:bg-[#115e59]/40 text-[#134e4a] dark:text-[#5eead4] border-[#5eead4] dark:border-[#0f766e]',
     summary: 'A 3D surface whose cross sections in all planes are ellipses (rugby ball, watermelon, planets).',
-    formula: 'V = \\frac{4}{3} \\pi a b c',
+    formula: 'V = ⁴⁄₃πabc',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><ellipse cx="12" cy="12" rx="10" ry="6"/><ellipse cx="12" cy="12" rx="10" ry="2.5"/></svg>`,
     inputs: [
       { id: 'a', label: 'Semi-axis a', symbol: 'a', defaultVal: 1, defaultUnit: 'm', min: 0 },
@@ -400,8 +405,8 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Prisms & Pyramids',
     badgeColor: 'bg-[#fce7f3] dark:bg-[#9d174d]/40 text-[#831843] dark:text-[#f472b6] border-[#f472b6] dark:border-[#be185d]',
     summary: 'A pyramid with a square base and four triangular faces meeting at an apex point.',
-    formula: 'V = \\frac{1}{3} a^2 h',
-    surfaceAreaFormula: 'A = a^2 + 2a\\sqrt{\\frac{a^2}{4} + h^2}',
+    formula: 'V = ⅓a²h',
+    surfaceAreaFormula: 'A = a² + 2a√(a²⁄4 + h²)',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><path d="M12 2L2 19L12 22L22 19L12 2Z"/><path d="M12 2V22"/></svg>`,
     inputs: [
       { id: 'baseEdge', label: 'Base Edge', symbol: 'a', defaultVal: 2, defaultUnit: 'm', min: 0 },
@@ -439,7 +444,7 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Prisms & Pyramids',
     badgeColor: 'bg-[#ffedd5] dark:bg-[#9a3412]/40 text-[#7c2d12] dark:text-[#fb923c] border-[#fb923c] dark:border-[#c2410c]',
     summary: 'A pyramid with a rectangular base and four triangular sides.',
-    formula: 'V = \\frac{1}{3} l w h',
+    formula: 'V = ⅓lwh',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><path d="M12 2L3 18L10 22L21 18L12 2Z"/><path d="M12 2L10 22"/></svg>`,
     inputs: [
       { id: 'length', label: 'Base Length', symbol: 'l', defaultVal: 3, defaultUnit: 'm', min: 0 },
@@ -474,7 +479,7 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Prisms & Pyramids',
     badgeColor: 'bg-[#dcfce7] dark:bg-[#166534]/40 text-[#14532d] dark:text-[#4ade80] border-[#4ade80] dark:border-[#15803d]',
     summary: 'A 3D prism with two parallel triangular bases and three rectangular sides (e.g. Toblerone box, camping tent).',
-    formula: 'V = \\frac{1}{2} b h l',
+    formula: 'V = ½bhl',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><path d="M3 18L10 6L17 18H3Z"/><path d="M10 6L21 9L21 19L17 18"/><path d="M17 18L21 19"/></svg>`,
     inputs: [
       { id: 'base', label: 'Triangle Base', symbol: 'b', defaultVal: 1.5, defaultUnit: 'm', min: 0 },
@@ -510,7 +515,7 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Tanks & Pipes',
     badgeColor: 'bg-[#e0f2fe] dark:bg-[#0369a1]/40 text-[#0c4a6e] dark:text-[#7dd3fc] border-[#7dd3fc] dark:border-[#0284c7]',
     summary: 'A tube or pipe with an outer diameter and inner hollow core. Calculates material volume and internal liquid capacity.',
-    formula: 'V_{wall} = \\pi (R^2 - r^2) h',
+    formula: 'Vwall = π(R² - r²)h',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><ellipse cx="12" cy="5" rx="9" ry="3.5"/><ellipse cx="12" cy="5" rx="5" ry="2"/><path d="M3 5V19C3 20.93 7.03 22.5 12 22.5C16.97 22.5 21 20.93 21 19V5"/><ellipse cx="12" cy="19" rx="5" ry="2"/></svg>`,
     inputs: [
       { id: 'outerRadius', label: 'Outer Radius', symbol: 'R', defaultVal: 0.5, defaultUnit: 'm', min: 0 },
@@ -528,8 +533,13 @@ export const SHAPES: Record<string, ShapeDefinition> = {
       if (r >= R) {
         return {
           volumeM3: 0,
-          formulaDisplay: `Error: Inner radius must be smaller than outer radius`,
-          steps: [{ label: 'Error', equation: 'Inner radius (r) must be smaller than Outer radius (R)' }],
+          formulaDisplay: 'V = π × (R² - r²) × h',
+          steps: [],
+          error: {
+            code: 'invalid_relation',
+            message: 'Inner radius must be smaller than outer radius.',
+            fieldIds: ['innerRadius', 'outerRadius'],
+          },
         };
       }
       const volumeM3 = Math.PI * (R * R - r * r) * h;
@@ -554,8 +564,8 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Curved Shapes',
     badgeColor: 'bg-[#fce7f3] dark:bg-[#9d174d]/40 text-[#831843] dark:text-[#f472b6] border-[#f472b6] dark:border-[#be185d]',
     summary: 'A ring-shaped surface generated by revolving a circle about an axis coplanar with the circle.',
-    formula: 'V = 2 \\pi^2 R r^2',
-    surfaceAreaFormula: 'A = 4 \\pi^2 R r',
+    formula: 'V = 2π²Rr²',
+    surfaceAreaFormula: 'A = 4π²Rr',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><ellipse cx="12" cy="12" rx="10" ry="7"/><ellipse cx="12" cy="12" rx="4" ry="2.5"/></svg>`,
     inputs: [
       { id: 'majorRadius', label: 'Major Radius (Center to Tube)', symbol: 'R', defaultVal: 1.5, defaultUnit: 'm', min: 0 },
@@ -571,8 +581,13 @@ export const SHAPES: Record<string, ShapeDefinition> = {
       if (r > R) {
         return {
           volumeM3: 0,
-          formulaDisplay: `Error: Tube radius r cannot exceed major radius R`,
-          steps: [{ label: 'Error', equation: 'Minor radius (r) cannot exceed Major radius (R)' }],
+          formulaDisplay: 'V = 2π² × R × r²',
+          steps: [],
+          error: {
+            code: 'invalid_relation',
+            message: 'Minor radius cannot exceed major radius.',
+            fieldIds: ['minorRadius', 'majorRadius'],
+          },
         };
       }
       const volumeM3 = 2 * Math.pow(Math.PI, 2) * R * Math.pow(r, 2);
@@ -598,7 +613,7 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Tanks & Pipes',
     badgeColor: 'bg-[#ccfbf1] dark:bg-[#115e59]/40 text-[#134e4a] dark:text-[#5eead4] border-[#5eead4] dark:border-[#0f766e]',
     summary: 'A 3D prism whose cross-section is a trapezoid. Ideal for livestock troughs, canal sections, and excavation trenches.',
-    formula: 'V = \\frac{a + b}{2} \\times h \\times l',
+    formula: 'V = ((a + b)⁄2) × h × l',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><path d="M4 6L8 18H16L20 6H4Z"/><path d="M20 6L23 8L19 20H11L8 18"/><path d="M16 18L19 20"/></svg>`,
     inputs: [
       { id: 'topWidth', label: 'Top Width', symbol: 'a', defaultVal: 2, defaultUnit: 'm', min: 0 },
@@ -637,7 +652,7 @@ export const SHAPES: Record<string, ShapeDefinition> = {
     categoryLabel: 'Tanks & Pipes',
     badgeColor: 'bg-[#f3e8ff] dark:bg-[#581c87]/40 text-[#581c87] dark:text-[#d8b4fe] border-[#d8b4fe] dark:border-[#7e22ce]',
     summary: 'Calculates the exact liquid volume in a horizontal cylindrical tank filled to a specific depth d, along with total capacity and fill percentage.',
-    formula: 'V_{fill} = [r^2 \\arccos(\\frac{r-d}{r}) - (r-d)\\sqrt{2rd - d^2}] \\times L',
+    formula: 'Vfill = [r² arccos((r-d)⁄r) - (r-d)√(2rd-d²)] × L',
     iconSvg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-6 h-6"><ellipse cx="7" cy="12" rx="4" ry="8"/><path d="M7 4H17C19.2 4 21 7.58 21 12C21 16.42 19.2 20 17 20H7"/><path d="M3 14H19" stroke-dasharray="2 2"/></svg>`,
     inputs: [
       { id: 'radius', label: 'Tank Radius', symbol: 'r', defaultVal: 1, defaultUnit: 'm', min: 0 },
@@ -654,7 +669,20 @@ export const SHAPES: Record<string, ShapeDefinition> = {
       const d = lengthToMeters(inputs.fillDepth.val, inputs.fillDepth.unit);
       const totalVolumeM3 = Math.PI * r * r * L;
 
-      if (d <= 0) {
+      if (d < 0) {
+        return {
+          volumeM3: 0,
+          formulaDisplay: 'Vfill = [r² × arccos((r-d)/r) - (r-d)√(2rd-d²)] × L',
+          steps: [],
+          error: {
+            code: 'out_of_range',
+            message: 'Liquid fill depth cannot be negative.',
+            fieldIds: ['fillDepth'],
+          },
+        };
+      }
+
+      if (d === 0) {
         return {
           volumeM3: 0,
           formulaDisplay: 'Tank is empty (d = 0)',
@@ -665,7 +693,20 @@ export const SHAPES: Record<string, ShapeDefinition> = {
         };
       }
 
-      if (d >= 2 * r) {
+      if (d > 2 * r) {
+        return {
+          volumeM3: 0,
+          formulaDisplay: 'Vfill = [r² × arccos((r-d)/r) - (r-d)√(2rd-d²)] × L',
+          steps: [],
+          error: {
+            code: 'out_of_range',
+            message: 'Liquid fill depth cannot exceed the tank diameter (2r).',
+            fieldIds: ['fillDepth', 'radius'],
+          },
+        };
+      }
+
+      if (d === 2 * r) {
         return {
           volumeM3: totalVolumeM3,
           formulaDisplay: 'Tank is 100% full (d ≥ 2r)',

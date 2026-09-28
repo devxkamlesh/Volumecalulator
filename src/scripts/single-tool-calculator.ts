@@ -11,6 +11,8 @@ export class SingleToolCalculatorApp {
   private isGerman = false;
   private isFrench = false;
   private isPortuguese = false;
+  private isItalian = false;
+  private isRussian = false;
   private shapeDisplayName = '';
 
   constructor(cardEl: HTMLElement) {
@@ -25,6 +27,8 @@ export class SingleToolCalculatorApp {
     this.isGerman = lang === 'de';
     this.isFrench = lang === 'fr';
     this.isPortuguese = lang === 'pt';
+    this.isItalian = lang === 'it';
+    this.isRussian = lang === 'ru';
     this.shapeDisplayName = cardEl.getAttribute('data-shape-name') || this.shape.name;
     this.init();
   }
@@ -83,6 +87,38 @@ export class SingleToolCalculatorApp {
         return 'O cálculo não produziu um resultado finito. Verifique as medidas e tente novamente.';
       }
       return 'O cálculo não pôde ser concluído. Verifique as medidas e tente novamente.';
+    }
+
+    if (this.isItalian) {
+      if (msg.includes('inner radius must be smaller')) {
+        return 'Il raggio interno deve essere inferiore al raggio esterno.';
+      }
+      if (msg.includes('minor radius cannot exceed')) {
+        return 'Il raggio minore della sezione non può superare il raggio maggiore.';
+      }
+      if (msg.includes('liquid fill depth must be between')) {
+        return 'Il livello del liquido deve essere compreso tra 0 e il diametro totale del serbatoio.';
+      }
+      if (msg.includes('finite result')) {
+        return 'Il calcolo non ha prodotto un risultato valido. Verifica le misure e riprova.';
+      }
+      return 'Il calcolo non è stato completato. Verifica le misure e riprova.';
+    }
+
+    if (this.isRussian) {
+      if (msg.includes('inner radius must be smaller')) {
+        return 'Внутренний радиус должен быть меньше наружного радиуса.';
+      }
+      if (msg.includes('minor radius cannot exceed')) {
+        return 'Радиус сечения трубки не может превышать главный радиус тора.';
+      }
+      if (msg.includes('liquid fill depth must be between')) {
+        return 'Уровень жидкости должен находиться в диапазоне от 0 до полного диаметра резервуара.';
+      }
+      if (msg.includes('finite result')) {
+        return 'Вычисление не дало конечного результата. Проверьте введенные размеры.';
+      }
+      return 'Не удалось завершить расчет. Проверьте правильность введенных данных.';
     }
 
     if (!this.isSpanish) return msg;
@@ -185,7 +221,7 @@ export class SingleToolCalculatorApp {
   private initInputs(): void {
     // Initialize all inputs as blank (NaN) with default unit
     for (const input of this.shape.inputs) {
-      const defaultUnit = (this.isSpanish || this.isFrench || this.isGerman || this.isPortuguese) && (input.defaultUnit === 'in' || input.defaultUnit === 'ft') ? 'cm' : input.defaultUnit;
+      const defaultUnit = (this.isSpanish || this.isFrench || this.isGerman || this.isPortuguese || this.isItalian || this.isRussian) && (input.defaultUnit === 'in' || input.defaultUnit === 'ft') ? 'cm' : input.defaultUnit;
       this.currentInputs[input.id] = { val: NaN, unit: defaultUnit };
     }
   }
@@ -256,12 +292,16 @@ export class SingleToolCalculatorApp {
           labelPrefix = `Volume: ${this.shapeDisplayName}`;
         } else if (this.isPortuguese) {
           labelPrefix = `Volume: ${this.shapeDisplayName}`;
+        } else if (this.isItalian) {
+          labelPrefix = `Volume: ${this.shapeDisplayName}`;
+        } else if (this.isRussian) {
+          labelPrefix = `Объем: ${this.shapeDisplayName}`;
         }
         const text = `${labelPrefix}: ${val} ${unitName}`;
         try {
           await navigator.clipboard.writeText(text);
           const original = copyBtn.textContent;
-          copyBtn.textContent = this.isSpanish ? '¡Copiado!' : (this.isGerman ? 'Kopiert!' : (this.isFrench ? 'Copié !' : (this.isPortuguese ? 'Copiado!' : 'Copied!')));
+          copyBtn.textContent = this.isSpanish ? '¡Copiado!' : (this.isGerman ? 'Kopiert!' : (this.isFrench ? 'Copié !' : (this.isPortuguese ? 'Copiado!' : (this.isItalian ? 'Copiato!' : (this.isRussian ? 'Скопировано!' : 'Copied!')))));
           setTimeout(() => {
             copyBtn.textContent = original;
           }, 1500);

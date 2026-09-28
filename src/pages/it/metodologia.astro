@@ -3,14 +3,14 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
-const title = 'Metodologia e cálculos';
-const description = 'Documentação das fórmulas geométricas euclidianas, fatores de conversão física e critérios de precisão numérica no thevolumecalculator.com.';
-const canonical = 'https://thevolumecalculator.com/pt/metodologia';
+const title = 'Metodologia e calcoli';
+const description = 'Documentazione delle formule geometriche euclidee, dei fattori di conversione fisica e degli standard di precisione numerica su thevolumecalculator.com.';
+const canonical = 'https://thevolumecalculator.com/it/metodologia';
 const englishUrl = 'https://thevolumecalculator.com/methodology';
 const spanishUrl = 'https://thevolumecalculator.com/es/metodologia';
 const germanUrl = 'https://thevolumecalculator.com/de/methodik';
 const frenchUrl = 'https://thevolumecalculator.com/fr/methodologie';
-const italianUrl = 'https://thevolumecalculator.com/it/metodologia';
+const portugueseUrl = 'https://thevolumecalculator.com/pt/metodologia';
 const russianUrl = 'https://thevolumecalculator.com/ru/metodologiya';
 
 const alternates = [
@@ -18,18 +18,18 @@ const alternates = [
   { hreflang: 'es', href: spanishUrl },
   { hreflang: 'de', href: germanUrl },
   { hreflang: 'fr', href: frenchUrl },
-  { hreflang: 'pt', href: canonical },
-  { hreflang: 'it', href: italianUrl },
+  { hreflang: 'pt', href: portugueseUrl },
+  { hreflang: 'it', href: canonical },
   { hreflang: 'ru', href: russianUrl },
   { hreflang: 'x-default', href: englishUrl },
 ];
 
-const ogLocaleAlternates = ['pt_PT', 'pt_AO', 'pt_MZ'];
+const ogLocaleAlternates = ['it_CH', 'it_SM'];
 
 const schemaGraph = [
   {
     '@type': 'AboutPage',
-    'name': 'Normas matemáticas e metodologia',
+    'name': 'Standard matematici e metodologia',
     'description': description,
     'url': canonical,
   },
@@ -39,8 +39,8 @@ const schemaGraph = [
       {
         '@type': 'ListItem',
         'position': 1,
-        'name': 'Início',
-        'item': 'https://thevolumecalculator.com/pt/',
+        'name': 'Home',
+        'item': 'https://thevolumecalculator.com/it/',
       },
       {
         '@type': 'ListItem',
@@ -57,9 +57,9 @@ const schemaGraph = [
   title={`${title} | thevolumecalculator.com`}
   description={description}
   canonical={canonical}
-  lang="pt"
+  lang="it"
   dir="ltr"
-  ogLocale="pt_BR"
+  ogLocale="it_IT"
   ogLocaleAlternates={ogLocaleAlternates}
   alternates={alternates}
   schemaGraph={schemaGraph}
@@ -68,8 +68,8 @@ const schemaGraph = [
 
   <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 sm:space-y-12">
     <!-- Breadcrumb navigation -->
-    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="Navegação estrutural">
-      <a href="/pt/" class="hover:text-primary transition-colors">Início</a>
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="Percorso di navigazione">
+      <a href="/it/" class="hover:text-primary transition-colors">Home</a>
       <span>/</span>
       <span class="text-ink font-semibold">Metodologia</span>
     </nav>
@@ -78,35 +78,35 @@ const schemaGraph = [
     <section class="space-y-3">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-canvas-card border border-hairline text-primary shadow-xs">
         <span class="w-2 h-2 rounded-full bg-accent-green"></span>
-        <span>Validação matemática e normas físicas</span>
+        <span>Validazione matematica e standard fisici</span>
       </div>
 
       <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight leading-tight">
-        Normas matemáticas e metodologia
+        Standard matematici e metodologia
       </h1>
 
       <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
-        Este documento detalha as fórmulas geométricas euclidianas, constantes físicas de conversão e critérios de precisão numérica aplicados nas 16 ferramentas de thevolumecalculator.com.
+        Questo documento illustra le formule geometriche euclidee, le costanti fisiche di conversione e i criteri di accuratezza numerica applicati nei 16 strumenti di thevolumecalculator.com.
       </p>
     </section>
 
     <!-- Section 1: Standard Constants -->
     <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
       <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
-        1. Fatores de conversão universais e constantes físicas
+        1. Fattori di conversione universali e costanti fisiche
       </h2>
       <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
-        Todos os cálculos convertem as dimensões de entrada para metros (unidade fundamental do Sistema Internacional) antes da execução das equações volumétricas. Os fatores de conversão seguem as diretrizes do National Institute of Standards and Technology (NIST SP 811) e a norma internacional ISO 80000-3.
+        Tutti i calcoli convertono le dimensioni in ingresso in metri (unità base del Sistema Internazionale) prima dell'elaborazione delle equazioni di volume. I rapporti di conversione derivano dalle pubblicazioni del National Institute of Standards and Technology (NIST SP 811) e dalla norma internazionale ISO 80000-3.
       </p>
 
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs sm:text-sm border-collapse">
           <thead>
             <tr class="border-b border-hairline text-ink-muted">
-              <th class="py-2.5 px-3 font-semibold">Unidade</th>
-              <th class="py-2.5 px-3 font-semibold">Símbolo</th>
-              <th class="py-2.5 px-3 font-semibold">Equivalência exata em SI</th>
-              <th class="py-2.5 px-3 font-semibold">Referência oficial</th>
+              <th class="py-2.5 px-3 font-semibold">Unità</th>
+              <th class="py-2.5 px-3 font-semibold">Simbolo</th>
+              <th class="py-2.5 px-3 font-semibold">Equivalenza esatta in SI</th>
+              <th class="py-2.5 px-3 font-semibold">Riferimento ufficiale</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-hairline text-ink-secondary">
@@ -114,28 +114,28 @@ const schemaGraph = [
               <td class="py-2.5 px-3 font-medium text-ink">Litro</td>
               <td class="py-2.5 px-3 font-mono">L</td>
               <td class="py-2.5 px-3 font-mono">1 L = 0,001 m³</td>
-              <td class="py-2.5 px-3">BIPM / Resolução CGPM</td>
+              <td class="py-2.5 px-3">BIPM / Risoluzione CGPM</td>
             </tr>
             <tr>
-              <td class="py-2.5 px-3 font-medium text-ink">Galão líquido americano</td>
+              <td class="py-2.5 px-3 font-medium text-ink">Gallone liquido americano</td>
               <td class="py-2.5 px-3 font-mono">gal</td>
               <td class="py-2.5 px-3 font-mono">1 gal = 231 in³ = 0,003785411784 m³</td>
               <td class="py-2.5 px-3">NIST SP 811</td>
             </tr>
             <tr>
-              <td class="py-2.5 px-3 font-medium text-ink">Pé cúbico</td>
+              <td class="py-2.5 px-3 font-medium text-ink">Piede cubo</td>
               <td class="py-2.5 px-3 font-mono">ft³</td>
-              <td class="py-2.5 px-3 font-mono">1 ft³ = 1 728 in³ = 0,028316846592 m³</td>
+              <td class="py-2.5 px-3 font-mono">1 ft³ = 1.728 in³ = 0,028316846592 m³</td>
               <td class="py-2.5 px-3">ISO 80000-3</td>
             </tr>
             <tr>
-              <td class="py-2.5 px-3 font-medium text-ink">Jarda cúbica</td>
+              <td class="py-2.5 px-3 font-medium text-ink">Iarda cubica</td>
               <td class="py-2.5 px-3 font-mono">yd³</td>
               <td class="py-2.5 px-3 font-mono">1 yd³ = 27 ft³ = 0,764554857984 m³</td>
               <td class="py-2.5 px-3">ISO 80000-3</td>
             </tr>
             <tr>
-              <td class="py-2.5 px-3 font-medium text-ink">Onça líquida americana</td>
+              <td class="py-2.5 px-3 font-medium text-ink">Oncia liquida americana</td>
               <td class="py-2.5 px-3 font-mono">fl oz</td>
               <td class="py-2.5 px-3 font-mono">1/128 gal = 29,5735295625 mL</td>
               <td class="py-2.5 px-3">NIST SP 811</td>
@@ -148,24 +148,24 @@ const schemaGraph = [
     <!-- Section 2: Mathematical Proofs & Formulas -->
     <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
       <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
-        2. Deduções das fórmulas geométricas
+        2. Deduzioni delle formule geometriche
       </h2>
       <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
-        As equações aplicadas têm como base as formulações analíticas do CRC Standard Mathematical Tables. Modelos tridimensionais que envolvem curvaturas recorrem a integrais fechadas:
+        I modelli di calcolo impiegano le soluzioni analitiche stabilite nelle CRC Standard Mathematical Tables. Le figure tridimensionali curve utilizzano integrazioni definite in forma chiusa:
       </p>
 
       <ul class="space-y-3 text-xs sm:text-sm text-ink-secondary list-disc pl-5">
         <li>
-          Tanques cilíndricos horizontais: A área da seção transversal preenchida é calculada por A = r² arccos((r - h) / r) - (r - h)√(2rh - h²), multiplicada pela extensão longitudinal L.
+          Serbatoi cilindrici orizzontali: L'area della sezione circolare parzialmente bagnata è data da A = r² arccos((r - h) / r) - (r - h)√(2rh - h²), moltiplicata per la lunghezza assiale L.
         </li>
         <li>
-          Calotas esféricas e domos: A integração por discos perpendiculares à altura vertical h produz a relação fechada V = (πh / 6)(3r² + h²), onde r é o raio do plano circular de base.
+          Calotte sferiche e cupole: L'integrazione per fette circolari ortogonali all'altezza h produce la relazione analitica V = (πh / 6)(3r² + h²), dove r è il raggio del cerchio di base.
         </li>
         <li>
-          Troncos de cone retos: A fórmula fechada V = (πh / 3)(r₁² + r₁r₂ + r₂²) elimina imprecisões decorrentes de discretizações escalonadas.
+          Tronchi di cono circolari retti: La formula in forma chiusa V = (πh / 3)(r₁² + r₁r₂ + r₂²) previene approssimazioni e scalettature numeriche.
         </li>
         <li>
-          Toroides e anéis de vedação: O Teorema do Centroide de Pappus-Guldin estabelece V = 2π²Rr², em que R representa o raio de revolução central e r mede o raio da seção tubular circular.
+          Toroidi e anelli di tenuta O-ring: Il teorema del baricentro di Pappo-Guldino fissa V = 2π²Rr², con R raggio di rivoluzione principale e r raggio della sezione tubolare.
         </li>
       </ul>
     </section>
@@ -173,20 +173,20 @@ const schemaGraph = [
     <!-- Section 3: Computational Precision -->
     <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
       <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
-        3. Precisão em ponto flutuante e regras de arredondamento
+        3. Precisione in virgola mobile e regole di arrotondamento
       </h2>
       <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
-        O motor de execução processa números em ponto flutuante de precisão dupla de 64 bits em conformidade com o padrão IEEE 754, com pi fixado em 15 casas decimais (3.141592653589793). O arredondamento ocorre apenas na etapa de apresentação para evitar acúmulo de erro durante os passos intermediários.
+        Il motore di calcolo esegue le operazioni in virgola mobile a doppia precisione a 64 bit secondo lo standard IEEE 754, con pi greco impostato su 15 cifre decimali (3.141592653589793). L'arrotondamento interviene unicamente in fase di visualizzazione finale per evitare dispersioni o derive aritmetiche durante i passaggi intermedi.
       </p>
     </section>
 
     <!-- Section 4: Review Standards -->
     <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
       <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
-        4. Protocolo de verificação matemática
+        4. Protocollo di verifica matematica
       </h2>
       <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
-        Cada calculadora passa por testes de regressão automatizados cobrindo limites assintóticos, variações de escalas dimensionais e calibração com a massa volúmica da água pura a 4°C (1 kg exato por litro).
+        Tutti i calcolatori sono coperti da test di regressione automatizzati che verificano i valori limite, i rapporti asintotici e la densità dell'acqua pura a 4°C (pari a 1 kg esatto per litro).
       </p>
     </section>
   </main>

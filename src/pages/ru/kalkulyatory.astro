@@ -3,17 +3,17 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SHAPES } from '../../scripts/shapes';
-import { FRENCH_TOOLS } from '../../i18n/french-tools';
+import { RUSSIAN_TOOLS } from '../../i18n/russian-tools';
 
-const FRENCH_CATEGORIES = [
-  { id: 'all', label: 'Toutes les formes' },
-  { id: 'basic', label: 'Géométrie fondamentale' },
-  { id: 'curved', label: 'Corps ronds et cônes' },
-  { id: 'prisms_pyramids', label: 'Prismes et pyramides' },
-  { id: 'tanks_pipes', label: 'Cuves et tuyaux' },
+const RUSSIAN_CATEGORIES = [
+  { id: 'all', label: 'Все формы' },
+  { id: 'basic', label: 'Базовая геометрия' },
+  { id: 'curved', label: 'Круглые тела и конусы' },
+  { id: 'prisms_pyramids', label: 'Призмы и пирамиды' },
+  { id: 'tanks_pipes', label: 'Резервуары и трубы' },
 ];
 
-const frenchToolsList = Object.values(FRENCH_TOOLS).map((tool) => {
+const russianToolsList = Object.values(RUSSIAN_TOOLS).map((tool) => {
   const shape = SHAPES[tool.shapeId];
   return {
     ...tool,
@@ -21,32 +21,32 @@ const frenchToolsList = Object.values(FRENCH_TOOLS).map((tool) => {
   };
 });
 
-const canonical = 'https://thevolumecalculator.com/fr/calculateurs';
+const canonical = 'https://thevolumecalculator.com/ru/kalkulyatory';
 const englishUrl = 'https://thevolumecalculator.com/calculators';
 const spanishUrl = 'https://thevolumecalculator.com/es/calculadoras';
 const germanUrl = 'https://thevolumecalculator.com/de/rechner';
+const frenchUrl = 'https://thevolumecalculator.com/fr/calculateurs';
 const portugueseUrl = 'https://thevolumecalculator.com/pt/calculadoras';
 const italianUrl = 'https://thevolumecalculator.com/it/calcolatori';
-const russianUrl = 'https://thevolumecalculator.com/ru/kalkulyatory';
 
 const alternates = [
   { hreflang: 'en', href: englishUrl },
   { hreflang: 'es', href: spanishUrl },
   { hreflang: 'de', href: germanUrl },
-  { hreflang: 'fr', href: canonical },
+  { hreflang: 'fr', href: frenchUrl },
   { hreflang: 'pt', href: portugueseUrl },
   { hreflang: 'it', href: italianUrl },
-  { hreflang: 'ru', href: russianUrl },
+  { hreflang: 'ru', href: canonical },
   { hreflang: 'x-default', href: englishUrl },
 ];
 
-const ogLocaleAlternates = ['fr_CA', 'fr_BE', 'fr_CH'];
+const ogLocaleAlternates = ['ru_KZ', 'ru_BY', 'ru_UZ', 'ru_KG'];
 
 const schemaGraph = [
   {
     '@type': 'CollectionPage',
-    'name': 'Répertoire des 16 calculateurs de volume 3D',
-    'description': 'Répertoire exhaustif des 16 calculateurs de volume géométrique 3D avec formules détaillées, calculs pas à pas et conversion d\'unités.',
+    'name': 'Каталог из 16 калькуляторов объема 3D',
+    'description': 'Полный каталог 16 калькуляторов геометрического объема 3D тел с точными формулами, пошаговыми вычислениями и переводом единиц.',
     'url': canonical,
   },
   {
@@ -55,38 +55,38 @@ const schemaGraph = [
       {
         '@type': 'ListItem',
         'position': 1,
-        'name': 'Accueil',
-        'item': 'https://thevolumecalculator.com/fr/',
+        'name': 'Главная',
+        'item': 'https://thevolumecalculator.com/ru/',
       },
       {
         '@type': 'ListItem',
         'position': 2,
-        'name': 'Calculateurs',
+        'name': 'Калькуляторы',
         'item': canonical,
       },
     ],
   },
   {
     '@type': 'ItemList',
-    'name': 'Calculateurs de volume géométrique 3D en français',
-    'numberOfItems': frenchToolsList.length,
-    'itemListElement': frenchToolsList.map((tool, idx) => ({
+    'name': 'Калькуляторы объема геометрических тел на русском языке',
+    'numberOfItems': russianToolsList.length,
+    'itemListElement': russianToolsList.map((tool, idx) => ({
       '@type': 'ListItem',
       'position': idx + 1,
       'name': tool.h1,
-      'url': `https://thevolumecalculator.com/fr/${tool.slug}`,
+      'url': `https://thevolumecalculator.com/ru/${tool.slug}`,
     })),
   },
 ];
 ---
 
 <Layout
-  title="Répertoire des calculateurs 3D | thevolumecalculator.com"
-  description="Répertoire exhaustif des 16 calculateurs de volume 3D en français. Formules directes, étapes de calcul détaillées et conversion instantanée en litres et mètres cubes."
+  title="Калькуляторы объема 3D | thevolumecalculator.com"
+  description="Полный каталог 16 калькуляторов объема 3D тел на русском языке. Точные геометрические формулы, пошаговый расчет и мгновенный перевод в литры и м³."
   canonical={canonical}
-  lang="fr"
+  lang="ru"
   dir="ltr"
-  ogLocale="fr_FR"
+  ogLocale="ru_RU"
   ogLocaleAlternates={ogLocaleAlternates}
   alternates={alternates}
   schemaGraph={schemaGraph}
@@ -98,15 +98,15 @@ const schemaGraph = [
     <section class="text-center max-w-3xl mx-auto pt-2 pb-2">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-hairline text-primary shadow-xs mb-3.5">
         <span class="w-2 h-2 rounded-full bg-primary"></span>
-        <span>Répertoire de 16 outils : 100% gratuit</span>
+        <span>Каталог из 16 бесплатных инструментов</span>
       </div>
 
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight leading-tight mb-3">
-        Tous les calculateurs de volume 3D
+        Все калькуляторы объема 3D
       </h1>
 
       <p class="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-2xl mx-auto">
-        Accédez à la collection complète de 16 outils de calcul volumétrique tridimensionnel. Chaque calculateur fournit la formule exacte, la décomposition arithmétique étape par étape et les équivalences en litres et mètres cubes.
+        Выберите геометрическую фигуру из каталога 16 онлайн калькуляторов. Каждый инструмент содержит точную формулу, математическую подстановку и перевод в литры и кубические метры.
       </p>
 
       <!-- Instant filter and search bar -->
@@ -114,8 +114,8 @@ const schemaGraph = [
         <input
           type="text"
           id="hub-search-input"
-          aria-label="Rechercher un calculateur de volume"
-          placeholder="Rechercher par forme (ex. cylindre, cuve, cône)..."
+          aria-label="Поиск калькулятора объема"
+          placeholder="Поиск по фигуре (например: цилиндр, бак, конус)..."
           class="w-full px-4 py-2.5 pl-10 text-sm rounded-xl bg-white border border-hairline text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
         />
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3.5 top-3.5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -126,8 +126,8 @@ const schemaGraph = [
     </section>
 
     <!-- Category filter tabs -->
-    <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 px-1 sm:px-0 w-full scrollbar-none" aria-label="Filtrer les calculateurs par catégorie">
-      {FRENCH_CATEGORIES.map((cat, idx) => (
+    <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 px-1 sm:px-0 w-full scrollbar-none" aria-label="Фильтр калькуляторов по категориям">
+      {RUSSIAN_CATEGORIES.map((cat, idx) => (
         <button
           type="button"
           aria-pressed={idx === 0 ? 'true' : 'false'}
@@ -146,7 +146,7 @@ const schemaGraph = [
     <!-- 16 dedicated calculators grid -->
     <section class="space-y-4">
       <div id="hub-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {frenchToolsList.map((t) => (
+        {russianToolsList.map((t) => (
           <div
             class="hub-tool-card bg-white rounded-2xl border border-hairline p-5 shadow-xs hover:border-primary/60 hover:shadow-sm transition-all flex flex-col justify-between group"
             data-category={t.shape.category}
@@ -181,10 +181,10 @@ const schemaGraph = [
 
             <!-- Direct link button -->
             <a
-              href={`/fr/${t.slug}`}
+              href={`/ru/${t.slug}`}
               class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-canvas-soft border border-hairline text-xs font-bold text-ink group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all shadow-2xs"
             >
-              <span>Ouvrir le calculateur</span>
+              <span>Открыть калькулятор</span>
               <span class="text-xs">→</span>
             </a>
           </div>
@@ -193,14 +193,14 @@ const schemaGraph = [
 
       <!-- No results state -->
       <div id="hub-no-results" class="hidden text-center py-16 px-4">
-        <p class="text-base font-bold text-ink">Aucun calculateur trouvé</p>
-        <p class="text-xs text-ink-muted mt-1">Modifiez vos termes de recherche ou sélectionnez toutes les catégories.</p>
+        <p class="text-base font-bold text-ink">Калькуляторы не найдены</p>
+        <p class="text-xs text-ink-muted mt-1">Измените поисковый запрос или выберите вкладку со всеми категориями.</p>
         <button
           type="button"
           id="hub-reset-btn"
           class="mt-4 px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-hover transition-colors cursor-pointer"
         >
-          Réinitialiser les filtres
+          Сбросить фильтры
         </button>
       </div>
     </section>
@@ -212,34 +212,25 @@ const schemaGraph = [
 <script>
   function setupHubInteractions() {
     const searchInput = document.getElementById('hub-search-input') as HTMLInputElement | null;
-    const cards = Array.from(document.querySelectorAll<HTMLElement>('.hub-tool-card'));
-    const categoryTabs = Array.from(document.querySelectorAll<HTMLElement>('.hub-category-tab'));
+    const categoryTabs = document.querySelectorAll<HTMLButtonElement>('.hub-category-tab');
+    const cards = document.querySelectorAll<HTMLElement>('.hub-tool-card');
     const noResults = document.getElementById('hub-no-results');
     const resetBtn = document.getElementById('hub-reset-btn');
 
     let activeCategory = 'all';
     let searchQuery = '';
 
-    function syncUrl() {
-      const params = new URLSearchParams(window.location.search);
-      if (searchQuery) params.set('q', searchQuery);
-      else params.delete('q');
-      if (activeCategory !== 'all') params.set('category', activeCategory);
-      else params.delete('category');
-      const query = params.toString();
-      history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
-    }
-
     function filterTools() {
       let visibleCount = 0;
+
       cards.forEach((card) => {
-        const category = card.getAttribute('data-category');
-        const name = card.getAttribute('data-name') || '';
+        const cardCategory = card.getAttribute('data-category') || '';
+        const cardName = card.getAttribute('data-name') || '';
 
-        const matchesCat = activeCategory === 'all' || category === activeCategory;
-        const matchesQuery = !searchQuery || name.includes(searchQuery);
+        const matchesCategory = activeCategory === 'all' || cardCategory === activeCategory;
+        const matchesSearch = !searchQuery || cardName.includes(searchQuery);
 
-        if (matchesCat && matchesQuery) {
+        if (matchesCategory && matchesSearch) {
           card.classList.remove('hidden');
           visibleCount++;
         } else {
@@ -248,12 +239,30 @@ const schemaGraph = [
       });
 
       if (noResults) {
-        if (visibleCount === 0) noResults.classList.remove('hidden');
-        else noResults.classList.add('hidden');
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
       }
-
-      syncUrl();
     }
+
+    categoryTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        categoryTabs.forEach((t) => {
+          t.classList.remove('bg-primary', 'text-white', 'shadow-xs');
+          t.classList.add('bg-white', 'dark:bg-canvas-card', 'text-ink-secondary', 'border', 'border-hairline');
+          t.setAttribute('aria-pressed', 'false');
+        });
+
+        tab.classList.remove('bg-white', 'dark:bg-canvas-card', 'text-ink-secondary', 'border', 'border-hairline');
+        tab.classList.add('bg-primary', 'text-white', 'shadow-xs');
+        tab.setAttribute('aria-pressed', 'true');
+
+        activeCategory = tab.getAttribute('data-category') || 'all';
+        filterTools();
+      });
+    });
 
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
@@ -261,23 +270,6 @@ const schemaGraph = [
         filterTools();
       });
     }
-
-    categoryTabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        categoryTabs.forEach((t) => {
-          t.setAttribute('aria-pressed', 'false');
-          t.classList.remove('bg-primary', 'text-white', 'shadow-xs');
-          t.classList.add('bg-white', 'text-ink-secondary', 'border', 'border-hairline');
-        });
-
-        tab.setAttribute('aria-pressed', 'true');
-        tab.classList.remove('bg-white', 'text-ink-secondary', 'border', 'border-hairline');
-        tab.classList.add('bg-primary', 'text-white', 'shadow-xs');
-
-        activeCategory = tab.getAttribute('data-category') || 'all';
-        filterTools();
-      });
-    });
 
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
@@ -287,46 +279,18 @@ const schemaGraph = [
 
         categoryTabs.forEach((t, idx) => {
           if (idx === 0) {
-            t.setAttribute('aria-pressed', 'true');
+            t.classList.remove('bg-white', 'dark:bg-canvas-card', 'text-ink-secondary', 'border', 'border-hairline');
             t.classList.add('bg-primary', 'text-white', 'shadow-xs');
-            t.classList.remove('bg-white', 'text-ink-secondary');
+            t.setAttribute('aria-pressed', 'true');
           } else {
-            t.setAttribute('aria-pressed', 'false');
             t.classList.remove('bg-primary', 'text-white', 'shadow-xs');
-            t.classList.add('bg-white', 'text-ink-secondary');
+            t.classList.add('bg-white', 'dark:bg-canvas-card', 'text-ink-secondary', 'border', 'border-hairline');
+            t.setAttribute('aria-pressed', 'false');
           }
         });
 
         filterTools();
       });
-    }
-
-    const params = new URLSearchParams(window.location.search);
-    const initialQuery = params.get('q');
-    const initialCategory = params.get('category');
-
-    if (initialQuery && searchInput) {
-      searchInput.value = initialQuery;
-      searchQuery = initialQuery.toLowerCase();
-    }
-
-    if (initialCategory) {
-      const targetTab = categoryTabs.find((t) => t.getAttribute('data-category') === initialCategory);
-      if (targetTab) {
-        categoryTabs.forEach((t) => {
-          t.setAttribute('aria-pressed', 'false');
-          t.classList.remove('bg-primary', 'text-white', 'shadow-xs');
-          t.classList.add('bg-white', 'text-ink-secondary', 'border', 'border-hairline');
-        });
-        targetTab.setAttribute('aria-pressed', 'true');
-        targetTab.classList.remove('bg-white', 'text-ink-secondary', 'border', 'border-hairline');
-        targetTab.classList.add('bg-primary', 'text-white', 'shadow-xs');
-        activeCategory = initialCategory;
-      }
-    }
-
-    if (initialQuery || initialCategory) {
-      filterTools();
     }
   }
 

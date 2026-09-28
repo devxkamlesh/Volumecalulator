@@ -3,17 +3,17 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SHAPES } from '../../scripts/shapes';
-import { FRENCH_TOOLS } from '../../i18n/french-tools';
+import { ITALIAN_TOOLS } from '../../i18n/italian-tools';
 
-const FRENCH_CATEGORIES = [
-  { id: 'all', label: 'Toutes les formes' },
-  { id: 'basic', label: 'Géométrie fondamentale' },
-  { id: 'curved', label: 'Corps ronds et cônes' },
-  { id: 'prisms_pyramids', label: 'Prismes et pyramides' },
-  { id: 'tanks_pipes', label: 'Cuves et tuyaux' },
+const ITALIAN_CATEGORIES = [
+  { id: 'all', label: 'Tutte le forme' },
+  { id: 'basic', label: 'Geometria fondamentale' },
+  { id: 'curved', label: 'Corpi rotondi e coni' },
+  { id: 'prisms_pyramids', label: 'Prismi e piramidi' },
+  { id: 'tanks_pipes', label: 'Serbatoi e tubature' },
 ];
 
-const frenchToolsList = Object.values(FRENCH_TOOLS).map((tool) => {
+const italianToolsList = Object.values(ITALIAN_TOOLS).map((tool) => {
   const shape = SHAPES[tool.shapeId];
   return {
     ...tool,
@@ -21,32 +21,32 @@ const frenchToolsList = Object.values(FRENCH_TOOLS).map((tool) => {
   };
 });
 
-const canonical = 'https://thevolumecalculator.com/fr/calculateurs';
+const canonical = 'https://thevolumecalculator.com/it/calcolatori';
 const englishUrl = 'https://thevolumecalculator.com/calculators';
 const spanishUrl = 'https://thevolumecalculator.com/es/calculadoras';
 const germanUrl = 'https://thevolumecalculator.com/de/rechner';
+const frenchUrl = 'https://thevolumecalculator.com/fr/calculateurs';
 const portugueseUrl = 'https://thevolumecalculator.com/pt/calculadoras';
-const italianUrl = 'https://thevolumecalculator.com/it/calcolatori';
 const russianUrl = 'https://thevolumecalculator.com/ru/kalkulyatory';
 
 const alternates = [
   { hreflang: 'en', href: englishUrl },
   { hreflang: 'es', href: spanishUrl },
   { hreflang: 'de', href: germanUrl },
-  { hreflang: 'fr', href: canonical },
+  { hreflang: 'fr', href: frenchUrl },
   { hreflang: 'pt', href: portugueseUrl },
-  { hreflang: 'it', href: italianUrl },
+  { hreflang: 'it', href: canonical },
   { hreflang: 'ru', href: russianUrl },
   { hreflang: 'x-default', href: englishUrl },
 ];
 
-const ogLocaleAlternates = ['fr_CA', 'fr_BE', 'fr_CH'];
+const ogLocaleAlternates = ['it_CH', 'it_SM'];
 
 const schemaGraph = [
   {
     '@type': 'CollectionPage',
-    'name': 'Répertoire des 16 calculateurs de volume 3D',
-    'description': 'Répertoire exhaustif des 16 calculateurs de volume géométrique 3D avec formules détaillées, calculs pas à pas et conversion d\'unités.',
+    'name': 'Raccolta dei 16 calcolatori di volume 3D',
+    'description': 'Raccolta completa dei 16 calcolatori di volume geometrico 3D con formule esatte, passaggi di calcolo e conversione di unità.',
     'url': canonical,
   },
   {
@@ -55,38 +55,38 @@ const schemaGraph = [
       {
         '@type': 'ListItem',
         'position': 1,
-        'name': 'Accueil',
-        'item': 'https://thevolumecalculator.com/fr/',
+        'name': 'Home',
+        'item': 'https://thevolumecalculator.com/it/',
       },
       {
         '@type': 'ListItem',
         'position': 2,
-        'name': 'Calculateurs',
+        'name': 'Calcolatori',
         'item': canonical,
       },
     ],
   },
   {
     '@type': 'ItemList',
-    'name': 'Calculateurs de volume géométrique 3D en français',
-    'numberOfItems': frenchToolsList.length,
-    'itemListElement': frenchToolsList.map((tool, idx) => ({
+    'name': 'Calcolatori di volume geometrico 3D in italiano',
+    'numberOfItems': italianToolsList.length,
+    'itemListElement': italianToolsList.map((tool, idx) => ({
       '@type': 'ListItem',
       'position': idx + 1,
       'name': tool.h1,
-      'url': `https://thevolumecalculator.com/fr/${tool.slug}`,
+      'url': `https://thevolumecalculator.com/it/${tool.slug}`,
     })),
   },
 ];
 ---
 
 <Layout
-  title="Répertoire des calculateurs 3D | thevolumecalculator.com"
-  description="Répertoire exhaustif des 16 calculateurs de volume 3D en français. Formules directes, étapes de calcul détaillées et conversion instantanée en litres et mètres cubes."
+  title="Tutti i calcolatori di volume 3D | thevolumecalculator.com"
+  description="Raccolta completa dei 16 calcolatori di volume 3D in italiano. Formule geometriche esatte, passaggi di calcolo e conversione immediata in litri e metri cubi."
   canonical={canonical}
-  lang="fr"
+  lang="it"
   dir="ltr"
-  ogLocale="fr_FR"
+  ogLocale="it_IT"
   ogLocaleAlternates={ogLocaleAlternates}
   alternates={alternates}
   schemaGraph={schemaGraph}
@@ -98,15 +98,15 @@ const schemaGraph = [
     <section class="text-center max-w-3xl mx-auto pt-2 pb-2">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-hairline text-primary shadow-xs mb-3.5">
         <span class="w-2 h-2 rounded-full bg-primary"></span>
-        <span>Répertoire de 16 outils : 100% gratuit</span>
+        <span>Raccolta di 16 strumenti gratuiti</span>
       </div>
 
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight leading-tight mb-3">
-        Tous les calculateurs de volume 3D
+        Tutti i calcolatori di volume 3D
       </h1>
 
       <p class="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-2xl mx-auto">
-        Accédez à la collection complète de 16 outils de calcul volumétrique tridimensionnel. Chaque calculateur fournit la formule exacte, la décomposition arithmétique étape par étape et les équivalences en litres et mètres cubes.
+        Accedi alla raccolta completa di 16 strumenti per il calcolo volumetrico tridimensionale. Ogni calcolatore fornisce la formula esatta, passaggi aritmetici ed equivalenze in litri e metri cubi.
       </p>
 
       <!-- Instant filter and search bar -->
@@ -114,8 +114,8 @@ const schemaGraph = [
         <input
           type="text"
           id="hub-search-input"
-          aria-label="Rechercher un calculateur de volume"
-          placeholder="Rechercher par forme (ex. cylindre, cuve, cône)..."
+          aria-label="Cerca calcolatore di volume"
+          placeholder="Cerca per forma (es. cilindro, serbatoio, cono)..."
           class="w-full px-4 py-2.5 pl-10 text-sm rounded-xl bg-white border border-hairline text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
         />
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3.5 top-3.5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -126,8 +126,8 @@ const schemaGraph = [
     </section>
 
     <!-- Category filter tabs -->
-    <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 px-1 sm:px-0 w-full scrollbar-none" aria-label="Filtrer les calculateurs par catégorie">
-      {FRENCH_CATEGORIES.map((cat, idx) => (
+    <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 px-1 sm:px-0 w-full scrollbar-none" aria-label="Filtra calcolatori per categoria">
+      {ITALIAN_CATEGORIES.map((cat, idx) => (
         <button
           type="button"
           aria-pressed={idx === 0 ? 'true' : 'false'}
@@ -146,7 +146,7 @@ const schemaGraph = [
     <!-- 16 dedicated calculators grid -->
     <section class="space-y-4">
       <div id="hub-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {frenchToolsList.map((t) => (
+        {italianToolsList.map((t) => (
           <div
             class="hub-tool-card bg-white rounded-2xl border border-hairline p-5 shadow-xs hover:border-primary/60 hover:shadow-sm transition-all flex flex-col justify-between group"
             data-category={t.shape.category}
@@ -181,10 +181,10 @@ const schemaGraph = [
 
             <!-- Direct link button -->
             <a
-              href={`/fr/${t.slug}`}
+              href={`/it/${t.slug}`}
               class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-canvas-soft border border-hairline text-xs font-bold text-ink group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all shadow-2xs"
             >
-              <span>Ouvrir le calculateur</span>
+              <span>Apri il calcolatore</span>
               <span class="text-xs">→</span>
             </a>
           </div>
@@ -193,14 +193,14 @@ const schemaGraph = [
 
       <!-- No results state -->
       <div id="hub-no-results" class="hidden text-center py-16 px-4">
-        <p class="text-base font-bold text-ink">Aucun calculateur trouvé</p>
-        <p class="text-xs text-ink-muted mt-1">Modifiez vos termes de recherche ou sélectionnez toutes les catégories.</p>
+        <p class="text-base font-bold text-ink">Nessun calcolatore trovato</p>
+        <p class="text-xs text-ink-muted mt-1">Modifica i termini di ricerca o seleziona tutte le categorie.</p>
         <button
           type="button"
           id="hub-reset-btn"
           class="mt-4 px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-hover transition-colors cursor-pointer"
         >
-          Réinitialiser les filtres
+          Ripristina i filtri
         </button>
       </div>
     </section>

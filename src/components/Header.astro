@@ -8,19 +8,39 @@ const isSpanish = pathname === '/es' || pathname === '/es/' || pathname.startsWi
 const isGerman = pathname === '/de' || pathname === '/de/' || pathname.startsWith('/de/');
 const isFrench = pathname === '/fr' || pathname === '/fr/' || pathname.startsWith('/fr/');
 const isPortuguese = pathname === '/pt' || pathname === '/pt/' || pathname.startsWith('/pt/');
-const activeLocale = isSpanish ? 'es' : isGerman ? 'de' : isFrench ? 'fr' : isPortuguese ? 'pt' : LOCALE_CODES.find((code) => pathname === `/${code}/` || pathname.startsWith(`/${code}/`)) || 'en';
-const activeLanguageName = activeLocale === 'en' ? 'English' : LOCALIZED_HOMES[activeLocale]?.languageName || (isGerman ? 'Deutsch' : isFrench ? 'Français' : isPortuguese ? 'Português' : 'Español');
+const isItalian = pathname === '/it' || pathname === '/it/' || pathname.startsWith('/it/');
+const isRussian = pathname === '/ru' || pathname === '/ru/' || pathname.startsWith('/ru/');
+const activeLocale = isRussian ? 'ru' : isItalian ? 'it' : isSpanish ? 'es' : isGerman ? 'de' : isFrench ? 'fr' : isPortuguese ? 'pt' : LOCALE_CODES.find((code) => pathname === `/${code}/` || pathname.startsWith(`/${code}/`)) || 'en';
+const activeLanguageName = activeLocale === 'en' ? 'English' : LOCALIZED_HOMES[activeLocale]?.languageName || (isRussian ? 'Русский' : isGerman ? 'Deutsch' : isFrench ? 'Français' : isPortuguese ? 'Português' : isItalian ? 'Italiano' : 'Español');
 const languageLinks = [
   { code: 'en', lang: 'en', name: 'English', href: '/' },
   ...LOCALE_CODES.map((code) => ({ code, lang: LOCALIZED_HOMES[code].lang, name: LOCALIZED_HOMES[code].languageName, href: `/${code}/` })),
 ];
 
-const homeHref = isPortuguese ? '/pt/' : isSpanish ? '/es/' : isGerman ? '/de/' : isFrench ? '/fr/' : '/';
-const hubHref = isPortuguese ? '/pt/calculadoras' : isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : isFrench ? '/fr/calculateurs' : '/calculators';
-const methodologyHref = isPortuguese ? '/pt/metodologia' : isSpanish ? '/es/metodologia' : isGerman ? '/de/methodik' : isFrench ? '/fr/methodologie' : '/methodology';
+const homeHref = isRussian ? '/ru/' : isItalian ? '/it/' : isPortuguese ? '/pt/' : isSpanish ? '/es/' : isGerman ? '/de/' : isFrench ? '/fr/' : '/';
+const hubHref = isRussian ? '/ru/kalkulyatory' : isItalian ? '/it/calcolatori' : isPortuguese ? '/pt/calculadoras' : isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : isFrench ? '/fr/calculateurs' : '/calculators';
+const methodologyHref = isRussian ? '/ru/metodologiya' : isItalian ? '/it/metodologia' : isPortuguese ? '/pt/metodologia' : isSpanish ? '/es/metodologia' : isGerman ? '/de/methodik' : isFrench ? '/fr/methodologie' : '/methodology';
 
 // Popular shape shortcuts for mobile menu quick access
-const POPULAR_TOOLS = isPortuguese
+const POPULAR_TOOLS = isRussian
+  ? [
+      { name: 'Коробка', href: '/ru/kalkulyator-obema-parallelepipeda', icon: ICONS.box },
+      { name: 'Цилиндр', href: '/ru/kalkulyator-obema-tsilindra', icon: ICONS.cylinder },
+      { name: 'Шар', href: '/ru/kalkulyator-obema-shara', icon: ICONS.sphere },
+      { name: 'Конус', href: '/ru/kalkulyator-obema-konusa', icon: ICONS.cone },
+      { name: 'Резервуар', href: '/ru/kalkulyator-obema-gorizontalnogo-rezervuara', icon: ICONS.horizontalTank },
+      { name: 'Куб', href: '/ru/kalkulyator-obema-kuba', icon: ICONS.cube },
+    ]
+  : isItalian
+  ? [
+      { name: 'Scatola', href: '/it/calcolatore-volume-prisma-rettangolare', icon: ICONS.box },
+      { name: 'Cilindro', href: '/it/calcolatore-volume-cilindro', icon: ICONS.cylinder },
+      { name: 'Sfera', href: '/it/calcolatore-volume-sfera', icon: ICONS.sphere },
+      { name: 'Cono', href: '/it/calcolatore-volume-cono', icon: ICONS.cone },
+      { name: 'Serbatoio', href: '/it/calcolatore-volume-serbatoio-orizzontale', icon: ICONS.horizontalTank },
+      { name: 'Cubo', href: '/it/calcolatore-volume-cubo', icon: ICONS.cube },
+    ]
+  : isPortuguese
   ? [
       { name: 'Caixa', href: '/pt/calculadora-volume-prisma-retangular', icon: ICONS.box },
       { name: 'Cilindro', href: '/pt/calculadora-volume-cilindro', icon: ICONS.cylinder },
@@ -64,7 +84,23 @@ const POPULAR_TOOLS = isPortuguese
       { name: 'Tank', href: '/horizontal-tank-volume-calculator', icon: ICONS.horizontalTank },
       { name: 'Cube', href: '/cube-volume-calculator', icon: ICONS.cube },
     ];
-const featuredTools = isPortuguese
+const featuredTools = isRussian
+  ? [
+      { name: 'Объем цилиндра', href: '/ru/kalkulyator-obema-tsilindra', icon: ICONS.cylinder, note: 'V = π · r² · h' },
+      { name: 'Объем коробки', href: '/ru/kalkulyator-obema-parallelepipeda', icon: ICONS.box, note: 'V = a · b · h' },
+      { name: 'Объем куба', href: '/ru/kalkulyator-obema-kuba', icon: ICONS.cube, note: 'V = a³' },
+      { name: 'Объем шара', href: '/ru/kalkulyator-obema-shara', icon: ICONS.sphere, note: 'V = ⁴⁄₃ · π · r³' },
+      { name: 'Горизонтальный резервуар', href: '/ru/kalkulyator-obema-gorizontalnogo-rezervuara', icon: ICONS.fuel, note: 'Уровень по линейке' },
+    ]
+  : isItalian
+  ? [
+      { name: 'Volume cilindro', href: '/it/calcolatore-volume-cilindro', icon: ICONS.cylinder, note: 'V = π · r² · h' },
+      { name: 'Volume scatola / prisma', href: '/it/calcolatore-volume-prisma-rettangolare', icon: ICONS.box, note: 'V = l · w · h' },
+      { name: 'Volume cubo', href: '/it/calcolatore-volume-cubo', icon: ICONS.cube, note: 'V = a³' },
+      { name: 'Volume sfera', href: '/it/calcolatore-volume-sfera', icon: ICONS.sphere, note: 'V = ⁴⁄₃ · π · r³' },
+      { name: 'Serbatoio orizzontale', href: '/it/calcolatore-volume-serbatoio-orizzontale', icon: ICONS.fuel, note: 'Livello asta metrica' },
+    ]
+  : isPortuguese
   ? [
       { name: 'Volume de cilindro', href: '/pt/calculadora-volume-cilindro', icon: ICONS.cylinder, note: 'V = π · r² · h' },
       { name: 'Volume de caixa', href: '/pt/calculadora-volume-prisma-retangular', icon: ICONS.box, note: 'V = c · l · h' },
@@ -135,7 +171,7 @@ const featuredTools = isPortuguese
 
     <!-- Desktop Nav Links (Hidden on Mobile) -->
     <nav class="hidden md:flex items-center gap-5 lg:gap-6 text-sm text-ink-secondary font-medium">
-      <a href={homeHref} class="hover:text-primary transition-colors whitespace-nowrap">{isPortuguese ? 'Cálculo rápido' : isFrench ? 'Calcul rapide' : isSpanish ? 'Calculadora rápida' : isGerman ? 'Schnellrechner' : 'Quick Calculator'}</a>
+      <a href={homeHref} class="hover:text-primary transition-colors whitespace-nowrap">{isRussian ? 'Быстрый расчет' : isItalian ? 'Calcolo rapido' : isPortuguese ? 'Cálculo rápido' : isFrench ? 'Calcul rapide' : isSpanish ? 'Calculadora rápida' : isGerman ? 'Schnellrechner' : 'Quick Calculator'}</a>
 
       <!-- Featured Calculators Sub-Menu Dropdown -->
       <div class="relative group" id="featured-dropdown-container">
@@ -146,7 +182,7 @@ const featuredTools = isPortuguese
           aria-expanded="false"
           aria-haspopup="true"
         >
-          <span>{isPortuguese ? 'Calculadoras populares' : isFrench ? 'Calculateurs populaires' : isSpanish ? 'Calculadoras destacadas' : isGerman ? 'Beliebte Rechner' : 'Featured Calculators'}</span>
+          <span>{isRussian ? 'Популярные калькуляторы' : isItalian ? 'Calcolatori in evidenza' : isPortuguese ? 'Calculadoras populares' : isFrench ? 'Calculateurs populaires' : isSpanish ? 'Calculadoras destacadas' : isGerman ? 'Beliebte Rechner' : 'Featured Calculators'}</span>
           <svg class="w-3.5 h-3.5 text-ink-muted group-hover:text-primary transition-transform group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
@@ -159,7 +195,7 @@ const featuredTools = isPortuguese
         >
           <div class="p-2 rounded-2xl bg-surface dark:bg-[#1c1c1e] border border-hairline shadow-xl space-y-1">
             <div class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-ink-muted">
-              {isPortuguese ? 'Ferramentas e fórmulas populares' : isFrench ? 'Outils et formules populaires' : isSpanish ? 'Herramientas y fórmulas destacadas' : isGerman ? 'Beliebte Rechner und Formeln' : 'Featured Tools & Formulas'}
+              {isRussian ? 'Популярные калькуляторы и формулы' : isItalian ? 'Strumenti e formule in evidenza' : isPortuguese ? 'Ferramentas e fórmulas populares' : isFrench ? 'Outils et formules populaires' : isSpanish ? 'Herramientas y fórmulas destacadas' : isGerman ? 'Beliebte Rechner und Formeln' : 'Featured Tools & Formulas'}
             </div>
 
             {featuredTools.map((tool) => (
@@ -184,7 +220,7 @@ const featuredTools = isPortuguese
                 href={hubHref}
                 class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold text-primary hover:bg-primary/10 transition-colors"
               >
-                <span>{isPortuguese ? 'Ver as 16 calculadoras' : isFrench ? 'Voir les 16 calculateurs' : isSpanish ? 'Ver las 16 calculadoras' : isGerman ? 'Alle 16 Rechner ansehen' : 'Browse All 16 Calculators'}</span>
+                <span>{isRussian ? 'Смотреть все 16 калькуляторов' : isItalian ? 'Vedi tutti i 16 calcolatori' : isPortuguese ? 'Ver as 16 calculadoras' : isFrench ? 'Voir les 16 calculateurs' : isSpanish ? 'Ver las 16 calculadoras' : isGerman ? 'Alle 16 Rechner ansehen' : 'Browse All 16 Calculators'}</span>
                 <span>→</span>
               </a>
             </div>
@@ -192,9 +228,9 @@ const featuredTools = isPortuguese
         </div>
       </div>
 
-      <a href={hubHref} class="hover:text-primary transition-colors flex items-center gap-1.5 whitespace-nowrap" aria-label={isPortuguese ? 'Diretório das 16 calculadoras' : isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'All 16 Volume Calculators Directory'}>
-        <span>{isPortuguese ? 'Calculadoras' : isFrench ? 'Calculateurs' : isSpanish ? 'Calculadoras' : isGerman ? 'Rechner' : 'All Calculators'}</span>
-        <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-primary/10 text-primary font-bold">{isPortuguese ? '16 formas' : isFrench ? '16 formes' : isSpanish ? '16 figuras' : isGerman ? '16 Körper' : '16 Tools'}</span>
+      <a href={hubHref} class="hover:text-primary transition-colors flex items-center gap-1.5 whitespace-nowrap" aria-label={isRussian ? 'Каталог всех 16 калькуляторов объема' : isItalian ? 'Raccolta dei 16 calcolatori' : isPortuguese ? 'Diretório das 16 calculadoras' : isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'All 16 Volume Calculators Directory'}>
+        <span>{isRussian ? 'Калькуляторы' : isItalian ? 'Calcolatori' : isPortuguese ? 'Calculadoras' : isFrench ? 'Calculateurs' : isSpanish ? 'Calculadoras' : isGerman ? 'Rechner' : 'All Calculators'}</span>
+        <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-primary/10 text-primary font-bold">{isRussian ? '16 фигур' : isItalian ? '16 forme' : isPortuguese ? '16 formas' : isFrench ? '16 formes' : isSpanish ? '16 figuras' : isGerman ? '16 Körper' : '16 Tools'}</span>
       </a>
 
       <!-- Desktop Language Selector -->
@@ -237,10 +273,10 @@ const featuredTools = isPortuguese
       <!-- Desktop Hub CTA Button -->
       <a
         href={hubHref}
-        aria-label={isPortuguese ? 'Diretório das 16 calculadoras' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'Directory of all 16 volume calculators'}
+        aria-label={isRussian ? 'Каталог всех 16 калькуляторов объема' : isItalian ? 'Raccolta dei 16 calcolatori' : isPortuguese ? 'Diretório das 16 calculadoras' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'Directory of all 16 volume calculators'}
         class="hidden sm:inline-flex items-center justify-center px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold rounded-full bg-primary text-white hover:bg-primary-active active:scale-95 transition-all shadow-xs whitespace-nowrap"
       >
-        <span>{isPortuguese ? 'As 16 formas' : isSpanish ? 'Las 16 figuras' : isGerman ? 'Alle 16 Körper' : 'All 16 Tools'}</span>
+        <span>{isRussian ? 'Все 16 фигур' : isItalian ? 'Tutte le 16 forme' : isPortuguese ? 'As 16 formas' : isSpanish ? 'Las 16 figuras' : isGerman ? 'Alle 16 Körper' : 'All 16 Tools'}</span>
         <span class="ml-1">→</span>
       </a>
 
@@ -303,7 +339,7 @@ const featuredTools = isPortuguese
       <div>
         <a
           href={hubHref}
-          aria-label={isPortuguese ? 'Diretório das 16 calculadoras' : isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'Browse all 16 volume calculators directory'}
+          aria-label={isRussian ? 'Каталог всех 16 калькуляторов объема' : isItalian ? 'Raccolta dei 16 calcolatori' : isPortuguese ? 'Diretório das 16 calculadoras' : isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'Browse all 16 volume calculators directory'}
           class="mobile-nav-link p-3 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-between group active:scale-[0.99] transition-all"
         >
           <div class="flex items-center gap-3">
@@ -312,15 +348,15 @@ const featuredTools = isPortuguese
             </div>
             <div>
               <div class="font-bold text-sm text-ink group-hover:text-primary transition-colors leading-tight">
-                {isPortuguese ? 'Diretório das 16 calculadoras' : isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'All 16 Volume Calculators Hub'}
+                {isRussian ? 'Каталог всех 16 калькуляторов объема' : isItalian ? 'Raccolta dei 16 calcolatori' : isPortuguese ? 'Diretório das 16 calculadoras' : isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Volumenrechner' : 'All 16 Volume Calculators Hub'}
               </div>
               <div class="text-[11px] text-ink-muted mt-0.5">
-                {isPortuguese ? 'Cubos, tanques, cilindros, cones, tubos e mais' : isFrench ? 'Cubes, cuves, cylindres, cônes, tubes et plus' : isSpanish ? 'Cubos, tanques, cilindros, conos, tubos y más' : isGerman ? 'Würfel, Tanks, Zylinder, Kegel, Rohre und mehr' : 'Cubes, tanks, cylinders, cones, pipes & more'}
+                {isRussian ? 'Кубы, резервуары, цилиндры, конусы, трубы и другое' : isItalian ? 'Cubi, serbatoi, cilindri, coni, tubi e altro' : isPortuguese ? 'Cubos, tanques, cilindros, cones, tubos e mais' : isFrench ? 'Cubes, cuves, cylindres, cônes, tubes et plus' : isSpanish ? 'Cubos, tanques, cilindros, conos, tubos y más' : isGerman ? 'Würfel, Tanks, Zylinder, Kegel, Rohre und mehr' : 'Cubes, tanks, cylinders, cones, pipes & more'}
               </div>
             </div>
           </div>
           <span class="text-xs font-bold text-primary group-hover:translate-x-0.5 transition-transform ml-2 shrink-0">
-            {isPortuguese ? 'Explorar →' : isFrench ? 'Explorer →' : isSpanish ? 'Explorar →' : isGerman ? 'Öffnen →' : 'Browse →'}
+            {isRussian ? 'Открыть →' : isItalian ? 'Esplora →' : isPortuguese ? 'Explorar →' : isFrench ? 'Explorer →' : isSpanish ? 'Explorar →' : isGerman ? 'Öffnen →' : 'Browse →'}
           </span>
         </a>
       </div>
@@ -328,7 +364,7 @@ const featuredTools = isPortuguese
       <!-- 2. Featured Calculators Sub-Menu Section (Mobile) -->
       <div>
         <span class="text-[11px] font-bold uppercase tracking-wider text-ink-muted px-1 block mb-2">
-          {isPortuguese ? 'Calculadoras populares' : isFrench ? 'Calculateurs populaires' : isSpanish ? 'Calculadoras destacadas' : isGerman ? 'Beliebte Rechner' : 'Featured Calculators & Formulas'}
+          {isRussian ? 'Популярные калькуляторы' : isItalian ? 'Calcolatori in evidenza' : isPortuguese ? 'Calculadoras populares' : isFrench ? 'Calculateurs populaires' : isSpanish ? 'Calculadoras destacadas' : isGerman ? 'Beliebte Rechner' : 'Featured Calculators & Formulas'}
         </span>
         <div class="space-y-1">
           {featuredTools.map((tool) => (
@@ -349,7 +385,7 @@ const featuredTools = isPortuguese
       <!-- 3. Popular Shape Fast Jump Grid -->
       <div>
         <span class="text-[11px] font-bold uppercase tracking-wider text-ink-muted px-1 block mb-2">
-          {isPortuguese ? 'Outras formas' : isFrench ? 'Autres formes' : isSpanish ? 'Otras figuras' : isGerman ? 'Weitere Körper' : 'Other Shapes'}
+          {isRussian ? 'Другие фигуры' : isItalian ? 'Altre forme' : isPortuguese ? 'Outras formas' : isFrench ? 'Autres formes' : isSpanish ? 'Otras figuras' : isGerman ? 'Weitere Körper' : 'Other Shapes'}
         </span>
         <div class="grid grid-cols-3 gap-2">
           {POPULAR_TOOLS.map((tool) => (
@@ -377,9 +413,9 @@ const featuredTools = isPortuguese
         >
           <span class="flex items-center gap-2.5">
             <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-            <span>{isPortuguese ? 'Cálculo rápido inicial' : isFrench ? 'Calcul rapide d\'accueil' : isSpanish ? 'Calculadora rápida de inicio' : isGerman ? 'Schnellrechner auf Startseite' : 'Quick Everyday Calculator'}</span>
+            <span>{isRussian ? 'Быстрый расчет на главной' : isItalian ? 'Calcolo rapido iniziale' : isPortuguese ? 'Cálculo rápido inicial' : isFrench ? 'Calcul rapide d\'accueil' : isSpanish ? 'Calculadora rápida de inicio' : isGerman ? 'Schnellrechner auf Startseite' : 'Quick Everyday Calculator'}</span>
           </span>
-          <span class="text-xs text-ink-faint">{isPortuguese ? 'Início →' : isFrench ? 'Accueil →' : isSpanish ? 'Inicio →' : isGerman ? 'Start →' : 'Home →'}</span>
+          <span class="text-xs text-ink-faint">{isRussian ? 'Главная →' : isItalian ? 'Home →' : isPortuguese ? 'Início →' : isFrench ? 'Accueil →' : isSpanish ? 'Inicio →' : isGerman ? 'Start →' : 'Home →'}</span>
         </a>
 
         <a
@@ -388,9 +424,9 @@ const featuredTools = isPortuguese
         >
           <span class="flex items-center gap-2.5">
             <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-            <span>{isPortuguese ? 'Diretório das 16 calculadoras' : isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Rechner' : 'All 16 Calculators Directory'}</span>
+            <span>{isRussian ? 'Каталог всех 16 калькуляторов' : isItalian ? 'Raccolta dei 16 calcolatori' : isPortuguese ? 'Diretório das 16 calculadoras' : isFrench ? 'Répertoire des 16 calculateurs' : isSpanish ? 'Directorio de las 16 calculadoras' : isGerman ? 'Verzeichnis aller 16 Rechner' : 'All 16 Calculators Directory'}</span>
           </span>
-          <span class="text-xs text-primary font-bold">{isPortuguese ? '16 formas →' : isFrench ? '16 formes →' : isSpanish ? '16 figuras →' : isGerman ? '16 Körper →' : '16 Tools →'}</span>
+          <span class="text-xs text-primary font-bold">{isRussian ? '16 фигур →' : isItalian ? '16 forme →' : isPortuguese ? '16 formas →' : isFrench ? '16 formes →' : isSpanish ? '16 figuras →' : isGerman ? '16 Körper →' : '16 Tools →'}</span>
         </a>
 
         <a
@@ -399,9 +435,9 @@ const featuredTools = isPortuguese
         >
           <span class="flex items-center gap-2.5">
             <svg class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            <span>{isPortuguese ? 'Metodologia e normas' : isFrench ? 'Méthodologie et normes' : isSpanish ? 'Metodología y estándares' : isGerman ? 'Methodik und Standards' : 'Methodology & Standards'}</span>
+            <span>{isRussian ? 'Методология и стандарты' : isItalian ? 'Metodologia e standard' : isPortuguese ? 'Metodologia e normas' : isFrench ? 'Méthodologie et normes' : isSpanish ? 'Metodología y estándares' : isGerman ? 'Methodik und Standards' : 'Methodology & Standards'}</span>
           </span>
-          <span class="text-xs text-ink-faint">{isPortuguese ? 'Normas →' : isFrench ? 'Normes →' : isSpanish ? 'Estándares →' : isGerman ? 'Standards →' : 'Standards →'}</span>
+          <span class="text-xs text-ink-faint">{isRussian ? 'Стандарты →' : isItalian ? 'Standard →' : isPortuguese ? 'Normas →' : isFrench ? 'Normes →' : isSpanish ? 'Estándares →' : isGerman ? 'Standards →' : 'Standards →'}</span>
         </a>
       </nav>
 

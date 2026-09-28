@@ -9,15 +9,13 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SHAPES } from '../scripts/shapes';
-import { FRENCH_TOOLS } from '../i18n/french-tools';
-import { PORTUGUESE_TOOLS } from '../i18n/portuguese-tools';
 import { ITALIAN_TOOLS } from '../i18n/italian-tools';
 import { RUSSIAN_TOOLS } from '../i18n/russian-tools';
 import { getShapeSvg } from '../scripts/diagrams';
 
-const tool = FRENCH_TOOLS[slug];
+const tool = ITALIAN_TOOLS[slug];
 if (!tool) {
-  throw new Error(`French tool detail not found for slug: ${slug}`);
+  throw new Error(`Italian tool detail not found for slug: ${slug}`);
 }
 
 const shape = SHAPES[tool.shapeId];
@@ -28,50 +26,50 @@ if (!shape) {
 const diagramSvg = getShapeSvg(shape.id);
 
 const units = [
-  { id: 'cm', label: 'Centimètres (cm)' },
-  { id: 'm', label: 'Mètres (m)' },
-  { id: 'mm', label: 'Millimètres (mm)' },
-  { id: 'in', label: 'Pouces (in)' },
-  { id: 'ft', label: 'Pieds (ft)' },
-  { id: 'yd', label: 'Yards (yd)' },
+  { id: 'cm', label: 'Centimetri (cm)' },
+  { id: 'm', label: 'Metri (m)' },
+  { id: 'mm', label: 'Millimetri (mm)' },
+  { id: 'in', label: 'Pollici (in)' },
+  { id: 'ft', label: 'Piedi (ft)' },
+  { id: 'yd', label: 'Iarde (yd)' },
 ];
 
 const outputUnits = [
-  { id: 'l', label: 'Litres (l)' },
-  { id: 'm3', label: 'Mètres cubes (m³)' },
-  { id: 'cm3', label: 'Centimètres cubes (cm³)' },
-  { id: 'gal', label: 'Gallons (gal)' },
-  { id: 'cu_ft', label: 'Pieds cubes (ft³)' },
-  { id: 'cu_in', label: 'Pouces cubes (in³)' },
-  { id: 'cu_yd', label: 'Yards cubes (yd³)' },
+  { id: 'l', label: 'Litri (l)' },
+  { id: 'm3', label: 'Metri cubi (m³)' },
+  { id: 'cm3', label: 'Centimetri cubi (cm³)' },
+  { id: 'gal', label: 'Galloni (gal)' },
+  { id: 'cu_ft', label: 'Piedi cubi (ft³)' },
+  { id: 'cu_in', label: 'Pollici cubi (in³)' },
+  { id: 'cu_yd', label: 'Iarde cubiche (yd³)' },
 ];
 
-const relatedTools = tool.relatedFrenchSlugs.map((relatedSlug) => {
-  const related = FRENCH_TOOLS[relatedSlug];
-  if (!related) throw new Error(`Related French tool not found: ${relatedSlug}`);
+const relatedTools = tool.relatedItalianSlugs.map((relatedSlug) => {
+  const related = ITALIAN_TOOLS[relatedSlug];
+  if (!related) throw new Error(`Related Italian tool not found: ${relatedSlug}`);
   return related;
 });
 
-const canonicalUrl = `https://thevolumecalculator.com/fr/${tool.slug}`;
+const canonicalUrl = `https://thevolumecalculator.com/it/${tool.slug}`;
 const englishUrl = `https://thevolumecalculator.com/${tool.englishSlug}`;
 const spanishUrl = `https://thevolumecalculator.com/es/${tool.spanishSlug}`;
 const germanUrl = `https://thevolumecalculator.com/de/${tool.germanSlug}`;
-const portugueseCounterpart = Object.values(PORTUGUESE_TOOLS).find((pt) => pt.englishSlug === tool.englishSlug);
-const italianCounterpart = Object.values(ITALIAN_TOOLS).find((it) => it.englishSlug === tool.englishSlug);
+const frenchUrl = `https://thevolumecalculator.com/fr/${tool.frenchSlug}`;
+const portugueseUrl = `https://thevolumecalculator.com/pt/${tool.portugueseSlug}`;
 const russianCounterpart = Object.values(RUSSIAN_TOOLS).find((rt) => rt.englishSlug === tool.englishSlug);
 
 const alternates = [
   { hreflang: 'en', href: englishUrl },
   { hreflang: 'es', href: spanishUrl },
   { hreflang: 'de', href: germanUrl },
-  { hreflang: 'fr', href: canonicalUrl },
-  ...(portugueseCounterpart ? [{ hreflang: 'pt', href: `https://thevolumecalculator.com/pt/${portugueseCounterpart.slug}` }] : []),
-  ...(italianCounterpart ? [{ hreflang: 'it', href: `https://thevolumecalculator.com/it/${italianCounterpart.slug}` }] : []),
+  { hreflang: 'fr', href: frenchUrl },
+  { hreflang: 'pt', href: portugueseUrl },
+  { hreflang: 'it', href: canonicalUrl },
   ...(russianCounterpart ? [{ hreflang: 'ru', href: `https://thevolumecalculator.com/ru/${russianCounterpart.slug}` }] : []),
   { hreflang: 'x-default', href: englishUrl },
 ];
 
-const ogLocaleAlternates = ['fr_CA', 'fr_BE', 'fr_CH'];
+const ogLocaleAlternates = ['it_CH', 'it_SM'];
 
 const toolSchemaGraph: any[] = [
   {
@@ -93,14 +91,14 @@ const toolSchemaGraph: any[] = [
       {
         '@type': 'ListItem',
         'position': 1,
-        'name': 'Accueil',
-        'item': 'https://thevolumecalculator.com/fr/',
+        'name': 'Home',
+        'item': 'https://thevolumecalculator.com/it/',
       },
       {
         '@type': 'ListItem',
         'position': 2,
-        'name': 'Calculateurs',
-        'item': 'https://thevolumecalculator.com/fr/calculateurs',
+        'name': 'Calcolatori',
+        'item': 'https://thevolumecalculator.com/it/calcolatori',
       },
       {
         '@type': 'ListItem',
@@ -129,9 +127,9 @@ const toolSchemaGraph: any[] = [
   description={tool.metaDescription}
   keywords={tool.keywords}
   canonical={canonicalUrl}
-  lang="fr"
+  lang="it"
   dir="ltr"
-  ogLocale="fr_FR"
+  ogLocale="it_IT"
   ogLocaleAlternates={ogLocaleAlternates}
   alternates={alternates}
   schemaGraph={toolSchemaGraph}
@@ -140,10 +138,10 @@ const toolSchemaGraph: any[] = [
 
   <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8 sm:space-y-12">
     <!-- Breadcrumb navigation -->
-    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="Fil d'Ariane">
-      <a href="/fr/" class="hover:text-primary transition-colors">Accueil</a>
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="Percorso di navigazione">
+      <a href="/it/" class="hover:text-primary transition-colors">Home</a>
       <span>/</span>
-      <a href="/fr/calculateurs" class="hover:text-primary transition-colors">Calculateurs</a>
+      <a href="/it/calcolatori" class="hover:text-primary transition-colors">Calcolatori</a>
       <span>/</span>
       <span class="text-ink font-semibold">{tool.shapeName}</span>
     </nav>
@@ -164,7 +162,7 @@ const toolSchemaGraph: any[] = [
       </h1>
 
       <p class="text-sm sm:text-base text-ink-secondary max-w-3xl leading-relaxed">
-        {tool.shortTagline} Renseignez les dimensions ci-dessous pour calculer immédiatement le volume en litres, mètres cubes ou gallons.
+        {tool.shortTagline} Inserisci le dimensioni qui sotto per calcolare all'istante il volume in litri, metri cubi o galloni.
       </p>
     </section>
 
@@ -173,17 +171,17 @@ const toolSchemaGraph: any[] = [
       id="single-tool-card"
       data-shape-id={shape.id}
       data-shape-name={tool.shapeName}
-      data-lang="fr"
+      data-lang="it"
       data-default-unit="l"
       class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-6"
     >
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-hairline">
         <div>
           <h2 class="text-lg font-bold text-ink tracking-tight">
-            Dimensions requises
+            Dimensioni richieste
           </h2>
           <p class="text-xs text-ink-muted mt-0.5">
-            Indiquez les mesures et sélectionnez l'unité pour chaque paramètre.
+            Indica le misure e seleziona l'unità per ciascun parametro.
           </p>
         </div>
         <button
@@ -191,7 +189,7 @@ const toolSchemaGraph: any[] = [
           id="single-clear-btn"
           class="text-xs font-semibold px-3 py-1.5 rounded-md bg-canvas-soft border border-hairline text-ink-muted hover:text-ink hover:border-ink-muted transition-colors cursor-pointer self-start sm:self-auto"
         >
-          Effacer tout
+          Cancella tutto
         </button>
       </div>
 
@@ -212,7 +210,7 @@ const toolSchemaGraph: any[] = [
                     <span>{inputLabel}</span>
                   </span>
                   <span class="text-[11px] font-normal text-ink-faint">
-                    symbole : {input.symbol}
+                    simbolo: {input.symbol}
                   </span>
                 </label>
 
@@ -227,10 +225,10 @@ const toolSchemaGraph: any[] = [
                     min="0"
                     class="w-full px-3.5 py-2.5 text-base font-mono rounded-xl bg-canvas-soft/40 border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all shadow-xs"
                   />
-                  <label for={`tool-unit-${input.id}`} class="sr-only">Unité pour {inputLabel}</label>
+                  <label for={`tool-unit-${input.id}`} class="sr-only">Unità per {inputLabel}</label>
                   <select
                     id={`tool-unit-${input.id}`}
-                    aria-label={`Unité pour ${inputLabel}`}
+                    aria-label={`Unità per ${inputLabel}`}
                     class="px-3 py-2.5 text-xs sm:text-sm font-semibold rounded-xl bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shrink-0"
                   >
                     {units.map((u) => (
@@ -252,7 +250,7 @@ const toolSchemaGraph: any[] = [
             <Fragment set:html={diagramSvg} />
           </div>
           <span class="text-[11px] font-medium text-ink-muted mt-2 text-center">
-            Guide de mesure pour : {tool.shapeName}
+            Guida alle misure per: {tool.shapeName}
           </span>
         </div>
       </div>
@@ -261,14 +259,14 @@ const toolSchemaGraph: any[] = [
       <div class="p-5 sm:p-6 rounded-xl bg-canvas-soft border border-hairline flex flex-col gap-4">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold uppercase tracking-wider text-ink-muted">
-            Volume calculé
+            Volume calcolato
           </span>
           <button
             type="button"
             id="single-copy-btn"
             class="text-xs font-semibold px-3 py-1 rounded bg-white border border-hairline hover:border-ink-muted text-ink active:scale-95 transition-all cursor-pointer shadow-xs"
           >
-            Copier le résultat
+            Copia risultato
           </button>
         </div>
 
@@ -286,7 +284,7 @@ const toolSchemaGraph: any[] = [
           <!-- Output unit selector -->
           <div class="flex items-center gap-2 self-start sm:self-auto">
             <label for="single-output-unit" class="text-xs font-semibold text-ink-muted">
-              Résultat en :
+              Risultato in:
             </label>
             <select
               id="single-output-unit"
@@ -303,7 +301,7 @@ const toolSchemaGraph: any[] = [
 
         <!-- Surface area secondary result -->
         <div class="pt-3 border-t border-hairline flex items-center justify-between text-xs text-ink-muted">
-          <span>Aire totale estimée :</span>
+          <span>Area totale stimata:</span>
           <span id="single-surface-area" class="font-mono font-bold text-ink">
             -
           </span>
@@ -317,7 +315,7 @@ const toolSchemaGraph: any[] = [
             <path d="M9 11l3 3L22 4"></path>
             <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
           </svg>
-          <span>Calcul détaillé étape par étape</span>
+          <span>Calcolo dettagliato passaggio per passaggio</span>
         </div>
         <div id="single-steps-container" class="space-y-2"></div>
       </div>
@@ -326,7 +324,7 @@ const toolSchemaGraph: any[] = [
     <!-- How to calculate section -->
     <section class="space-y-4 pt-4 border-t border-hairline">
       <h2 class="text-xl sm:text-2xl font-bold text-ink tracking-tight">
-        Comment calculer le volume de cette figure
+        Come calcolare il volume di questa figura
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         {tool.howToCalculate.map((step, idx) => (
@@ -346,9 +344,9 @@ const toolSchemaGraph: any[] = [
     <section class="p-5 sm:p-6 rounded-2xl bg-canvas-soft border border-hairline space-y-3">
       <div class="flex items-center justify-between">
         <h2 class="text-sm font-bold uppercase tracking-wider text-ink">
-          Formule géométrique
+          Formula geometrica
         </h2>
-        <span class="text-[11px] font-mono text-ink-muted">Notation mathématique</span>
+        <span class="text-[11px] font-mono text-ink-muted">Notazione matematica</span>
       </div>
 
       <div class="p-4 rounded-xl bg-white border border-hairline flex items-center justify-center">
@@ -365,7 +363,7 @@ const toolSchemaGraph: any[] = [
     <!-- Practical examples and applications -->
     <section class="space-y-4">
       <h2 class="text-xl sm:text-2xl font-bold text-ink tracking-tight">
-        Applications pratiques
+        Applicazioni pratiche
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {tool.practicalExamples.map((ex) => (
@@ -383,10 +381,10 @@ const toolSchemaGraph: any[] = [
     <section class="space-y-4 pt-4 border-t border-hairline">
       <div class="space-y-1">
         <h2 class="text-xl sm:text-2xl font-bold text-ink tracking-tight">
-          Questions fréquentes
+          Domande frequenti
         </h2>
         <p class="text-xs sm:text-sm text-ink-muted">
-          Réponses aux questions courantes sur les formules, dimensions et conversions d'unités.
+          Risposte alle domande più comuni su formule, dimensioni e conversioni di unità.
         </p>
       </div>
 
@@ -411,10 +409,10 @@ const toolSchemaGraph: any[] = [
     <section class="space-y-4 pt-6 border-t border-hairline">
       <div class="flex items-center justify-between">
         <h2 class="text-base sm:text-lg font-bold text-ink tracking-tight">
-          Calculateurs associés
+          Calcolatori correlati
         </h2>
-        <a href="/fr/calculateurs" class="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
-          <span>Voir les 16 calculateurs</span>
+        <a href="/it/calcolatori" class="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+          <span>Vedi tutti i 16 calcolatori</span>
           <span>→</span>
         </a>
       </div>
@@ -424,7 +422,7 @@ const toolSchemaGraph: any[] = [
           const relShape = SHAPES[rel.shapeId];
           return (
             <a
-              href={`/fr/${rel.slug}`}
+              href={`/it/${rel.slug}`}
               class="p-3.5 rounded-xl bg-white border border-hairline hover:border-primary/40 hover:shadow-xs transition-all flex items-center gap-3 group"
             >
               <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">

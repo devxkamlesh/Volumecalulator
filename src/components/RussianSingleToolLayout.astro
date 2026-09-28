@@ -9,15 +9,12 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SHAPES } from '../scripts/shapes';
-import { FRENCH_TOOLS } from '../i18n/french-tools';
-import { PORTUGUESE_TOOLS } from '../i18n/portuguese-tools';
-import { ITALIAN_TOOLS } from '../i18n/italian-tools';
 import { RUSSIAN_TOOLS } from '../i18n/russian-tools';
 import { getShapeSvg } from '../scripts/diagrams';
 
-const tool = FRENCH_TOOLS[slug];
+const tool = RUSSIAN_TOOLS[slug];
 if (!tool) {
-  throw new Error(`French tool detail not found for slug: ${slug}`);
+  throw new Error(`Russian tool detail not found for slug: ${slug}`);
 }
 
 const shape = SHAPES[tool.shapeId];
@@ -28,50 +25,50 @@ if (!shape) {
 const diagramSvg = getShapeSvg(shape.id);
 
 const units = [
-  { id: 'cm', label: 'Centimètres (cm)' },
-  { id: 'm', label: 'Mètres (m)' },
-  { id: 'mm', label: 'Millimètres (mm)' },
-  { id: 'in', label: 'Pouces (in)' },
-  { id: 'ft', label: 'Pieds (ft)' },
-  { id: 'yd', label: 'Yards (yd)' },
+  { id: 'cm', label: 'Сантиметры (см)' },
+  { id: 'm', label: 'Метры (м)' },
+  { id: 'mm', label: 'Миллиметры (мм)' },
+  { id: 'in', label: 'Дюймы (in)' },
+  { id: 'ft', label: 'Футы (ft)' },
+  { id: 'yd', label: 'Ярды (yd)' },
 ];
 
 const outputUnits = [
-  { id: 'l', label: 'Litres (l)' },
-  { id: 'm3', label: 'Mètres cubes (m³)' },
-  { id: 'cm3', label: 'Centimètres cubes (cm³)' },
-  { id: 'gal', label: 'Gallons (gal)' },
-  { id: 'cu_ft', label: 'Pieds cubes (ft³)' },
-  { id: 'cu_in', label: 'Pouces cubes (in³)' },
-  { id: 'cu_yd', label: 'Yards cubes (yd³)' },
+  { id: 'l', label: 'Литры (л)' },
+  { id: 'm3', label: 'Кубические метры (м³)' },
+  { id: 'cm3', label: 'Кубические сантиметры (см³)' },
+  { id: 'gal', label: 'Галлоны (gal)' },
+  { id: 'cu_ft', label: 'Кубические футы (ft³)' },
+  { id: 'cu_in', label: 'Кубические дюймы (in³)' },
+  { id: 'cu_yd', label: 'Кубические ярды (yd³)' },
 ];
 
-const relatedTools = tool.relatedFrenchSlugs.map((relatedSlug) => {
-  const related = FRENCH_TOOLS[relatedSlug];
-  if (!related) throw new Error(`Related French tool not found: ${relatedSlug}`);
+const relatedTools = tool.relatedRussianSlugs.map((relatedSlug) => {
+  const related = RUSSIAN_TOOLS[relatedSlug];
+  if (!related) throw new Error(`Related Russian tool not found: ${relatedSlug}`);
   return related;
 });
 
-const canonicalUrl = `https://thevolumecalculator.com/fr/${tool.slug}`;
+const canonicalUrl = `https://thevolumecalculator.com/ru/${tool.slug}`;
 const englishUrl = `https://thevolumecalculator.com/${tool.englishSlug}`;
 const spanishUrl = `https://thevolumecalculator.com/es/${tool.spanishSlug}`;
 const germanUrl = `https://thevolumecalculator.com/de/${tool.germanSlug}`;
-const portugueseCounterpart = Object.values(PORTUGUESE_TOOLS).find((pt) => pt.englishSlug === tool.englishSlug);
-const italianCounterpart = Object.values(ITALIAN_TOOLS).find((it) => it.englishSlug === tool.englishSlug);
-const russianCounterpart = Object.values(RUSSIAN_TOOLS).find((rt) => rt.englishSlug === tool.englishSlug);
+const frenchUrl = `https://thevolumecalculator.com/fr/${tool.frenchSlug}`;
+const portugueseUrl = `https://thevolumecalculator.com/pt/${tool.portugueseSlug}`;
+const italianUrl = `https://thevolumecalculator.com/it/${tool.italianSlug}`;
 
 const alternates = [
   { hreflang: 'en', href: englishUrl },
   { hreflang: 'es', href: spanishUrl },
   { hreflang: 'de', href: germanUrl },
-  { hreflang: 'fr', href: canonicalUrl },
-  ...(portugueseCounterpart ? [{ hreflang: 'pt', href: `https://thevolumecalculator.com/pt/${portugueseCounterpart.slug}` }] : []),
-  ...(italianCounterpart ? [{ hreflang: 'it', href: `https://thevolumecalculator.com/it/${italianCounterpart.slug}` }] : []),
-  ...(russianCounterpart ? [{ hreflang: 'ru', href: `https://thevolumecalculator.com/ru/${russianCounterpart.slug}` }] : []),
+  { hreflang: 'fr', href: frenchUrl },
+  { hreflang: 'pt', href: portugueseUrl },
+  { hreflang: 'it', href: italianUrl },
+  { hreflang: 'ru', href: canonicalUrl },
   { hreflang: 'x-default', href: englishUrl },
 ];
 
-const ogLocaleAlternates = ['fr_CA', 'fr_BE', 'fr_CH'];
+const ogLocaleAlternates = ['ru_KZ', 'ru_BY', 'ru_UZ', 'ru_KG'];
 
 const toolSchemaGraph: any[] = [
   {
@@ -82,7 +79,7 @@ const toolSchemaGraph: any[] = [
     'offers': {
       '@type': 'Offer',
       'price': '0',
-      'priceCurrency': 'EUR',
+      'priceCurrency': 'RUB',
     },
     'description': tool.metaDescription,
     'url': canonicalUrl,
@@ -93,14 +90,14 @@ const toolSchemaGraph: any[] = [
       {
         '@type': 'ListItem',
         'position': 1,
-        'name': 'Accueil',
-        'item': 'https://thevolumecalculator.com/fr/',
+        'name': 'Главная',
+        'item': 'https://thevolumecalculator.com/ru/',
       },
       {
         '@type': 'ListItem',
         'position': 2,
-        'name': 'Calculateurs',
-        'item': 'https://thevolumecalculator.com/fr/calculateurs',
+        'name': 'Калькуляторы',
+        'item': 'https://thevolumecalculator.com/ru/kalkulyatory',
       },
       {
         '@type': 'ListItem',
@@ -129,9 +126,9 @@ const toolSchemaGraph: any[] = [
   description={tool.metaDescription}
   keywords={tool.keywords}
   canonical={canonicalUrl}
-  lang="fr"
+  lang="ru"
   dir="ltr"
-  ogLocale="fr_FR"
+  ogLocale="ru_RU"
   ogLocaleAlternates={ogLocaleAlternates}
   alternates={alternates}
   schemaGraph={toolSchemaGraph}
@@ -140,10 +137,10 @@ const toolSchemaGraph: any[] = [
 
   <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8 sm:space-y-12">
     <!-- Breadcrumb navigation -->
-    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="Fil d'Ariane">
-      <a href="/fr/" class="hover:text-primary transition-colors">Accueil</a>
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="Навигационная цепочка">
+      <a href="/ru/" class="hover:text-primary transition-colors">Главная</a>
       <span>/</span>
-      <a href="/fr/calculateurs" class="hover:text-primary transition-colors">Calculateurs</a>
+      <a href="/ru/kalkulyatory" class="hover:text-primary transition-colors">Калькуляторы</a>
       <span>/</span>
       <span class="text-ink font-semibold">{tool.shapeName}</span>
     </nav>
@@ -164,7 +161,7 @@ const toolSchemaGraph: any[] = [
       </h1>
 
       <p class="text-sm sm:text-base text-ink-secondary max-w-3xl leading-relaxed">
-        {tool.shortTagline} Renseignez les dimensions ci-dessous pour calculer immédiatement le volume en litres, mètres cubes ou gallons.
+        {tool.shortTagline} Введите размеры ниже для мгновенного расчета объема в литрах, кубических метрах или галлонах.
       </p>
     </section>
 
@@ -173,17 +170,17 @@ const toolSchemaGraph: any[] = [
       id="single-tool-card"
       data-shape-id={shape.id}
       data-shape-name={tool.shapeName}
-      data-lang="fr"
+      data-lang="ru"
       data-default-unit="l"
       class="bg-white rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-6"
     >
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-hairline">
         <div>
           <h2 class="text-lg font-bold text-ink tracking-tight">
-            Dimensions requises
+            Исходные размеры
           </h2>
           <p class="text-xs text-ink-muted mt-0.5">
-            Indiquez les mesures et sélectionnez l'unité pour chaque paramètre.
+            Укажите размеры и выберите единицы измерения для каждого параметра.
           </p>
         </div>
         <button
@@ -191,7 +188,7 @@ const toolSchemaGraph: any[] = [
           id="single-clear-btn"
           class="text-xs font-semibold px-3 py-1.5 rounded-md bg-canvas-soft border border-hairline text-ink-muted hover:text-ink hover:border-ink-muted transition-colors cursor-pointer self-start sm:self-auto"
         >
-          Effacer tout
+          Очистить
         </button>
       </div>
 
@@ -212,7 +209,7 @@ const toolSchemaGraph: any[] = [
                     <span>{inputLabel}</span>
                   </span>
                   <span class="text-[11px] font-normal text-ink-faint">
-                    symbole : {input.symbol}
+                    обозначение: {input.symbol}
                   </span>
                 </label>
 
@@ -227,10 +224,10 @@ const toolSchemaGraph: any[] = [
                     min="0"
                     class="w-full px-3.5 py-2.5 text-base font-mono rounded-xl bg-canvas-soft/40 border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all shadow-xs"
                   />
-                  <label for={`tool-unit-${input.id}`} class="sr-only">Unité pour {inputLabel}</label>
+                  <label for={`tool-unit-${input.id}`} class="sr-only">Единицы для {inputLabel}</label>
                   <select
                     id={`tool-unit-${input.id}`}
-                    aria-label={`Unité pour ${inputLabel}`}
+                    aria-label={`Единицы для ${inputLabel}`}
                     class="px-3 py-2.5 text-xs sm:text-sm font-semibold rounded-xl bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shrink-0"
                   >
                     {units.map((u) => (
@@ -252,7 +249,7 @@ const toolSchemaGraph: any[] = [
             <Fragment set:html={diagramSvg} />
           </div>
           <span class="text-[11px] font-medium text-ink-muted mt-2 text-center">
-            Guide de mesure pour : {tool.shapeName}
+            Схема измерений: {tool.shapeName}
           </span>
         </div>
       </div>
@@ -261,14 +258,14 @@ const toolSchemaGraph: any[] = [
       <div class="p-5 sm:p-6 rounded-xl bg-canvas-soft border border-hairline flex flex-col gap-4">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold uppercase tracking-wider text-ink-muted">
-            Volume calculé
+            Рассчитанный объем
           </span>
           <button
             type="button"
             id="single-copy-btn"
             class="text-xs font-semibold px-3 py-1 rounded bg-white border border-hairline hover:border-ink-muted text-ink active:scale-95 transition-all cursor-pointer shadow-xs"
           >
-            Copier le résultat
+            Копировать результат
           </button>
         </div>
 
@@ -286,7 +283,7 @@ const toolSchemaGraph: any[] = [
           <!-- Output unit selector -->
           <div class="flex items-center gap-2 self-start sm:self-auto">
             <label for="single-output-unit" class="text-xs font-semibold text-ink-muted">
-              Résultat en :
+              Результат в:
             </label>
             <select
               id="single-output-unit"
@@ -303,7 +300,7 @@ const toolSchemaGraph: any[] = [
 
         <!-- Surface area secondary result -->
         <div class="pt-3 border-t border-hairline flex items-center justify-between text-xs text-ink-muted">
-          <span>Aire totale estimée :</span>
+          <span>Полная площадь поверхности:</span>
           <span id="single-surface-area" class="font-mono font-bold text-ink">
             -
           </span>
@@ -317,7 +314,7 @@ const toolSchemaGraph: any[] = [
             <path d="M9 11l3 3L22 4"></path>
             <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
           </svg>
-          <span>Calcul détaillé étape par étape</span>
+          <span>Пошаговый расчет с подстановкой</span>
         </div>
         <div id="single-steps-container" class="space-y-2"></div>
       </div>
@@ -326,7 +323,7 @@ const toolSchemaGraph: any[] = [
     <!-- How to calculate section -->
     <section class="space-y-4 pt-4 border-t border-hairline">
       <h2 class="text-xl sm:text-2xl font-bold text-ink tracking-tight">
-        Comment calculer le volume de cette figure
+        Как рассчитать объем этой фигуры
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         {tool.howToCalculate.map((step, idx) => (
@@ -346,9 +343,9 @@ const toolSchemaGraph: any[] = [
     <section class="p-5 sm:p-6 rounded-2xl bg-canvas-soft border border-hairline space-y-3">
       <div class="flex items-center justify-between">
         <h2 class="text-sm font-bold uppercase tracking-wider text-ink">
-          Formule géométrique
+          Геометрическая формула
         </h2>
-        <span class="text-[11px] font-mono text-ink-muted">Notation mathématique</span>
+        <span class="text-[11px] font-mono text-ink-muted">Математическая запись</span>
       </div>
 
       <div class="p-4 rounded-xl bg-white border border-hairline flex items-center justify-center">
@@ -365,7 +362,7 @@ const toolSchemaGraph: any[] = [
     <!-- Practical examples and applications -->
     <section class="space-y-4">
       <h2 class="text-xl sm:text-2xl font-bold text-ink tracking-tight">
-        Applications pratiques
+        Практическое применение
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {tool.practicalExamples.map((ex) => (
@@ -383,10 +380,10 @@ const toolSchemaGraph: any[] = [
     <section class="space-y-4 pt-4 border-t border-hairline">
       <div class="space-y-1">
         <h2 class="text-xl sm:text-2xl font-bold text-ink tracking-tight">
-          Questions fréquentes
+          Частые вопросы
         </h2>
         <p class="text-xs sm:text-sm text-ink-muted">
-          Réponses aux questions courantes sur les formules, dimensions et conversions d'unités.
+          Ответы на популярные вопросы о формулах, расчетах и переводе единиц.
         </p>
       </div>
 
@@ -411,10 +408,10 @@ const toolSchemaGraph: any[] = [
     <section class="space-y-4 pt-6 border-t border-hairline">
       <div class="flex items-center justify-between">
         <h2 class="text-base sm:text-lg font-bold text-ink tracking-tight">
-          Calculateurs associés
+          Другие калькуляторы объема
         </h2>
-        <a href="/fr/calculateurs" class="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
-          <span>Voir les 16 calculateurs</span>
+        <a href="/ru/kalkulyatory" class="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+          <span>Все 16 калькуляторов</span>
           <span>→</span>
         </a>
       </div>
@@ -424,7 +421,7 @@ const toolSchemaGraph: any[] = [
           const relShape = SHAPES[rel.shapeId];
           return (
             <a
-              href={`/fr/${rel.slug}`}
+              href={`/ru/${rel.slug}`}
               class="p-3.5 rounded-xl bg-white border border-hairline hover:border-primary/40 hover:shadow-xs transition-all flex items-center gap-3 group"
             >
               <span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">

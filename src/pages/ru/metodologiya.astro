@@ -1,0 +1,195 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const title = 'Методология и расчетные стандарты';
+const description = 'Документация геометрических формул, коэффициентов физической конверсии и стандартов численной точности на thevolumecalculator.com.';
+const canonical = 'https://thevolumecalculator.com/ru/metodologiya';
+const englishUrl = 'https://thevolumecalculator.com/methodology';
+const spanishUrl = 'https://thevolumecalculator.com/es/metodologia';
+const germanUrl = 'https://thevolumecalculator.com/de/methodik';
+const frenchUrl = 'https://thevolumecalculator.com/fr/methodologie';
+const portugueseUrl = 'https://thevolumecalculator.com/pt/metodologia';
+const italianUrl = 'https://thevolumecalculator.com/it/metodologia';
+
+const alternates = [
+  { hreflang: 'en', href: englishUrl },
+  { hreflang: 'es', href: spanishUrl },
+  { hreflang: 'de', href: germanUrl },
+  { hreflang: 'fr', href: frenchUrl },
+  { hreflang: 'pt', href: portugueseUrl },
+  { hreflang: 'it', href: italianUrl },
+  { hreflang: 'ru', href: canonical },
+  { hreflang: 'x-default', href: englishUrl },
+];
+
+const ogLocaleAlternates = ['ru_KZ', 'ru_BY', 'ru_UZ', 'ru_KG'];
+
+const schemaGraph = [
+  {
+    '@type': 'AboutPage',
+    'name': 'Математические стандарты и методология',
+    'description': description,
+    'url': canonical,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Главная',
+        'item': 'https://thevolumecalculator.com/ru/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Методология',
+        'item': canonical,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`${title} | thevolumecalculator.com`}
+  description={description}
+  canonical={canonical}
+  lang="ru"
+  dir="ltr"
+  ogLocale="ru_RU"
+  ogLocaleAlternates={ogLocaleAlternates}
+  alternates={alternates}
+  schemaGraph={schemaGraph}
+>
+  <Header />
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 sm:space-y-12">
+    <!-- Breadcrumb navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted" aria-label="Навигационная цепочка">
+      <a href="/ru/" class="hover:text-primary transition-colors">Главная</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">Методология</span>
+    </nav>
+
+    <!-- Page header -->
+    <section class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-canvas-card border border-hairline text-primary shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-accent-green"></span>
+        <span>Математическая верификация и физические стандарты</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight leading-tight">
+        Математические стандарты и методология
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
+        Настоящий документ описывает евклидовы геометрические формулы, физические коэффициенты перевода единиц и критерии численной точности, используемые в 16 калькуляторах thevolumecalculator.com.
+      </p>
+    </section>
+
+    <!-- Section 1: Standard Constants -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        1. Универсальные коэффициенты перевода и физические константы
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Все входные линейные параметры приводятся к метрам (базовая единица СИ) перед вычислением объемных уравнений. Коэффициенты соответствуют публикациям National Institute of Standards and Technology (NIST SP 811) и международному стандарту ISO 80000-3.
+      </p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <thead>
+            <tr class="border-b border-hairline text-ink-muted">
+              <th class="py-2.5 px-3 font-semibold">Единица</th>
+              <th class="py-2.5 px-3 font-semibold">Символ</th>
+              <th class="py-2.5 px-3 font-semibold">Точное соотношение в СИ</th>
+              <th class="py-2.5 px-3 font-semibold">Стандарт</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline text-ink-secondary">
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Литр</td>
+              <td class="py-2.5 px-3 font-mono">L</td>
+              <td class="py-2.5 px-3 font-mono">1 л = 0,001 м³</td>
+              <td class="py-2.5 px-3">BIPM / Резолюция CGPM</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Американский галлон жидкости</td>
+              <td class="py-2.5 px-3 font-mono">gal</td>
+              <td class="py-2.5 px-3 font-mono">1 gal = 231 in³ = 0,003785411784 м³</td>
+              <td class="py-2.5 px-3">NIST SP 811</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Кубический фут</td>
+              <td class="py-2.5 px-3 font-mono">ft³</td>
+              <td class="py-2.5 px-3 font-mono">1 ft³ = 1 728 in³ = 0,028316846592 м³</td>
+              <td class="py-2.5 px-3">ISO 80000-3</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Кубический ярд</td>
+              <td class="py-2.5 px-3 font-mono">yd³</td>
+              <td class="py-2.5 px-3 font-mono">1 yd³ = 27 ft³ = 0,764554857984 м³</td>
+              <td class="py-2.5 px-3">ISO 80000-3</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-medium text-ink">Жидкая унция США</td>
+              <td class="py-2.5 px-3 font-mono">fl oz</td>
+              <td class="py-2.5 px-3 font-mono">1/128 gal = 29,5735295625 мл</td>
+              <td class="py-2.5 px-3">NIST SP 811</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2: Mathematical Proofs & Formulas -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        2. Геометрические выводы формул
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Вычислительные модели используют строгие аналитические решения из справочников CRC Standard Mathematical Tables. Криволинейные трехмерные тела рассчитываются через определенные интегралы в замкнутой форме:
+      </p>
+
+      <ul class="space-y-3 text-xs sm:text-sm text-ink-secondary list-disc pl-5">
+        <li>
+          Горизонтальные цилиндрические цистерны: Площадь частично заполненного кругового сегмента выражается как S = r² arccos((r - h) / r) - (r - h)√(2rh - h²), умноженная на осевую длину L.
+        </li>
+        <li>
+          Шаровые сегменты и сферические купола: Интегрирование круговых слоев по высоте h дает точную зависимость V = (πh / 6)(3r² + h²), где r обозначает радиус плоского круга основания.
+        </li>
+        <li>
+          Круглые усеченные конусы: Формула V = (πh / 3)(r₁² + r₁r₂ + r₂²) исключает числовые погрешности усечения.
+        </li>
+        <li>
+          Торы и уплотнительные кольца O-ring: Вторая теорема Паппа-Гульдина определяет V = 2π²Rr², где R обозначает радиус осевой окружности, а r радиус круглого сечения трубки.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 3: Computational Precision -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        3. Арифметика с плавающей точкой и округление
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Вычислительный процессор выполняет операции с 64-битной двойной точностью по стандарту IEEE 754, с константой числа пи на уровне 15 десятичных знаков (3.141592653589793). Округление происходит исключительно на этапе визуализации результата, что исключает накапливание погрешности в промежуточных шагах.
+      </p>
+    </section>
+
+    <!-- Section 4: Review Standards -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        4. Протокол математического тестирования
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Все калькуляторы охвачены автоматическими регрессионными тестами, проверяющими предельные значения, асимптотические переходы и плотность чистой воды при температуре 4°C (равную ровно 1 кг на литр).
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

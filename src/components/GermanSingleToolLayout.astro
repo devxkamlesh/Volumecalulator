@@ -12,6 +12,8 @@ import { SHAPES } from '../scripts/shapes';
 import { GERMAN_TOOLS } from '../i18n/german-tools';
 import { FRENCH_TOOLS } from '../i18n/french-tools';
 import { PORTUGUESE_TOOLS } from '../i18n/portuguese-tools';
+import { ITALIAN_TOOLS } from '../i18n/italian-tools';
+import { RUSSIAN_TOOLS } from '../i18n/russian-tools';
 import { getShapeSvg } from '../scripts/diagrams';
 
 const tool = GERMAN_TOOLS[slug];
@@ -56,6 +58,8 @@ const englishUrl = `https://thevolumecalculator.com/${tool.englishSlug}`;
 const spanishUrl = `https://thevolumecalculator.com/es/${tool.spanishSlug}`;
 const frenchCounterpart = Object.values(FRENCH_TOOLS).find((ft) => ft.englishSlug === tool.englishSlug);
 const portugueseCounterpart = Object.values(PORTUGUESE_TOOLS).find((pt) => pt.englishSlug === tool.englishSlug);
+const italianCounterpart = Object.values(ITALIAN_TOOLS).find((it) => it.englishSlug === tool.englishSlug);
+const russianCounterpart = Object.values(RUSSIAN_TOOLS).find((rt) => rt.englishSlug === tool.englishSlug);
 
 const alternates = [
   { hreflang: 'en', href: englishUrl },
@@ -63,6 +67,8 @@ const alternates = [
   { hreflang: 'es', href: spanishUrl },
   ...(frenchCounterpart ? [{ hreflang: 'fr', href: `https://thevolumecalculator.com/fr/${frenchCounterpart.slug}` }] : []),
   ...(portugueseCounterpart ? [{ hreflang: 'pt', href: `https://thevolumecalculator.com/pt/${portugueseCounterpart.slug}` }] : []),
+  ...(italianCounterpart ? [{ hreflang: 'it', href: `https://thevolumecalculator.com/it/${italianCounterpart.slug}` }] : []),
+  ...(russianCounterpart ? [{ hreflang: 'ru', href: `https://thevolumecalculator.com/ru/${russianCounterpart.slug}` }] : []),
   { hreflang: 'x-default', href: englishUrl },
 ];
 

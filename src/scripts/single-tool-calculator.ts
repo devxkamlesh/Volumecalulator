@@ -10,6 +10,7 @@ export class SingleToolCalculatorApp {
   private isSpanish = false;
   private isGerman = false;
   private isFrench = false;
+  private isPortuguese = false;
   private shapeDisplayName = '';
 
   constructor(cardEl: HTMLElement) {
@@ -23,6 +24,7 @@ export class SingleToolCalculatorApp {
     this.isSpanish = lang === 'es';
     this.isGerman = lang === 'de';
     this.isFrench = lang === 'fr';
+    this.isPortuguese = lang === 'pt';
     this.shapeDisplayName = cardEl.getAttribute('data-shape-name') || this.shape.name;
     this.init();
   }
@@ -65,6 +67,22 @@ export class SingleToolCalculatorApp {
         return 'Die Berechnung ergab kein gültiges Ergebnis. Bitte überprüfe die Maße.';
       }
       return 'Die Berechnung konnte nicht abgeschlossen werden. Bitte überprüfe die Maße.';
+    }
+
+    if (this.isPortuguese) {
+      if (msg.includes('inner radius must be smaller')) {
+        return 'O raio interno deve ser menor que o raio externo.';
+      }
+      if (msg.includes('minor radius cannot exceed')) {
+        return 'O raio menor da seção não pode ultrapassar o raio maior.';
+      }
+      if (msg.includes('liquid fill depth must be between')) {
+        return 'A altura do líquido deve estar entre 0 e o diâmetro total do tanque.';
+      }
+      if (msg.includes('finite result')) {
+        return 'O cálculo não produziu um resultado finito. Verifique as medidas e tente novamente.';
+      }
+      return 'O cálculo não pôde ser concluído. Verifique as medidas e tente novamente.';
     }
 
     if (!this.isSpanish) return msg;
@@ -167,7 +185,7 @@ export class SingleToolCalculatorApp {
   private initInputs(): void {
     // Initialize all inputs as blank (NaN) with default unit
     for (const input of this.shape.inputs) {
-      const defaultUnit = (this.isSpanish || this.isFrench || this.isGerman) && (input.defaultUnit === 'in' || input.defaultUnit === 'ft') ? 'cm' : input.defaultUnit;
+      const defaultUnit = (this.isSpanish || this.isFrench || this.isGerman || this.isPortuguese) && (input.defaultUnit === 'in' || input.defaultUnit === 'ft') ? 'cm' : input.defaultUnit;
       this.currentInputs[input.id] = { val: NaN, unit: defaultUnit };
     }
   }
@@ -236,12 +254,14 @@ export class SingleToolCalculatorApp {
           labelPrefix = `Volumen: ${this.shapeDisplayName}`;
         } else if (this.isFrench) {
           labelPrefix = `Volume: ${this.shapeDisplayName}`;
+        } else if (this.isPortuguese) {
+          labelPrefix = `Volume: ${this.shapeDisplayName}`;
         }
         const text = `${labelPrefix}: ${val} ${unitName}`;
         try {
           await navigator.clipboard.writeText(text);
           const original = copyBtn.textContent;
-          copyBtn.textContent = this.isSpanish ? '¡Copiado!' : (this.isGerman ? 'Kopiert!' : (this.isFrench ? 'Copié !' : 'Copied!'));
+          copyBtn.textContent = this.isSpanish ? '¡Copiado!' : (this.isGerman ? 'Kopiert!' : (this.isFrench ? 'Copié !' : (this.isPortuguese ? 'Copiado!' : 'Copied!')));
           setTimeout(() => {
             copyBtn.textContent = original;
           }, 1500);

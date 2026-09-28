@@ -232,5 +232,46 @@ describe('localized home SEO integrity', () => {
       }
     }
   });
+
+  it('validates all 16 Portuguese tools against requirements and guides', async () => {
+    const { PORTUGUESE_TOOLS } = await import('../i18n/portuguese-tools');
+    const { SPANISH_TOOLS } = await import('../i18n/spanish-tools');
+    const { GERMAN_TOOLS } = await import('../i18n/german-tools');
+    const { FRENCH_TOOLS } = await import('../i18n/french-tools');
+    const toolEntries = Object.entries(PORTUGUESE_TOOLS);
+    expect(toolEntries).toHaveLength(16);
+
+    for (const [key, tool] of toolEntries) {
+      expect(tool.slug).toBe(key);
+      expect(TOOL_DETAILS[tool.englishSlug]).toBeDefined();
+      expect(SPANISH_TOOLS[tool.spanishSlug]).toBeDefined();
+      expect(GERMAN_TOOLS[tool.germanSlug]).toBeDefined();
+      expect(FRENCH_TOOLS[tool.frenchSlug]).toBeDefined();
+      expect(SHAPES[tool.shapeId as keyof typeof SHAPES]).toBeDefined();
+
+      // Title length must remain under 35 characters per all-tools-title-guide.md
+      expect(tool.title.length).toBeLessThanOrEqual(35);
+      expect(tool.title.length).toBeGreaterThan(15);
+
+      expect(tool.h1.length).toBeGreaterThan(15);
+      expect(tool.metaDescription.length).toBeGreaterThan(60);
+      expect(tool.keywords.split(',').length).toBeGreaterThanOrEqual(4);
+
+      expect(tool.faqs).toHaveLength(3);
+      for (const faq of tool.faqs) {
+        expect(faq.question.length).toBeGreaterThan(10);
+        expect(faq.answer.length).toBeGreaterThan(20);
+        expect(faq.question).not.toMatch(/[\u2013\u2014\u2018\u2019\u201c\u201d]/);
+        expect(faq.answer).not.toMatch(/[\u2013\u2014\u2018\u2019\u201c\u201d]/);
+      }
+
+      expect(tool.howToCalculate.length).toBeGreaterThanOrEqual(3);
+      expect(tool.practicalExamples.length).toBeGreaterThanOrEqual(2);
+      expect(tool.relatedPortugueseSlugs.length).toBeGreaterThanOrEqual(3);
+      for (const related of tool.relatedPortugueseSlugs) {
+        expect(PORTUGUESE_TOOLS[related]).toBeDefined();
+      }
+    }
+  });
 });
 

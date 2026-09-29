@@ -6,6 +6,9 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thevolumecalculator.com',
+  build: {
+    inlineStylesheets: 'always',
+  },
   i18n: {
     locales: ['en', 'es', 'pt', 'de', 'fr', 'ru', 'ja', 'zh', 'it', 'ar', 'hi'],
     defaultLocale: 'en',

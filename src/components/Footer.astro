@@ -396,30 +396,48 @@ const isChinese = pathname === '/zh' || pathname === '/zh/' || pathname.startsWi
         <h3 class="text-xs font-bold uppercase tracking-wider text-ink mb-3">
           {isHindi ? 'त्वरित लिंक' : isArabic ? 'روابط سريعة' : isChinese ? '快捷链接' : isJapanese ? 'クイックリンク' : isRussian ? 'Быстрые ссылки' : isItalian ? 'Link rapidi' : isPortuguese ? 'Links rápidos' : isFrench ? 'Liens rapides' : isSpanish ? 'Enlaces rápidos' : isGerman ? 'Schnellzugriff' : 'Quick Links'}
         </h3>
-        <ul class="space-y-2 text-xs text-ink-muted">
-          <li><a href={isHindi ? '/hi/' : isArabic ? '/ar/' : isChinese ? '/zh/' : isJapanese ? '/ja/' : isRussian ? '/ru/' : isItalian ? '/it/' : isPortuguese ? '/pt/' : isFrench ? '/fr/' : isSpanish ? '/es/' : isGerman ? '/de/' : '/'} class="hover:text-primary transition-colors">{isHindi ? 'होम' : isArabic ? 'الرئيسية' : isChinese ? '首页' : isJapanese ? 'ホーム' : isRussian ? 'Главная' : isItalian ? 'Home' : isPortuguese ? 'Início' : isFrench ? 'Accueil' : isSpanish ? 'Inicio' : isGerman ? 'Startseite' : 'Home'}</a></li>
-          <li><a href={isHindi ? '/hi/' : isArabic ? '/ar/' : isChinese ? '/zh/' : isJapanese ? '/ja/' : isRussian ? '/ru/kalkulyatory' : isItalian ? '/it/calcolatori' : isPortuguese ? '/pt/calculadoras' : isFrench ? '/fr/calculateurs' : isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : '/calculators'} class="hover:text-primary transition-colors">{isHindi ? 'कैलकुलेटर सूची' : isArabic ? 'دليل الحاسبات' : isChinese ? '计算器大全' : isJapanese ? '計算機一覧' : isRussian ? 'Калькуляторы' : isItalian ? 'Calcolatori' : isPortuguese ? 'Calculadoras' : isFrench ? 'Calculateurs' : isSpanish ? 'Calculadoras' : isGerman ? 'Rechner' : 'Calculators'}</a></li>
-          <li><a href={isRussian ? '/ru/metodologiya' : isItalian ? '/it/metodologia' : isPortuguese ? '/pt/metodologia' : isFrench ? '/fr/methodologie' : isSpanish ? '/es/metodologia' : isGerman ? '/de/methodik' : '/methodology'} class="hover:text-primary transition-colors">{isHindi ? 'सूत्र और मानक' : isArabic ? 'الصيغ والمعايير' : isChinese ? '计算方法与公式' : isJapanese ? '計算方法と公式' : isRussian ? 'Методология' : isItalian ? 'Metodologia' : isPortuguese ? 'Metodologia' : isFrench ? 'Méthodologie' : isSpanish ? 'Metodología' : isGerman ? 'Methodik' : 'Methodology'}</a></li>
-          <li><a href="/about-us" class="hover:text-primary transition-colors">{isHindi ? 'हमारे बारे में' : isArabic ? 'من نحن' : isChinese ? '关于我们' : isJapanese ? '運営情報' : isRussian ? 'О проекте' : isItalian ? 'Chi siamo' : isPortuguese ? 'Sobre nós' : isFrench ? 'À propos' : isSpanish ? 'Sobre nosotros' : isGerman ? 'Über uns' : 'About Us'}</a></li>
-          <li><a href="/contact-us" class="hover:text-primary transition-colors">{isHindi ? 'संपर्क करें' : isArabic ? 'اتصل بنا' : isChinese ? '联系我们' : isJapanese ? 'お問い合わせ' : isRussian ? 'Контакты' : isItalian ? 'Contatti' : isPortuguese ? 'Contato' : isFrench ? 'Contact' : isSpanish ? 'Contacto' : isGerman ? 'Kontakt' : 'Contact Us'}</a></li>
-          <li><a href="/privacy-policy" class="hover:text-primary transition-colors">{isHindi ? 'गोपनीयता नीति' : isArabic ? 'سياسة الخصوصية' : isChinese ? '隐私政策' : isJapanese ? 'プライバシーポリシー' : isRussian ? 'Конфиденциальность' : isItalian ? 'Privacy policy' : isPortuguese ? 'Privacidade' : isFrench ? 'Confidentialité' : isSpanish ? 'Privacidad' : isGerman ? 'Datenschutz' : 'Privacy Policy'}</a></li>
-          <li><a href="/terms-and-conditions" class="hover:text-primary transition-colors">{isHindi ? 'नियम और शर्तें' : isArabic ? 'الشروط والأحكام' : isChinese ? '使用条款' : isJapanese ? '利用規約' : isRussian ? 'Условия использования' : isItalian ? 'Termini di servizio' : isPortuguese ? 'Termos de uso' : isFrench ? 'Conditions d\'utilisation' : isSpanish ? 'Términos y condiciones' : isGerman ? 'Nutzungsbedingungen' : 'Terms & Conditions'}</a></li>
+        <ul class="space-y-0.5 sm:space-y-1 text-xs text-ink-muted">
+          <li><a href={isHindi ? '/hi/' : isArabic ? '/ar/' : isChinese ? '/zh/' : isJapanese ? '/ja/' : isRussian ? '/ru/' : isItalian ? '/it/' : isPortuguese ? '/pt/' : isFrench ? '/fr/' : isSpanish ? '/es/' : isGerman ? '/de/' : '/'} class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'होम' : isArabic ? 'الرئيسية' : isChinese ? '首页' : isJapanese ? 'ホーム' : isRussian ? 'Главная' : isItalian ? 'Home' : isPortuguese ? 'Início' : isFrench ? 'Accueil' : isSpanish ? 'Inicio' : isGerman ? 'Startseite' : 'Home'}</a></li>
+          <li><a href={isHindi ? '/hi/' : isArabic ? '/ar/' : isChinese ? '/zh/' : isJapanese ? '/ja/' : isRussian ? '/ru/kalkulyatory' : isItalian ? '/it/calcolatori' : isPortuguese ? '/pt/calculadoras' : isFrench ? '/fr/calculateurs' : isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : '/calculators'} class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'कैलकुलेटर सूची' : isArabic ? 'دليل الحاسبات' : isChinese ? '计算器大全' : isJapanese ? '計算機一覧' : isRussian ? 'Калькуляторы' : isItalian ? 'Calcolatori' : isPortuguese ? 'Calculadoras' : isFrench ? 'Calculateurs' : isSpanish ? 'Calculadoras' : isGerman ? 'Rechner' : 'Calculators'}</a></li>
+          <li><a href={isRussian ? '/ru/metodologiya' : isItalian ? '/it/metodologia' : isPortuguese ? '/pt/metodologia' : isFrench ? '/fr/methodologie' : isSpanish ? '/es/metodologia' : isGerman ? '/de/methodik' : '/methodology'} class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'सूत्र और मानक' : isArabic ? 'الصيغ والمعايير' : isChinese ? '计算方法与公式' : isJapanese ? '計算方法と公式' : isRussian ? 'Методология' : isItalian ? 'Metodologia' : isPortuguese ? 'Metodologia' : isFrench ? 'Méthodologie' : isSpanish ? 'Metodología' : isGerman ? 'Methodik' : 'Methodology'}</a></li>
+          <li><a href="/about-us" class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'हमारे बारे में' : isArabic ? 'من نحن' : isChinese ? '关于我们' : isJapanese ? '運営情報' : isRussian ? 'О проекते' : isItalian ? 'Chi siamo' : isPortuguese ? 'Sobre nós' : isFrench ? 'À propos' : isSpanish ? 'Sobre nosotros' : isGerman ? 'Über uns' : 'About Us'}</a></li>
+          <li><a href="/contact-us" class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'संपर्क करें' : isArabic ? 'اتصل بنا' : isChinese ? '联系我们' : isJapanese ? 'お問い合わせ' : isRussian ? 'Контакты' : isItalian ? 'Contatti' : isPortuguese ? 'Contato' : isFrench ? 'Contact' : isSpanish ? 'Contacto' : isGerman ? 'Kontakt' : 'Contact Us'}</a></li>
+          <li><a href="/privacy-policy" class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'गोपनीयता नीति' : isArabic ? 'سياسة الخصوصية' : isChinese ? '隐私政策' : isJapanese ? 'プライバシーポリシー' : isRussian ? 'Конфиденциальность' : isItalian ? 'Privacy policy' : isPortuguese ? 'Privacidade' : isFrench ? 'Confidentialité' : isSpanish ? 'Privacidad' : isGerman ? 'Datenschutz' : 'Privacy Policy'}</a></li>
+          <li><a href="/terms-and-conditions" class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'नियम और शर्तें' : isArabic ? 'الشروط والأحكام' : isChinese ? '使用条款' : isJapanese ? '利用規約' : isRussian ? 'Условия использования' : isItalian ? 'Termini di servizio' : isPortuguese ? 'Termos de uso' : isFrench ? 'Conditions d\'utilisation' : isSpanish ? 'Términos y condiciones' : isGerman ? 'Nutzungsbedingungen' : 'Terms & Conditions'}</a></li>
         </ul>
       </div>
     </div>
 
     <!-- Bottom Copyright & Author -->
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-muted">
-      <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-        <p>© {new Date().getFullYear()} thevolumecalculator.com.</p>
-        <span class="hidden sm:inline text-hairline">|</span>
-        <a href="/privacy-policy" class="hover:text-primary transition-colors">{isHindi ? 'गोपनीयता' : isArabic ? 'الخصوصية' : isChinese ? '隐私' : isJapanese ? '規約' : isRussian ? 'Конфиденциальность' : isItalian ? 'Privacy' : isPortuguese ? 'Privacidade' : isFrench ? 'Confidentialité' : isSpanish ? 'Privacidad' : isGerman ? 'Datenschutz' : 'Privacy'}</a>
-        <span class="hidden sm:inline text-hairline">|</span>
-        <a href="/terms-and-conditions" class="hover:text-primary transition-colors">{isHindi ? 'नियम' : isArabic ? 'الشروط' : isChinese ? '条款' : isJapanese ? 'ポリシー' : isRussian ? 'Условия' : isItalian ? 'Termini' : isPortuguese ? 'Termos' : isFrench ? 'Conditions' : isSpanish ? 'Términos' : isGerman ? 'AGB' : 'Terms'}</a>
-        <span class="hidden sm:inline text-hairline">|</span>
-        <p>
-          {isHindi ? 'डेवलपर' : isArabic ? 'تطوير' : isChinese ? '开发者' : isJapanese ? '開発者' : isRussian ? 'Разработано' : isItalian ? 'Sviluppato da' : isPortuguese ? 'Desenvolvido por' : isFrench ? 'Développé par' : isSpanish ? 'Desarrollado por' : isGerman ? 'Entwickelt von' : 'Engineered by'} <a href="https://x.com/devxkamlesh" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary hover:underline">Kamlesh Choudhary</a> <span class="text-ink-faint">(<a href="https://x.com/devxkamlesh" target="_blank" rel="noopener noreferrer" class="hover:underline">@devxkamlesh</a>)</span>
-        </p>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-ink-muted">
+      <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-1">
+        <span class="py-2 inline-flex items-center">© {new Date().getFullYear()} thevolumecalculator.com.</span>
+        <span class="hidden md:inline text-hairline">|</span>
+        <a
+          href="/privacy-policy"
+          class="inline-flex items-center min-h-[44px] py-2 px-1 hover:text-primary transition-colors"
+        >
+          {isHindi ? 'गोपनीयता नीति' : isArabic ? 'سياسة الخصوصية' : isChinese ? '隐私政策' : isJapanese ? 'プライバシーポリシー' : isRussian ? 'Конфиденциальность' : isItalian ? 'Privacy policy' : isPortuguese ? 'Privacidade' : isFrench ? 'Confidentialité' : isSpanish ? 'Privacidad' : isGerman ? 'Datenschutz' : 'Privacy Policy'}
+        </a>
+        <span class="hidden md:inline text-hairline">|</span>
+        <a
+          href="/terms-and-conditions"
+          class="inline-flex items-center min-h-[44px] py-2 px-1 hover:text-primary transition-colors"
+        >
+          {isHindi ? 'नियम और शर्तें' : isArabic ? 'الشروط والأحكام' : isChinese ? '使用条款' : isJapanese ? '利用規約' : isRussian ? 'Условия использования' : isItalian ? 'Termini di servizio' : isPortuguese ? 'Termos de uso' : isFrench ? 'Conditions d\'utilisation' : isSpanish ? 'Términos y condiciones' : isGerman ? 'Nutzungsbedingungen' : 'Terms & Conditions'}
+        </a>
+        <span class="hidden md:inline text-hairline">|</span>
+        <span class="inline-flex items-center gap-1.5 py-2">
+          <span>{isHindi ? 'डेवलपर' : isArabic ? 'تطوير' : isChinese ? '开发者' : isJapanese ? '開発者' : isRussian ? 'Разработано' : isItalian ? 'Sviluppato da' : isPortuguese ? 'Desenvolvido por' : isFrench ? 'Développé par' : isSpanish ? 'Desarrollado por' : isGerman ? 'Entwickelt von' : 'Engineered by'}</span>
+          <a
+            href="https://x.com/devxkamlesh"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-semibold text-primary hover:underline inline-flex items-center min-h-[44px] py-2 px-1"
+          >
+            Kamlesh Choudhary (@devxkamlesh)
+          </a>
+        </span>
       </div>
       <p class="text-[11px] text-ink-faint">
         {isHindi

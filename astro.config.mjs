@@ -22,7 +22,9 @@ export default defineConfig({
         !page.endsWith('/about') &&
         !page.endsWith('/contact') &&
         !page.endsWith('/privacy') &&
-        !page.endsWith('/terms'),
+        !page.endsWith('/terms') &&
+        !page.includes('/404') &&
+        !page.includes('/500'),
     }),
   ],
   vite: {

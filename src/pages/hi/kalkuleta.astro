@@ -3,18 +3,18 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SHAPES } from '../../scripts/shapes';
-import { FRENCH_TOOLS } from '../../i18n/french-tools';
+import { HINDI_TOOLS } from '../../i18n/hindi-tools';
 import { HUB_ALTERNATES, HUB_URLS } from '../../i18n/home-locales';
 
-const FRENCH_CATEGORIES = [
-  { id: 'all', label: 'Toutes les formes' },
-  { id: 'basic', label: 'Géométrie fondamentale' },
-  { id: 'curved', label: 'Corps ronds et cônes' },
-  { id: 'prisms_pyramids', label: 'Prismes et pyramides' },
-  { id: 'tanks_pipes', label: 'Cuves et tuyaux' },
+const HINDI_CATEGORIES = [
+  { id: 'all', label: 'सभी आकृतियां' },
+  { id: 'basic', label: 'मूल ज्यामिति' },
+  { id: 'curved', label: 'गोल व शंकु' },
+  { id: 'prisms_pyramids', label: 'प्रिज्म व पिरामिड' },
+  { id: 'tanks_pipes', label: 'टैंक व पाइप' },
 ];
 
-const frenchToolsList = Object.values(FRENCH_TOOLS).map((tool) => {
+const hindiToolsList = Object.values(HINDI_TOOLS).map((tool) => {
   const shape = SHAPES[tool.shapeId];
   return {
     ...tool,
@@ -22,15 +22,13 @@ const frenchToolsList = Object.values(FRENCH_TOOLS).map((tool) => {
   };
 });
 
-const canonical = HUB_URLS.fr;
-
-const ogLocaleAlternates = ['fr_CA', 'fr_BE', 'fr_CH'];
+const canonical = HUB_URLS.hi;
 
 const schemaGraph = [
   {
     '@type': 'CollectionPage',
-    'name': 'Répertoire des 16 calculateurs de volume 3D',
-    'description': 'Répertoire exhaustif des 16 calculateurs de volume géométrique 3D avec formules détaillées, calculs pas à pas et conversion d\'unités.',
+    'name': 'सभी 16 3D आयतन कैलकुलेटरों की सूची',
+    'description': 'हिंदी में 16 त्रिविमीय आकृतियों के आयतन कैलकुलेटरों की पूरी सूची, सूत्रों और रूपांतरण सहित।',
     'url': canonical,
   },
   {
@@ -39,67 +37,66 @@ const schemaGraph = [
       {
         '@type': 'ListItem',
         'position': 1,
-        'name': 'Accueil',
-        'item': 'https://thevolumecalculator.com/fr/',
+        'name': 'होम',
+        'item': 'https://thevolumecalculator.com/hi/',
       },
       {
         '@type': 'ListItem',
         'position': 2,
-        'name': 'Calculateurs',
+        'name': 'कैलकुलेटर सूची',
         'item': canonical,
       },
     ],
   },
   {
     '@type': 'ItemList',
-    'name': 'Calculateurs de volume géométrique 3D en français',
-    'numberOfItems': frenchToolsList.length,
-    'itemListElement': frenchToolsList.map((tool, idx) => ({
+    'name': 'हिंदी 3D आयतन कैलकुलेटर',
+    'numberOfItems': hindiToolsList.length,
+    'itemListElement': hindiToolsList.map((tool, idx) => ({
       '@type': 'ListItem',
       'position': idx + 1,
       'name': tool.h1,
-      'url': `https://thevolumecalculator.com/fr/${tool.slug}`,
+      'url': `https://thevolumecalculator.com/hi/${tool.slug}`,
     })),
   },
 ];
 ---
 
 <Layout
-  title="Répertoire des calculateurs 3D | thevolumecalculator.com"
-  description="Répertoire exhaustif des 16 calculateurs de volume 3D en français. Formules directes, étapes de calcul détaillées et conversion instantanée en litres et mètres cubes."
+  title="3D आयतन कैलकुलेटर सूची | thevolumecalculator.com"
+  description="हिंदी में सभी 16 त्रिविमीय (3D) आकृतियों के आयतन कैलकुलेटर। सटीक सूत्र, चरण-दर-चरण गणना और लीटर एवं घन मीटर में रूपांतरण।"
   canonical={canonical}
-  lang="fr"
+  lang="hi"
   dir="ltr"
-  ogLocale="fr_FR"
-  ogLocaleAlternates={ogLocaleAlternates}
+  ogLocale="hi_IN"
   alternates={HUB_ALTERNATES}
   schemaGraph={schemaGraph}
 >
   <Header />
 
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 sm:space-y-14">
-    <!-- Hub page hero -->
+    <!-- Hub Page Hero -->
     <section class="text-center max-w-3xl mx-auto pt-2 pb-2">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-hairline text-primary shadow-xs mb-3.5">
         <span class="w-2 h-2 rounded-full bg-primary"></span>
-        <span>Répertoire de 16 outils : 100% gratuit</span>
+        <span>16 कैलकुलेटरों की सूची • 100% मुफ्त</span>
       </div>
 
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight leading-tight mb-3">
-        Tous les calculateurs de volume 3D
+        सभी 3D आयतन कैलकुलेटर
       </h1>
 
       <p class="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-2xl mx-auto">
-        Accédez à la collection complète de 16 outils de calcul volumétrique tridimensionnel. Chaque calculateur fournit la formule exacte, la décomposition arithmétique étape par étape et les équivalences en litres et mètres cubes.
+        सभी 16 त्रिविमीय ज्यामितीय आकृतियों के लिए समर्पित आयतन कैलकुलेटर संग्रह। प्रत्येक कैलकुलेटर सटीक गणितीय सूत्र, चरण-दर-चरण गणना और लीटर एवं घन मीटर में त्वरित रूपांतरण प्रस्तुत करता है।
       </p>
 
-      <!-- Instant filter and search bar -->
+      <!-- Instant Filter & Search Bar -->
       <div class="mt-6 max-w-md mx-auto relative">
         <input
           type="text"
           id="hub-search-input"
-          aria-label="Rechercher un calculateur de volume"
-          placeholder="Rechercher par forme (ex. cylindre, cuve, cône)..."
+          aria-label="आयतन कैलकुलेटर खोजें"
+          placeholder="आकृति खोजें (जैसे: बेलन, टैंक, शंकु, घनाभ)..."
           class="w-full px-4 py-2.5 pl-10 text-sm rounded-xl bg-white border border-hairline text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
         />
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3.5 top-3.5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -109,9 +106,9 @@ const schemaGraph = [
       </div>
     </section>
 
-    <!-- Category filter tabs -->
-    <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 px-1 sm:px-0 w-full scrollbar-none" aria-label="Filtrer les calculateurs par catégorie">
-      {FRENCH_CATEGORIES.map((cat, idx) => (
+    <!-- Category Filter Tabs -->
+    <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 px-1 sm:px-0 w-full scrollbar-none" aria-label="श्रेणी के अनुसार फ़िल्टर करें">
+      {HINDI_CATEGORIES.map((cat, idx) => (
         <button
           type="button"
           aria-pressed={idx === 0 ? 'true' : 'false'}
@@ -127,17 +124,17 @@ const schemaGraph = [
       ))}
     </div>
 
-    <!-- 16 dedicated calculators grid -->
+    <!-- 16 Dedicated Calculators Grid -->
     <section class="space-y-4">
       <div id="hub-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {frenchToolsList.map((t) => (
+        {hindiToolsList.map((t) => (
           <div
             class="hub-tool-card bg-white rounded-2xl border border-hairline p-5 shadow-xs hover:border-primary/60 hover:shadow-sm transition-all flex flex-col justify-between group"
             data-category={t.shape.category}
             data-name={`${t.shapeName} ${t.h1} ${t.shortTagline} ${t.keywords}`.toLowerCase()}
           >
             <div>
-              <!-- Header with icon and category badge -->
+              <!-- Header with Icon & Category Badge -->
               <div class="flex items-start justify-between gap-2 mb-3">
                 <div class="w-10 h-10 rounded-xl bg-canvas-soft border border-hairline flex items-center justify-center text-primary group-hover:scale-105 transition-transform shrink-0">
                   <Fragment set:html={t.shape.iconSvg} />
@@ -147,7 +144,7 @@ const schemaGraph = [
                 </span>
               </div>
 
-              <!-- Title and formula -->
+              <!-- Title & Formula -->
               <h2 class="font-bold text-base text-ink group-hover:text-primary transition-colors leading-snug mb-1">
                 {t.h1}
               </h2>
@@ -163,28 +160,28 @@ const schemaGraph = [
               </p>
             </div>
 
-            <!-- Direct link button -->
+            <!-- Direct Link Button -->
             <a
-              href={`/fr/${t.slug}`}
+              href={`/hi/${t.slug}`}
               class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-canvas-soft border border-hairline text-xs font-bold text-ink group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all shadow-2xs"
             >
-              <span>Ouvrir le calculateur</span>
+              <span>कैलकुलेटर खोलें</span>
               <span class="text-xs">→</span>
             </a>
           </div>
         ))}
       </div>
 
-      <!-- No results state -->
+      <!-- No Results State -->
       <div id="hub-no-results" class="hidden text-center py-16 px-4">
-        <p class="text-base font-bold text-ink">Aucun calculateur trouvé</p>
-        <p class="text-xs text-ink-muted mt-1">Modifiez vos termes de recherche ou sélectionnez toutes les catégories.</p>
+        <p class="text-base font-bold text-ink">कोई कैलकुलेटर नहीं मिला</p>
+        <p class="text-xs text-ink-muted mt-1">कृपया दूसरा शब्द खोजें या सभी श्रेणियां चुनें।</p>
         <button
           type="button"
           id="hub-reset-btn"
           class="mt-4 px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-hover transition-colors cursor-pointer"
         >
-          Réinitialiser les filtres
+          फ़िल्टर रीसेट करें
         </button>
       </div>
     </section>

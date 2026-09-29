@@ -86,3 +86,33 @@ export const HOME_ALTERNATES = [
   ...LOCALE_CODES.map((code) => ({ hreflang: LOCALIZED_HOMES[code].lang, href: `https://thevolumecalculator.com/${code}/` })),
   { hreflang: 'x-default', href: ENGLISH_HOME },
 ];
+
+export const HUB_URLS = {
+  en: 'https://thevolumecalculator.com/calculators',
+  es: 'https://thevolumecalculator.com/es/calculadoras',
+  pt: 'https://thevolumecalculator.com/pt/calculadoras',
+  de: 'https://thevolumecalculator.com/de/rechner',
+  fr: 'https://thevolumecalculator.com/fr/calculateurs',
+  it: 'https://thevolumecalculator.com/it/calcolatori',
+  ru: 'https://thevolumecalculator.com/ru/kalkulyatory',
+  ja: 'https://thevolumecalculator.com/ja/keisanki',
+  zh: 'https://thevolumecalculator.com/zh/jisuanqi',
+  ar: 'https://thevolumecalculator.com/ar/hasibat',
+  hi: 'https://thevolumecalculator.com/hi/kalkuleta',
+} as const;
+
+export const HUB_ALTERNATES = [
+  { hreflang: 'en', href: HUB_URLS.en },
+  { hreflang: 'es', href: HUB_URLS.es },
+  { hreflang: 'pt', href: HUB_URLS.pt },
+  { hreflang: 'de', href: HUB_URLS.de },
+  { hreflang: 'fr', href: HUB_URLS.fr },
+  { hreflang: 'it', href: HUB_URLS.it },
+  { hreflang: 'ru', href: HUB_URLS.ru },
+  { hreflang: 'ja', href: HUB_URLS.ja },
+  { hreflang: 'zh', href: HUB_URLS.zh },
+  { hreflang: 'zh-Hans', href: HUB_URLS.zh },
+  { hreflang: 'ar', href: HUB_URLS.ar },
+  { hreflang: 'hi', href: HUB_URLS.hi },
+  { hreflang: 'x-default', href: HUB_URLS.en },
+];

@@ -205,7 +205,7 @@ const isChinese = pathname === '/zh' || pathname === '/zh/' || pathname.startsWi
         {isHindi ? (
           <ul class="space-y-2 text-xs text-ink-muted">
             <li>
-              <a href="/hi/" aria-label="सभी 16 आयतन कैलकुलेटरों की सूची" class="font-semibold text-primary hover:underline flex items-center gap-1">
+              <a href="/hi/kalkuleta" aria-label="सभी 16 आयतन कैलकुलेटरों की सूची" class="font-semibold text-primary hover:underline flex items-center gap-1">
                 <span>सभी 16 आयतन कैलकुलेटर</span>
                 <span>→</span>
               </a>
@@ -222,7 +222,7 @@ const isChinese = pathname === '/zh' || pathname === '/zh/' || pathname.startsWi
         ) : isArabic ? (
           <ul class="space-y-2 text-xs text-ink-muted">
             <li>
-              <a href="/ar/" aria-label="فهرس حاسبات الحجم الـ 16" class="font-semibold text-primary hover:underline flex items-center gap-1">
+              <a href="/ar/hasibat" aria-label="فهرس حاسبات الحجم الـ 16" class="font-semibold text-primary hover:underline flex items-center gap-1">
                 <span>فهرس حاسبات الحجم الـ 16</span>
                 <span>←</span>
               </a>
@@ -239,7 +239,7 @@ const isChinese = pathname === '/zh' || pathname === '/zh/' || pathname.startsWi
         ) : isChinese ? (
           <ul class="space-y-2 text-xs text-ink-muted">
             <li>
-              <a href="/zh/" aria-label="全16种体积计算器列表" class="font-semibold text-primary hover:underline flex items-center gap-1">
+              <a href="/zh/jisuanqi" aria-label="全16种体积计算器列表" class="font-semibold text-primary hover:underline flex items-center gap-1">
                 <span>全16种体积计算器大全</span>
                 <span>→</span>
               </a>
@@ -256,7 +256,7 @@ const isChinese = pathname === '/zh' || pathname === '/zh/' || pathname.startsWi
         ) : isJapanese ? (
           <ul class="space-y-2 text-xs text-ink-muted">
             <li>
-              <a href="/ja/" aria-label="全16種類の体積計算機一覧" class="font-semibold text-primary hover:underline flex items-center gap-1">
+              <a href="/ja/keisanki" aria-label="全16種類の体積計算機一覧" class="font-semibold text-primary hover:underline flex items-center gap-1">
                 <span>全16種類の体積計算機一覧</span>
                 <span>→</span>
               </a>
@@ -398,7 +398,7 @@ const isChinese = pathname === '/zh' || pathname === '/zh/' || pathname.startsWi
         </h3>
         <ul class="space-y-0.5 sm:space-y-1 text-xs text-ink-muted">
           <li><a href={isHindi ? '/hi/' : isArabic ? '/ar/' : isChinese ? '/zh/' : isJapanese ? '/ja/' : isRussian ? '/ru/' : isItalian ? '/it/' : isPortuguese ? '/pt/' : isFrench ? '/fr/' : isSpanish ? '/es/' : isGerman ? '/de/' : '/'} class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'होम' : isArabic ? 'الرئيسية' : isChinese ? '首页' : isJapanese ? 'ホーム' : isRussian ? 'Главная' : isItalian ? 'Home' : isPortuguese ? 'Início' : isFrench ? 'Accueil' : isSpanish ? 'Inicio' : isGerman ? 'Startseite' : 'Home'}</a></li>
-          <li><a href={isHindi ? '/hi/' : isArabic ? '/ar/' : isChinese ? '/zh/' : isJapanese ? '/ja/' : isRussian ? '/ru/kalkulyatory' : isItalian ? '/it/calcolatori' : isPortuguese ? '/pt/calculadoras' : isFrench ? '/fr/calculateurs' : isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : '/calculators'} class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'कैलकुलेटर सूची' : isArabic ? 'دليل الحاسبات' : isChinese ? '计算器大全' : isJapanese ? '計算機一覧' : isRussian ? 'Калькуляторы' : isItalian ? 'Calcolatori' : isPortuguese ? 'Calculadoras' : isFrench ? 'Calculateurs' : isSpanish ? 'Calculadoras' : isGerman ? 'Rechner' : 'Calculators'}</a></li>
+          <li><a href={isHindi ? '/hi/kalkuleta' : isArabic ? '/ar/hasibat' : isChinese ? '/zh/jisuanqi' : isJapanese ? '/ja/keisanki' : isRussian ? '/ru/kalkulyatory' : isItalian ? '/it/calcolatori' : isPortuguese ? '/pt/calculadoras' : isFrench ? '/fr/calculateurs' : isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : '/calculators'} class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'कैलकुलेटर सूची' : isArabic ? 'دليل الحاسبات' : isChinese ? '计算器大全' : isJapanese ? '計算機一覧' : isRussian ? 'Калькуляторы' : isItalian ? 'Calcolatori' : isPortuguese ? 'Calculadoras' : isFrench ? 'Calculateurs' : isSpanish ? 'Calculadoras' : isGerman ? 'Rechner' : 'Calculators'}</a></li>
           <li><a href={isRussian ? '/ru/metodologiya' : isItalian ? '/it/metodologia' : isPortuguese ? '/pt/metodologia' : isFrench ? '/fr/methodologie' : isSpanish ? '/es/metodologia' : isGerman ? '/de/methodik' : '/methodology'} class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'सूत्र और मानक' : isArabic ? 'الصيغ والمعايير' : isChinese ? '计算方法与公式' : isJapanese ? '計算方法と公式' : isRussian ? 'Методология' : isItalian ? 'Metodologia' : isPortuguese ? 'Metodologia' : isFrench ? 'Méthodologie' : isSpanish ? 'Metodología' : isGerman ? 'Methodik' : 'Methodology'}</a></li>
           <li><a href="/about-us" class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'हमारे बारे में' : isArabic ? 'من نحن' : isChinese ? '关于我们' : isJapanese ? '運営情報' : isRussian ? 'О проекते' : isItalian ? 'Chi siamo' : isPortuguese ? 'Sobre nós' : isFrench ? 'À propos' : isSpanish ? 'Sobre nosotros' : isGerman ? 'Über uns' : 'About Us'}</a></li>
           <li><a href="/contact-us" class="inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-1 hover:text-primary transition-colors">{isHindi ? 'संपर्क करें' : isArabic ? 'اتصل بنا' : isChinese ? '联系我们' : isJapanese ? 'お問い合わせ' : isRussian ? 'Контакты' : isItalian ? 'Contatti' : isPortuguese ? 'Contato' : isFrench ? 'Contact' : isSpanish ? 'Contacto' : isGerman ? 'Kontakt' : 'Contact Us'}</a></li>

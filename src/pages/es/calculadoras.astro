@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SHAPES } from '../../scripts/shapes';
 import { SPANISH_TOOLS } from '../../i18n/spanish-tools';
+import { HUB_ALTERNATES, HUB_URLS } from '../../i18n/home-locales';
 
 const SPANISH_CATEGORIES = [
   { id: 'all', label: 'Todas las figuras' },
@@ -21,24 +22,7 @@ const spanishToolsList = Object.values(SPANISH_TOOLS).map((tool) => {
   };
 });
 
-const canonical = 'https://thevolumecalculator.com/es/calculadoras';
-const englishUrl = 'https://thevolumecalculator.com/calculators';
-const germanUrl = 'https://thevolumecalculator.com/de/rechner';
-const frenchUrl = 'https://thevolumecalculator.com/fr/calculateurs';
-const portugueseUrl = 'https://thevolumecalculator.com/pt/calculadoras';
-const italianUrl = 'https://thevolumecalculator.com/it/calcolatori';
-const russianUrl = 'https://thevolumecalculator.com/ru/kalkulyatory';
-
-const alternates = [
-  { hreflang: 'en', href: englishUrl },
-  { hreflang: 'es', href: canonical },
-  { hreflang: 'de', href: germanUrl },
-  { hreflang: 'fr', href: frenchUrl },
-  { hreflang: 'pt', href: portugueseUrl },
-  { hreflang: 'it', href: italianUrl },
-  { hreflang: 'ru', href: russianUrl },
-  { hreflang: 'x-default', href: englishUrl },
-];
+const canonical = HUB_URLS.es;
 
 const ogLocaleAlternates = ['es_MX', 'es_CO', 'es_AR', 'es_PE', 'es_CL', 'es_US'];
 
@@ -88,7 +72,7 @@ const schemaGraph = [
   dir="ltr"
   ogLocale="es_ES"
   ogLocaleAlternates={ogLocaleAlternates}
-  alternates={alternates}
+  alternates={HUB_ALTERNATES}
   schemaGraph={schemaGraph}
 >
   <Header />

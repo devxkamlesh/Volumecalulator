@@ -20,6 +20,7 @@ export default defineConfig({
     sitemap({
       filter: (page) =>
         !page.includes('/all-calculators') &&
+        !/\/(es|pt|de|fr|ru|ja|zh|it|ar|hi)\/calculators\/?$/.test(page) &&
         !page.includes('/rectangular-prism-volume-calculator') &&
         !page.includes('/hollow-cylinder-volume-calculator') &&
         !page.endsWith('/about') &&

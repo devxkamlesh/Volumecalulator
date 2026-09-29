@@ -1,7 +1,7 @@
 ---
 // Header.astro - Clean, fast, minimalist navigation with Featured Tools Sub-Menu
 import { ICONS } from '../scripts/icons';
-import { LOCALE_CODES, LOCALIZED_HOMES } from '../i18n/home-locales';
+import { LOCALE_CODES, LOCALIZED_HOMES, HUB_URLS } from '../i18n/home-locales';
 
 const pathname = Astro.url.pathname;
 const isHindi = pathname === '/hi' || pathname === '/hi/' || pathname.startsWith('/hi/');
@@ -16,13 +16,37 @@ const isJapanese = pathname === '/ja' || pathname === '/ja/' || pathname.startsW
 const isChinese = pathname === '/zh' || pathname === '/zh/' || pathname.startsWith('/zh/');
 const activeLocale = isHindi ? 'hi' : isArabic ? 'ar' : isChinese ? 'zh' : isJapanese ? 'ja' : isRussian ? 'ru' : isItalian ? 'it' : isSpanish ? 'es' : isGerman ? 'de' : isFrench ? 'fr' : isPortuguese ? 'pt' : LOCALE_CODES.find((code) => pathname === `/${code}/` || pathname.startsWith(`/${code}/`)) || 'en';
 const activeLanguageName = activeLocale === 'en' ? 'English' : LOCALIZED_HOMES[activeLocale]?.languageName || (isHindi ? 'हिन्दी' : isArabic ? 'العربية' : isChinese ? '中文' : isJapanese ? '日本語' : isRussian ? 'Русский' : isGerman ? 'Deutsch' : isFrench ? 'Français' : isPortuguese ? 'Português' : isItalian ? 'Italiano' : 'Español');
+
+const isHubPage =
+  pathname === '/calculators' || pathname === '/calculators/' ||
+  pathname.endsWith('/calculadoras') || pathname.endsWith('/calculadoras/') ||
+  pathname.endsWith('/rechner') || pathname.endsWith('/rechner/') ||
+  pathname.endsWith('/calculateurs') || pathname.endsWith('/calculateurs/') ||
+  pathname.endsWith('/calcolatori') || pathname.endsWith('/calcolatori/') ||
+  pathname.endsWith('/kalkulyatory') || pathname.endsWith('/kalkulyatory/') ||
+  pathname.endsWith('/keisanki') || pathname.endsWith('/keisanki/') ||
+  pathname.endsWith('/jisuanqi') || pathname.endsWith('/jisuanqi/') ||
+  pathname.endsWith('/hasibat') || pathname.endsWith('/hasibat/') ||
+  pathname.endsWith('/kalkuleta') || pathname.endsWith('/kalkuleta/');
+
+const getHubPath = (code: string) => {
+  if (code === 'en') return '/calculators';
+  const url = HUB_URLS[code as keyof typeof HUB_URLS];
+  return url ? new URL(url).pathname : `/${code}/`;
+};
+
 const languageLinks = [
-  { code: 'en', lang: 'en', name: 'English', href: '/' },
-  ...LOCALE_CODES.map((code) => ({ code, lang: LOCALIZED_HOMES[code].lang, name: LOCALIZED_HOMES[code].languageName, href: `/${code}/` })),
+  { code: 'en', lang: 'en', name: 'English', href: isHubPage ? '/calculators' : '/' },
+  ...LOCALE_CODES.map((code) => ({
+    code,
+    lang: LOCALIZED_HOMES[code].lang,
+    name: LOCALIZED_HOMES[code].languageName,
+    href: isHubPage ? getHubPath(code) : `/${code}/`,
+  })),
 ];
 
 const homeHref = isHindi ? '/hi/' : isArabic ? '/ar/' : isChinese ? '/zh/' : isJapanese ? '/ja/' : isRussian ? '/ru/' : isItalian ? '/it/' : isPortuguese ? '/pt/' : isSpanish ? '/es/' : isGerman ? '/de/' : isFrench ? '/fr/' : '/';
-const hubHref = isHindi ? '/hi/' : isArabic ? '/ar/' : isChinese ? '/zh/' : isJapanese ? '/ja/' : isRussian ? '/ru/kalkulyatory' : isItalian ? '/it/calcolatori' : isPortuguese ? '/pt/calculadoras' : isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : isFrench ? '/fr/calculateurs' : '/calculators';
+const hubHref = isHindi ? '/hi/kalkuleta' : isArabic ? '/ar/hasibat' : isChinese ? '/zh/jisuanqi' : isJapanese ? '/ja/keisanki' : isRussian ? '/ru/kalkulyatory' : isItalian ? '/it/calcolatori' : isPortuguese ? '/pt/calculadoras' : isSpanish ? '/es/calculadoras' : isGerman ? '/de/rechner' : isFrench ? '/fr/calculateurs' : '/calculators';
 const methodologyHref = isRussian ? '/ru/metodologiya' : isItalian ? '/it/metodologia' : isPortuguese ? '/pt/metodologia' : isSpanish ? '/es/metodologia' : isGerman ? '/de/methodik' : isFrench ? '/fr/methodologie' : '/methodology';
 
 // Popular shape shortcuts for mobile menu quick access

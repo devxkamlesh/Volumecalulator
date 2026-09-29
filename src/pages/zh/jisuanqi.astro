@@ -3,18 +3,18 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SHAPES } from '../../scripts/shapes';
-import { FRENCH_TOOLS } from '../../i18n/french-tools';
+import { CHINESE_TOOLS } from '../../i18n/chinese-tools';
 import { HUB_ALTERNATES, HUB_URLS } from '../../i18n/home-locales';
 
-const FRENCH_CATEGORIES = [
-  { id: 'all', label: 'Toutes les formes' },
-  { id: 'basic', label: 'Géométrie fondamentale' },
-  { id: 'curved', label: 'Corps ronds et cônes' },
-  { id: 'prisms_pyramids', label: 'Prismes et pyramides' },
-  { id: 'tanks_pipes', label: 'Cuves et tuyaux' },
+const CHINESE_CATEGORIES = [
+  { id: 'all', label: '所有立体' },
+  { id: 'basic', label: '基础几何' },
+  { id: 'curved', label: '曲面与圆锥' },
+  { id: 'prisms_pyramids', label: '棱柱与棱锥' },
+  { id: 'tanks_pipes', label: '储罐与管道' },
 ];
 
-const frenchToolsList = Object.values(FRENCH_TOOLS).map((tool) => {
+const chineseToolsList = Object.values(CHINESE_TOOLS).map((tool) => {
   const shape = SHAPES[tool.shapeId];
   return {
     ...tool,
@@ -22,15 +22,14 @@ const frenchToolsList = Object.values(FRENCH_TOOLS).map((tool) => {
   };
 });
 
-const canonical = HUB_URLS.fr;
-
-const ogLocaleAlternates = ['fr_CA', 'fr_BE', 'fr_CH'];
+const canonical = HUB_URLS.zh;
+const ogLocaleAlternates = ['zh_TW', 'zh_HK', 'zh_SG'];
 
 const schemaGraph = [
   {
     '@type': 'CollectionPage',
-    'name': 'Répertoire des 16 calculateurs de volume 3D',
-    'description': 'Répertoire exhaustif des 16 calculateurs de volume géométrique 3D avec formules détaillées, calculs pas à pas et conversion d\'unités.',
+    'name': '16种3D几何体体积计算器大全',
+    'description': '收录全部16种三维几何立体体积计算器，包含数学公式、分步计算与单位换算。',
     'url': canonical,
   },
   {
@@ -39,38 +38,38 @@ const schemaGraph = [
       {
         '@type': 'ListItem',
         'position': 1,
-        'name': 'Accueil',
-        'item': 'https://thevolumecalculator.com/fr/',
+        'name': '首页',
+        'item': 'https://thevolumecalculator.com/zh/',
       },
       {
         '@type': 'ListItem',
         'position': 2,
-        'name': 'Calculateurs',
+        'name': '体积计算器大全',
         'item': canonical,
       },
     ],
   },
   {
     '@type': 'ItemList',
-    'name': 'Calculateurs de volume géométrique 3D en français',
-    'numberOfItems': frenchToolsList.length,
-    'itemListElement': frenchToolsList.map((tool, idx) => ({
+    'name': '中文3D体积计算器',
+    'numberOfItems': chineseToolsList.length,
+    'itemListElement': chineseToolsList.map((tool, idx) => ({
       '@type': 'ListItem',
       'position': idx + 1,
       'name': tool.h1,
-      'url': `https://thevolumecalculator.com/fr/${tool.slug}`,
+      'url': `https://thevolumecalculator.com/zh/${tool.slug}`,
     })),
   },
 ];
 ---
 
 <Layout
-  title="Répertoire des calculateurs 3D | thevolumecalculator.com"
-  description="Répertoire exhaustif des 16 calculateurs de volume 3D en français. Formules directes, étapes de calcul détaillées et conversion instantanée en litres et mètres cubes."
+  title="3D体积计算器大全 | thevolumecalculator.com"
+  description="收录全部16种三维几何体体积计算器。提供长方体、圆柱、球体、圆锥、储罐与管道的精确公式、计算步骤与升及立方米换算。"
   canonical={canonical}
-  lang="fr"
+  lang="zh-Hans"
   dir="ltr"
-  ogLocale="fr_FR"
+  ogLocale="zh_CN"
   ogLocaleAlternates={ogLocaleAlternates}
   alternates={HUB_ALTERNATES}
   schemaGraph={schemaGraph}
@@ -78,28 +77,28 @@ const schemaGraph = [
   <Header />
 
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 sm:space-y-14">
-    <!-- Hub page hero -->
+    <!-- Hub Page Hero -->
     <section class="text-center max-w-3xl mx-auto pt-2 pb-2">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-hairline text-primary shadow-xs mb-3.5">
         <span class="w-2 h-2 rounded-full bg-primary"></span>
-        <span>Répertoire de 16 outils : 100% gratuit</span>
+        <span>16款专业工具大全 • 完全免费</span>
       </div>
 
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight leading-tight mb-3">
-        Tous les calculateurs de volume 3D
+        全部3D体积计算器
       </h1>
 
       <p class="text-sm sm:text-base text-ink-secondary leading-relaxed max-w-2xl mx-auto">
-        Accédez à la collection complète de 16 outils de calcul volumétrique tridimensionnel. Chaque calculateur fournit la formule exacte, la décomposition arithmétique étape par étape et les équivalences en litres et mètres cubes.
+        浏览全部16种三维几何立体计算工具。每个计算器均包含精确的数学公式、逐步运算演示以及公制与英制单位换算。
       </p>
 
-      <!-- Instant filter and search bar -->
+      <!-- Instant Filter & Search Bar -->
       <div class="mt-6 max-w-md mx-auto relative">
         <input
           type="text"
           id="hub-search-input"
-          aria-label="Rechercher un calculateur de volume"
-          placeholder="Rechercher par forme (ex. cylindre, cuve, cône)..."
+          aria-label="搜索体积计算器"
+          placeholder="搜索几何体（例如：圆柱、储罐、圆锥）..."
           class="w-full px-4 py-2.5 pl-10 text-sm rounded-xl bg-white border border-hairline text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
         />
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-3.5 top-3.5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -109,9 +108,9 @@ const schemaGraph = [
       </div>
     </section>
 
-    <!-- Category filter tabs -->
-    <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 px-1 sm:px-0 w-full scrollbar-none" aria-label="Filtrer les calculateurs par catégorie">
-      {FRENCH_CATEGORIES.map((cat, idx) => (
+    <!-- Category Filter Tabs -->
+    <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 px-1 sm:px-0 w-full scrollbar-none" aria-label="按类别筛选计算器">
+      {CHINESE_CATEGORIES.map((cat, idx) => (
         <button
           type="button"
           aria-pressed={idx === 0 ? 'true' : 'false'}
@@ -127,17 +126,17 @@ const schemaGraph = [
       ))}
     </div>
 
-    <!-- 16 dedicated calculators grid -->
+    <!-- 16 Dedicated Calculators Grid -->
     <section class="space-y-4">
       <div id="hub-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {frenchToolsList.map((t) => (
+        {chineseToolsList.map((t) => (
           <div
             class="hub-tool-card bg-white rounded-2xl border border-hairline p-5 shadow-xs hover:border-primary/60 hover:shadow-sm transition-all flex flex-col justify-between group"
             data-category={t.shape.category}
             data-name={`${t.shapeName} ${t.h1} ${t.shortTagline} ${t.keywords}`.toLowerCase()}
           >
             <div>
-              <!-- Header with icon and category badge -->
+              <!-- Header with Icon & Category Badge -->
               <div class="flex items-start justify-between gap-2 mb-3">
                 <div class="w-10 h-10 rounded-xl bg-canvas-soft border border-hairline flex items-center justify-center text-primary group-hover:scale-105 transition-transform shrink-0">
                   <Fragment set:html={t.shape.iconSvg} />
@@ -147,7 +146,7 @@ const schemaGraph = [
                 </span>
               </div>
 
-              <!-- Title and formula -->
+              <!-- Title & Formula -->
               <h2 class="font-bold text-base text-ink group-hover:text-primary transition-colors leading-snug mb-1">
                 {t.h1}
               </h2>
@@ -163,28 +162,28 @@ const schemaGraph = [
               </p>
             </div>
 
-            <!-- Direct link button -->
+            <!-- Direct Link Button -->
             <a
-              href={`/fr/${t.slug}`}
+              href={`/zh/${t.slug}`}
               class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-canvas-soft border border-hairline text-xs font-bold text-ink group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all shadow-2xs"
             >
-              <span>Ouvrir le calculateur</span>
+              <span>打开计算器</span>
               <span class="text-xs">→</span>
             </a>
           </div>
         ))}
       </div>
 
-      <!-- No results state -->
+      <!-- No Results State -->
       <div id="hub-no-results" class="hidden text-center py-16 px-4">
-        <p class="text-base font-bold text-ink">Aucun calculateur trouvé</p>
-        <p class="text-xs text-ink-muted mt-1">Modifiez vos termes de recherche ou sélectionnez toutes les catégories.</p>
+        <p class="text-base font-bold text-ink">未找到相关计算器</p>
+        <p class="text-xs text-ink-muted mt-1">请尝试输入其他关键词，或重置筛选分类。</p>
         <button
           type="button"
           id="hub-reset-btn"
           class="mt-4 px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-hover transition-colors cursor-pointer"
         >
-          Réinitialiser les filtres
+          重置筛选
         </button>
       </div>
     </section>

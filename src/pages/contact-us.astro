@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Contact us';
+const description = 'Get in touch with the engineering team at thevolumecalculator.com for formula questions, bug reports, and partnership inquiries.';
+const canonical = 'https://thevolumecalculator.com/contact-us';
+
+const alternates = [
+  { hreflang: 'en', href: canonical },
+  { hreflang: 'x-default', href: canonical },
+];
+
+const schemaGraph = [
+  {
+    '@type': 'ContactPage',
+    'name': 'Contact us | thevolumecalculator.com',
+    'description': description,
+    'url': canonical,
+    'mainEntity': {
+      '@type': 'Organization',
+      'name': 'The Volume Calculator',
+      'url': 'https://thevolumecalculator.com',
+      'email': 'contact@thevolumecalculator.com',
+      'contactPoint': {
+        '@type': 'ContactPoint',
+        'email': 'contact@thevolumecalculator.com',
+        'contactType': 'technical support',
+        'availableLanguage': ['English', 'Hindi'],
+      },
+    },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': 'https://thevolumecalculator.com/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Contact us',
+        'item': canonical,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`${title} | thevolumecalculator.com`}
+  description={description}
+  canonical={canonical}
+  alternates={alternates}
+  schemaGraph={schemaGraph}
+>
+  <Header />
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 sm:space-y-12">
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">Contact us</span>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-canvas-card border border-hairline text-primary shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-accent-green"></span>
+        <span>Direct Communication Channels</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight leading-tight">
+        Contact us
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
+        We welcome mathematical feedback and inquiries. Whether you are verifying an industrial horizontal tank formula, proposing a new 3D polyhedron calculator, or reporting a decimal discrepancy, our engineering team reviews every technical submission. Direct inquiries should go to our primary address at <a href="mailto:contact@thevolumecalculator.com" class="text-primary font-semibold hover:underline">contact@thevolumecalculator.com</a>. Founder Kamlesh Choudhary reviews incoming emails and responds within 48 business hours on weekdays. Inquiries requiring brief technical clarification can also reach his public profile on X through handle <a href="https://x.com/devxkamlesh" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:underline">@devxkamlesh</a>. Please include your specific shape dimensions, selected measurement units, browser version, and the expected theoretical volume derived from engineering manuals when submitting a mathematical discrepancy report.
+      </p>
+    </section>
+
+    <!-- Section 1: Contact Cards Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-6 shadow-xs space-y-3">
+        <h2 class="text-base sm:text-lg font-bold text-ink tracking-tight">
+          Electronic mail
+        </h2>
+        <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+          For general questions, bug reports, and educational licensing inquiries.
+        </p>
+        <div class="pt-2">
+          <a
+            href="mailto:contact@thevolumecalculator.com"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-xs sm:text-sm font-semibold hover:bg-primary-active transition-colors shadow-xs"
+          >
+            <span>contact@thevolumecalculator.com</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-6 shadow-xs space-y-3">
+        <h2 class="text-base sm:text-lg font-bold text-ink tracking-tight">
+          Developer social channel
+        </h2>
+        <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+          For real-time announcements, formula previews, and quick questions.
+        </p>
+        <div class="pt-2">
+          <a
+            href="https://x.com/devxkamlesh"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-[#1e1e1e] border border-hairline text-ink text-xs sm:text-sm font-semibold hover:border-primary transition-colors shadow-xs"
+          >
+            <span>Follow @devxkamlesh on X</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Bug Reports and Verification -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        Bug reporting and formula feedback
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Accuracy remains our highest priority. If you detect an unexpected result in our cylinder, cone, spherical cap, or horizontal tank calculators, please cite the exact formula from standard academic or industrial texts. We compare reported issues against the mathematical standards documented on our <a href="/methodology" class="text-primary font-semibold hover:underline">methodology</a> page. Our team tests verified adjustments against our Vitest automated test suite before pushing production releases to Cloudflare edge nodes. The platform maintains public changelogs for all formula revisions.
+      </p>
+    </section>
+
+    <!-- Section 3: Operating Location -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        Location and business hours
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Operations run from Jaipur, Rajasthan 302020, India. Standard business hours run from 09:00 to 18:00 Indian Standard Time (UTC+05:30), Monday through Friday. While we do not host drop-in public visitors at our development studio, all postal correspondence addressed to our engineering team receives processing through our standard administrative registry. Electronic communications remain the fastest route for technical support and partnership requests.
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

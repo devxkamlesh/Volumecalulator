@@ -18,7 +18,11 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/all-calculators') &&
         !page.includes('/rectangular-prism-volume-calculator') &&
-        !page.includes('/hollow-cylinder-volume-calculator'),
+        !page.includes('/hollow-cylinder-volume-calculator') &&
+        !page.endsWith('/about') &&
+        !page.endsWith('/contact') &&
+        !page.endsWith('/privacy') &&
+        !page.endsWith('/terms'),
     }),
   ],
   vite: {

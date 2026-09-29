@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Privacy policy';
+const description = 'Read the privacy policy of thevolumecalculator.com. We operate a client-side geometric computing model with zero user tracking and zero dimension logging.';
+const canonical = 'https://thevolumecalculator.com/privacy-policy';
+
+const alternates = [
+  { hreflang: 'en', href: canonical },
+  { hreflang: 'x-default', href: canonical },
+];
+
+const schemaGraph = [
+  {
+    '@type': 'WebPage',
+    'name': 'Privacy policy | thevolumecalculator.com',
+    'description': description,
+    'url': canonical,
+    'datePublished': '2025-01-01',
+    'dateModified': '2026-09-29',
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': 'https://thevolumecalculator.com/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Privacy policy',
+        'item': canonical,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`${title} | thevolumecalculator.com`}
+  description={description}
+  canonical={canonical}
+  alternates={alternates}
+  schemaGraph={schemaGraph}
+>
+  <Header />
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 sm:space-y-12">
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">Privacy policy</span>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-canvas-card border border-hairline text-primary shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-accent-green"></span>
+        <span>Effective: January 1, 2025 | Last Updated: September 29, 2026</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight leading-tight">
+        Privacy policy
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
+        This privacy policy governs data practices on thevolumecalculator.com. The policy took effect January 1, 2025. Because our mathematical calculators execute exclusively inside your web browser via client-side JavaScript, our web servers never receive, record, or store the geometric numbers you enter. You can compute complex container volumes offline once the initial HTML file completes loading. All dimensional inputs vanish when you close the tab. We do not sell, rent, monetize, or transmit your calculation records to advertising networks, commercial brokerages, or academic research institutions under any operational circumstance.
+      </p>
+    </section>
+
+    <!-- Section 1: Local Storage -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        Local storage and cookies
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        We do not use tracking cookies. The sole data value saved to your browser client is a single entry inside `localStorage` under the identifier `theme`, which remembers your choice between dark and light appearance modes. This preference key stores either `dark` or `light`. Your browser maintains this single record strictly on device and never attaches it to outbound HTTP requests to our network hosts. Clearing browser cache immediately erases the theme flag from client memory.
+      </p>
+    </section>
+
+    <!-- Section 2: Hosting & Edge Delivery -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        Infrastructure logs and network delivery
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Cloudflare delivers our static assets globally. To defend against distributed denial of service attacks and accelerate geographic delivery, Cloudflare edge servers record standard ephemeral request headers including IP addresses, user agent strings, and request timestamps. Cloudflare processes these network logs in compliance with ISO 27001 standards and purges routine connection telemetry within short retention cycles. We never merge server connection records with individual user identities.
+      </p>
+    </section>
+
+    <!-- Section 3: Statutory Rights -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        Statutory rights under GDPR and CCPA
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Visitors located in the European Economic Area possess statutory rights under Regulation (EU) 2016/679, commonly known as the General Data Protection Regulation. California residents enjoy similar statutory protections. Because thevolumecalculator.com does not collect, log, or maintain user accounts, personal identities, or financial data, we hold zero personal data dossiers to disclose, modify, or erase upon receipt of access requests. If you submit an inquiry to <a href="mailto:privacy@thevolumecalculator.com" class="text-primary font-semibold hover:underline">privacy@thevolumecalculator.com</a>, we use your return address solely to resolve that specific correspondence. We delete completed email threads upon request or within 90 days of resolution.
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

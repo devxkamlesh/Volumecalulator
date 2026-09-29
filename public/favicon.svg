@@ -1,25 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
   <style>
     :root {
-      --icon-fill: #09090B;
+      --bg-fill: #09090B;
+      --border-stroke: #27272A;
+      --cube-fill: #FFFFFF;
     }
-    @media (prefers-color-scheme: dark) {
+    @media (prefers-color-scheme: light) {
       :root {
-        --icon-fill: #FFFFFF;
+        --bg-fill: #09090B;
+        --border-stroke: #27272A;
+        --cube-fill: #FFFFFF;
       }
     }
-    .f-top { fill: var(--icon-fill); }
-    .f-left { fill: var(--icon-fill); opacity: 0.38; }
-    .f-right { fill: var(--icon-fill); opacity: 0.78; }
+    .bg { fill: var(--bg-fill); }
+    .border { stroke: var(--border-stroke); }
+    .f-top { fill: var(--cube-fill); }
+    .f-left { fill: var(--cube-fill); opacity: 0.45; }
+    .f-right { fill: var(--cube-fill); opacity: 0.80; }
   </style>
-
-  <!-- 100% Transparent Background - Adaptive 3D Volume Cube -->
-  <!-- Top Face (Black in Light Mode, White in Dark Mode) -->
-  <polygon class="f-top" points="64,10 116,38 64,66 12,38" />
-
-  <!-- Left Face (Shadow Facet) -->
-  <polygon class="f-left" points="12,46 61,72 61,118 12,92" />
-
-  <!-- Right Face (Mid-tone Facet) -->
-  <polygon class="f-right" points="67,72 116,46 116,92 67,118" />
+  <rect width="128" height="128" rx="28" class="bg" />
+  <rect x="1" y="1" width="126" height="126" rx="27" stroke-width="2" class="border" fill="none" />
+  <polygon points="64,18 108,42 64,66 20,42" class="f-top" />
+  <polygon points="20,49 61,72 61,110 20,87" class="f-left" />
+  <polygon points="67,72 108,49 108,87 67,110" class="f-right" />
 </svg>

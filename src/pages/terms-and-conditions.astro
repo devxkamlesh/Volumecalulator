@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Terms and conditions';
+const description = 'Review the terms and conditions for using thevolumecalculator.com, including our mathematical accuracy disclaimer and liability boundaries.';
+const canonical = 'https://thevolumecalculator.com/terms-and-conditions';
+
+const alternates = [
+  { hreflang: 'en', href: canonical },
+  { hreflang: 'x-default', href: canonical },
+];
+
+const schemaGraph = [
+  {
+    '@type': 'WebPage',
+    'name': 'Terms and conditions | thevolumecalculator.com',
+    'description': description,
+    'url': canonical,
+    'datePublished': '2025-01-01',
+    'dateModified': '2026-09-29',
+  },
+  {
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': 'https://thevolumecalculator.com/',
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Terms and conditions',
+        'item': canonical,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`${title} | thevolumecalculator.com`}
+  description={description}
+  canonical={canonical}
+  alternates={alternates}
+  schemaGraph={schemaGraph}
+>
+  <Header />
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 sm:space-y-12">
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex items-center gap-1.5 text-xs text-ink-muted">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-ink font-semibold">Terms and conditions</span>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-canvas-card border border-hairline text-primary shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-accent-green"></span>
+        <span>Effective: January 1, 2025 | Last Updated: September 29, 2026</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight leading-tight">
+        Terms and conditions
+      </h1>
+
+      <p class="text-sm sm:text-base text-ink-secondary leading-relaxed">
+        These terms and conditions govern access to thevolumecalculator.com. Using our tools indicates agreement. If you do not accept these terms in their entirety, you must discontinue using our 16 geometric volume calculators, interactive diagrams, and conversion charts immediately. The platform grants each visitor a royalty-free license to perform personal, educational, and commercial volumetric calculations freely. You may not scrape our scripts for automated re-hosting. We reserve the right to restrict automated crawler bots that exceed standard indexing rate limits or degrade network delivery speeds across our Cloudflare edge distribution channels.
+      </p>
+    </section>
+
+    <!-- Section 1: Engineering Disclaimer -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        Calculation accuracy and engineering disclaimer
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Calculations provide theoretical geometric estimates. While all algorithms apply standard Euclidean equations and ISO 80000-3 physical conversion factors, real-world containers experience thermal expansion, manufacturing wall thickness tolerances, and material deflection. A licensed professional engineer must confirm critical specifications for chemical containment, concrete pouring, or structural aviation tanks. We provide all computational output on an as-is and as-available basis without express or implied warranties of commercial fitness. Users assume full responsibility for validating dimensional numbers prior to procuring raw materials.
+      </p>
+    </section>
+
+    <!-- Section 2: Limitation of Liability -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        Limitation of liability
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        Our liability remains strictly limited. Neither Kamlesh Choudhary nor thevolumecalculator.com bears financial responsibility for construction delays, concrete batch discrepancies, fluid spillage, excavation overruns, or incidental commercial damages stemming from site use. Total aggregate liability under any legal claim cannot exceed fifty United States dollars ($50.00 USD). Some jurisdictions disallow liability waivers for gross negligence, in which case our exposure conforms to minimum statutory boundaries.
+      </p>
+    </section>
+
+    <!-- Section 3: Governing Law -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        Governing law and jurisdiction
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        The laws of India govern these terms and conditions. Courts in Jaipur hold exclusive jurisdiction. Any legal dispute, controversy, or statutory claim arising from your use of the platform shall undergo resolution before competent courts located in Jaipur, Rajasthan, India. If a court deems any specific clause unenforceable, the remaining provisions retain full legal validity.
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

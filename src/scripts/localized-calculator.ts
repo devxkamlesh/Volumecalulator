@@ -49,23 +49,39 @@ function initLocalizedCalculator(): void {
     resultUnit.textContent = outputSelect?.selectedOptions[0]?.textContent || outputUnit;
   }
 
-  function renderInputs(): void {
+  function renderInputs(force = true): void {
     if (!inputsContainer) return;
     const units = unitsForSystem();
-    inputsContainer.innerHTML = shape.inputs.map((input) => `
-      <div class="space-y-1.5">
-        <label for="locale-${input.id}" class="text-xs font-bold text-ink">${config.inputLabels[input.id] || input.label} (${input.symbol})</label>
-        <div class="flex gap-2">
-          <input id="locale-${input.id}" type="number" min="0" step="any" inputmode="decimal" class="min-h-11 w-full px-3 rounded-lg bg-white border border-hairline text-ink font-mono" />
-          <select id="locale-unit-${input.id}" class="min-h-11 px-3 rounded-lg bg-canvas-soft border border-hairline text-ink font-semibold">
-            ${units.map((unit) => `<option value="${unit.id}" ${unit.id === values[input.id].unit ? 'selected' : ''}>${unit.label}</option>`).join('')}
-          </select>
-        </div>
-      </div>`).join('');
+    const alreadyRendered =
+      !force &&
+      shape.inputs.every(
+        (input) =>
+          document.querySelector(`#locale-${input.id}`) !== null &&
+          document.querySelector(`#locale-unit-${input.id}`) !== null
+      );
+
+    if (!alreadyRendered) {
+      inputsContainer.innerHTML = shape.inputs.map((input) => `
+        <div class="space-y-1.5">
+          <label for="locale-${input.id}" class="text-xs font-bold text-ink">${config.inputLabels[input.id] || input.label} (${input.symbol})</label>
+          <div class="flex gap-2">
+            <input id="locale-${input.id}" type="number" min="0" step="any" inputmode="decimal" class="min-h-11 w-full px-3 rounded-lg bg-white border border-hairline text-ink font-mono" />
+            <select id="locale-unit-${input.id}" class="min-h-11 px-3 rounded-lg bg-canvas-soft border border-hairline text-ink font-semibold">
+              ${units.map((unit) => `<option value="${unit.id}" ${unit.id === values[input.id].unit ? 'selected' : ''}>${unit.label}</option>`).join('')}
+            </select>
+          </div>
+        </div>`).join('');
+    }
 
     for (const input of shape.inputs) {
       const numberInput = document.querySelector<HTMLInputElement>(`#locale-${input.id}`);
       const unitSelect = document.querySelector<HTMLSelectElement>(`#locale-unit-${input.id}`);
+      if (unitSelect && !values[input.id].unit) {
+        values[input.id].unit = unitSelect.value;
+      }
+      if (numberInput && numberInput.value.trim() !== '') {
+        values[input.id].val = Number(numberInput.value);
+      }
       numberInput?.addEventListener('input', () => { values[input.id].val = numberInput.value === '' ? Number.NaN : Number(numberInput.value); recalculate(); });
       unitSelect?.addEventListener('change', () => { values[input.id].unit = unitSelect.value; recalculate(); });
     }
@@ -75,7 +91,7 @@ function initLocalizedCalculator(): void {
     shape = next;
     resetValues();
     if (title) title.textContent = config.shapeNames[shape.id] || shape.name;
-    renderInputs();
+    renderInputs(true);
     recalculate();
   }
 
@@ -95,18 +111,18 @@ function initLocalizedCalculator(): void {
       document.querySelectorAll<HTMLButtonElement>('.locale-system-btn').forEach((item) => { item.classList.toggle('bg-primary', item === button); item.classList.toggle('text-white', item === button); item.classList.toggle('text-ink-muted', item !== button); item.setAttribute('aria-pressed', String(item === button)); });
       outputUnit = system === 'metric' ? 'L' : 'gal';
       if (outputSelect) outputSelect.value = outputUnit;
-      resetValues(); renderInputs(); recalculate();
+      resetValues(); renderInputs(true); recalculate();
     });
   });
 
   outputSelect?.addEventListener('change', () => { outputUnit = outputSelect.value; recalculate(); });
-  document.querySelector('#locale-clear')?.addEventListener('click', () => { resetValues(); renderInputs(); recalculate(); });
+  document.querySelector('#locale-clear')?.addEventListener('click', () => { resetValues(); renderInputs(true); recalculate(); });
   document.querySelector('#locale-copy')?.addEventListener('click', async () => {
     if (!result || result.textContent === '0.00') return;
     await navigator.clipboard.writeText(`${result.textContent} ${resultUnit?.textContent || ''}`);
   });
 
-  resetValues(); renderInputs(); recalculate();
+  resetValues(); renderInputs(false); recalculate();
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initLocalizedCalculator);

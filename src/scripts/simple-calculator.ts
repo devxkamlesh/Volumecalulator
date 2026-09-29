@@ -115,7 +115,7 @@ export class SimpleCalculatorApp {
     this.setupUnitSystem();
     this.setupReset();
     this.setupCopy();
-    this.selectShape(SIMPLE_SHAPES.box);
+    this.selectShape(SIMPLE_SHAPES.box, false);
   }
 
   private setupUnitSystem(): void {
@@ -205,7 +205,7 @@ export class SimpleCalculatorApp {
     });
   }
 
-  private selectShape(shape: SimpleShape): void {
+  private selectShape(shape: SimpleShape, force = true): void {
     this.activeShape = shape;
     this.currentInputs = {};
 
@@ -214,40 +214,42 @@ export class SimpleCalculatorApp {
       this.currentInputs[input.id] = { val: NaN, unit: this.unitSystem === 'metric' ? 'cm' : input.defaultUnit };
     }
 
-    // Update UI header with clean SVG badge
-    const titleEl = document.getElementById('simple-shape-title');
-    if (titleEl) {
-      titleEl.innerHTML = `
-        <span class="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
-          ${shape.icon}
-        </span>
-        <span>${shape.name}</span>
-      `;
+    if (force) {
+      // Update UI header with clean SVG badge
+      const titleEl = document.getElementById('simple-shape-title');
+      if (titleEl) {
+        titleEl.innerHTML = `
+          <span class="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
+            ${shape.icon}
+          </span>
+          <span>${shape.name}</span>
+        `;
+      }
+
+      const descEl = document.getElementById('simple-shape-desc');
+      if (descEl) descEl.textContent = shape.description;
+
+      const dedicatedLink = document.getElementById('simple-dedicated-link') as HTMLAnchorElement | null;
+      if (dedicatedLink) {
+        const slugMap: Record<string, string> = {
+          box: 'box-volume-calculator',
+          cylinder: 'cylinder-volume-calculator',
+          sphere: 'sphere-volume-calculator',
+          cube: 'cube-volume-calculator',
+          cone: 'cone-volume-calculator',
+        };
+        const slug = slugMap[shape.id] || 'box-volume-calculator';
+        dedicatedLink.href = `/${slug}`;
+        dedicatedLink.title = `Open standalone ${shape.name} calculator`;
+        dedicatedLink.setAttribute('aria-label', `Open standalone ${shape.name} volume calculator page`);
+      }
     }
 
-    const descEl = document.getElementById('simple-shape-desc');
-    if (descEl) descEl.textContent = shape.description;
-
-    const dedicatedLink = document.getElementById('simple-dedicated-link') as HTMLAnchorElement | null;
-    if (dedicatedLink) {
-      const slugMap: Record<string, string> = {
-        box: 'box-volume-calculator',
-        cylinder: 'cylinder-volume-calculator',
-        sphere: 'sphere-volume-calculator',
-        cube: 'cube-volume-calculator',
-        cone: 'cone-volume-calculator',
-      };
-      const slug = slugMap[shape.id] || 'box-volume-calculator';
-      dedicatedLink.href = `/${slug}`;
-      dedicatedLink.title = `Open standalone ${shape.name} calculator`;
-      dedicatedLink.setAttribute('aria-label', `Open standalone ${shape.name} volume calculator page`);
-    }
-
-    this.renderInputs();
+    this.renderInputs(force);
     this.recalculate();
   }
 
-  private renderInputs(): void {
+  private renderInputs(force = true): void {
     const container = document.getElementById('simple-inputs-container');
     if (!container) return;
 
@@ -259,62 +261,77 @@ export class SimpleCalculatorApp {
       { id: 'yd', label: 'Yards (yd)' },
     ];
 
-    container.innerHTML = this.activeShape.inputs
-      .map((input) => {
-        const cur = this.currentInputs[input.id];
-        const unitOpts = units
-          .map((u) => `<option value="${u.id}" ${u.id === cur.unit ? 'selected' : ''}>${u.label}</option>`)
-          .join('');
+    const alreadyRendered =
+      !force &&
+      this.activeShape.inputs.every(
+        (input) =>
+          document.getElementById(`simple-in-${input.id}`) !== null &&
+          document.getElementById(`simple-unit-${input.id}`) !== null
+      );
 
-        const valDisplay = isNaN(cur.val) ? '' : String(cur.val);
+    if (!alreadyRendered) {
+      container.innerHTML = this.activeShape.inputs
+        .map((input) => {
+          const cur = this.currentInputs[input.id];
+          const unitOpts = units
+            .map((u) => `<option value="${u.id}" ${u.id === cur.unit ? 'selected' : ''}>${u.label}</option>`)
+            .join('');
 
-        return `
-        <div class="flex flex-col gap-1.5">
-          <label for="simple-in-${input.id}" class="text-xs font-semibold text-ink flex items-center justify-between">
-            <span>${input.label} (${input.symbol})</span>
-          </label>
-          <div class="flex items-center gap-2">
-            <input
-              type="number"
-              id="simple-in-${input.id}"
-              data-id="${input.id}"
-              value="${valDisplay}"
-              placeholder="${input.placeholder}"
-              step="any"
-              min="0"
-              aria-label="${input.label} (${input.symbol})"
-              class="w-full px-3.5 py-2.5 text-base font-mono rounded-lg bg-white border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
-            />
-            <label for="simple-unit-${input.id}" class="sr-only">${input.label} measurement unit</label>
-            <select
-              id="simple-unit-${input.id}"
-              data-unit-for="${input.id}"
-              aria-label="${input.label} measurement unit"
-              class="px-3 py-2.5 text-xs font-medium rounded-lg bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shrink-0"
-            >
-              ${unitOpts}
-            </select>
+          const valDisplay = isNaN(cur.val) ? '' : String(cur.val);
+
+          return `
+          <div class="flex flex-col gap-1.5">
+            <label for="simple-in-${input.id}" class="text-xs font-semibold text-ink flex items-center justify-between">
+              <span>${input.label} (${input.symbol})</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                id="simple-in-${input.id}"
+                data-id="${input.id}"
+                value="${valDisplay}"
+                placeholder="${input.placeholder}"
+                step="any"
+                min="0"
+                aria-label="${input.label} (${input.symbol})"
+                class="w-full px-3.5 py-2.5 text-base font-mono rounded-lg bg-white border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
+              />
+              <label for="simple-unit-${input.id}" class="sr-only">${input.label} measurement unit</label>
+              <select
+                id="simple-unit-${input.id}"
+                data-unit-for="${input.id}"
+                aria-label="${input.label} measurement unit"
+                class="px-3 py-2.5 text-xs font-medium rounded-lg bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shrink-0"
+              >
+                ${unitOpts}
+              </select>
+            </div>
           </div>
-        </div>
-      `;
-      })
-      .join('');
+        `;
+        })
+        .join('');
+    }
 
-    // Attach listeners
+    // Attach listeners and read any pre-rendered values
     this.activeShape.inputs.forEach((input) => {
       const num = document.getElementById(`simple-in-${input.id}`) as HTMLInputElement | null;
       const unit = document.getElementById(`simple-unit-${input.id}`) as HTMLSelectElement | null;
 
       if (num) {
+        const raw = num.value.trim();
+        if (raw !== '') {
+          this.currentInputs[input.id].val = parseFloat(raw);
+        }
         num.addEventListener('input', (e) => {
-          const raw = (e.target as HTMLInputElement).value.trim();
-          const val = raw === '' ? NaN : parseFloat(raw);
+          const rawInput = (e.target as HTMLInputElement).value.trim();
+          const val = rawInput === '' ? NaN : parseFloat(rawInput);
           this.currentInputs[input.id].val = val;
           this.recalculate();
         });
       }
 
       if (unit) {
+        this.currentInputs[input.id].unit = unit.value || (this.unitSystem === 'metric' ? 'cm' : input.defaultUnit);
         unit.addEventListener('change', (e) => {
           this.currentInputs[input.id].unit = (e.target as HTMLSelectElement).value;
           this.recalculate();

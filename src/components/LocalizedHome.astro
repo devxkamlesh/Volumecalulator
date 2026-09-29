@@ -94,7 +94,38 @@ const calculatorConfig = {
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
         <div class="md:col-span-7 space-y-4">
           <h3 id="locale-shape-title" class="font-bold text-lg text-ink">{content.shapeNames.box}</h3>
-          <div id="locale-inputs" class="space-y-4"></div>
+          <div id="locale-inputs" class="space-y-4 min-h-[220px]">
+            {SIMPLE_SHAPES.box.inputs.map((input) => (
+              <div class="space-y-1.5">
+                <label for={`locale-${input.id}`} class="text-xs font-bold text-ink">
+                  {(calculatorConfig.inputLabels as any)[content.code]?.[input.id] || input.label} ({input.symbol})
+                </label>
+                <div class="flex gap-2">
+                  <input
+                    id={`locale-${input.id}`}
+                    type="number"
+                    min="0"
+                    step="any"
+                    inputmode="decimal"
+                    class="min-h-11 w-full px-3 rounded-lg bg-white border border-hairline text-ink font-mono"
+                  />
+                  <label for={`locale-unit-${input.id}`} class="sr-only">
+                    {(calculatorConfig.inputLabels as any)[content.code]?.[input.id] || input.label} unit
+                  </label>
+                  <select
+                    id={`locale-unit-${input.id}`}
+                    class="min-h-11 px-3 rounded-lg bg-canvas-soft border border-hairline text-ink font-semibold"
+                  >
+                    <option value="cm" selected>cm</option>
+                    <option value="m">m</option>
+                    <option value="mm">mm</option>
+                    <option value="in">in</option>
+                    <option value="ft">ft</option>
+                  </select>
+                </div>
+              </div>
+            ))}
+          </div>
           <button id="locale-clear" type="button" class="min-h-11 px-4 py-2 rounded-lg bg-canvas-soft border border-hairline text-xs font-semibold text-ink">{content.clearLabel}</button>
         </div>
         <div class="md:col-span-5 p-5 rounded-xl bg-canvas-soft border border-hairline space-y-4">

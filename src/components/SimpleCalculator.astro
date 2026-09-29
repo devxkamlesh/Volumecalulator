@@ -70,8 +70,102 @@ const shapes = Object.values(SIMPLE_SHAPES);
   <!-- Grid: Inputs on Left, Output on Right -->
   <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
     <!-- Left Column: Inputs Form (7 cols on md) -->
-    <div id="simple-inputs-container" class="md:col-span-7 flex flex-col gap-4">
-      <!-- Populated dynamically by simple-calculator.ts -->
+    <div id="simple-inputs-container" class="md:col-span-7 flex flex-col gap-4 min-h-[240px]">
+      <div class="flex flex-col gap-1.5">
+        <label for="simple-in-length" class="text-xs font-semibold text-ink flex items-center justify-between">
+          <span>Length (l)</span>
+        </label>
+        <div class="flex items-center gap-2">
+          <input
+            type="number"
+            id="simple-in-length"
+            data-id="length"
+            value=""
+            placeholder="0"
+            step="any"
+            min="0"
+            aria-label="Length (l)"
+            class="w-full px-3.5 py-2.5 text-base font-mono rounded-lg bg-white border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
+          />
+          <label for="simple-unit-length" class="sr-only">Length measurement unit</label>
+          <select
+            id="simple-unit-length"
+            data-unit-for="length"
+            aria-label="Length measurement unit"
+            class="px-3 py-2.5 text-xs font-medium rounded-lg bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shrink-0"
+          >
+            <option value="in" selected>Inches (in)</option>
+            <option value="ft">Feet (ft)</option>
+            <option value="cm">Centimeters (cm)</option>
+            <option value="m">Meters (m)</option>
+            <option value="yd">Yards (yd)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label for="simple-in-width" class="text-xs font-semibold text-ink flex items-center justify-between">
+          <span>Width (w)</span>
+        </label>
+        <div class="flex items-center gap-2">
+          <input
+            type="number"
+            id="simple-in-width"
+            data-id="width"
+            value=""
+            placeholder="0"
+            step="any"
+            min="0"
+            aria-label="Width (w)"
+            class="w-full px-3.5 py-2.5 text-base font-mono rounded-lg bg-white border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
+          />
+          <label for="simple-unit-width" class="sr-only">Width measurement unit</label>
+          <select
+            id="simple-unit-width"
+            data-unit-for="width"
+            aria-label="Width measurement unit"
+            class="px-3 py-2.5 text-xs font-medium rounded-lg bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shrink-0"
+          >
+            <option value="in" selected>Inches (in)</option>
+            <option value="ft">Feet (ft)</option>
+            <option value="cm">Centimeters (cm)</option>
+            <option value="m">Meters (m)</option>
+            <option value="yd">Yards (yd)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label for="simple-in-height" class="text-xs font-semibold text-ink flex items-center justify-between">
+          <span>Height (h)</span>
+        </label>
+        <div class="flex items-center gap-2">
+          <input
+            type="number"
+            id="simple-in-height"
+            data-id="height"
+            value=""
+            placeholder="0"
+            step="any"
+            min="0"
+            aria-label="Height (h)"
+            class="w-full px-3.5 py-2.5 text-base font-mono rounded-lg bg-white border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary shadow-xs"
+          />
+          <label for="simple-unit-height" class="sr-only">Height measurement unit</label>
+          <select
+            id="simple-unit-height"
+            data-unit-for="height"
+            aria-label="Height measurement unit"
+            class="px-3 py-2.5 text-xs font-medium rounded-lg bg-canvas-soft border border-hairline text-ink focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shrink-0"
+          >
+            <option value="in" selected>Inches (in)</option>
+            <option value="ft">Feet (ft)</option>
+            <option value="cm">Centimeters (cm)</option>
+            <option value="m">Meters (m)</option>
+            <option value="yd">Yards (yd)</option>
+          </select>
+        </div>
+      </div>
     </div>
 
     <!-- Right Column: Results (5 cols on md) -->

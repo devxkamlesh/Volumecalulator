@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 const title = 'Privacy policy';
-const description = 'Read the privacy policy of thevolumecalculator.com. We operate a client-side geometric computing model with zero user tracking and zero dimension logging.';
+const description = 'Read the privacy policy of thevolumecalculator.com, covering client-side calculation privacy, Microsoft Clarity analytics, and statutory data rights.';
 const canonical = 'https://thevolumecalculator.com/privacy-policy';
 
 const alternates = [
@@ -19,7 +19,7 @@ const schemaGraph = [
     'description': description,
     'url': canonical,
     'datePublished': '2025-01-01',
-    'dateModified': '2026-09-29',
+    'dateModified': '2026-10-31',
   },
   {
     '@type': 'BreadcrumbList',
@@ -62,7 +62,7 @@ const schemaGraph = [
     <section class="space-y-3">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-canvas-card border border-hairline text-primary shadow-xs">
         <span class="w-2 h-2 rounded-full bg-accent-green"></span>
-        <span>Effective: January 1, 2025 | Last Updated: September 29, 2026</span>
+        <span>Effective: January 1, 2025 | Last Updated: October 31, 2026</span>
       </div>
 
       <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight leading-tight">
@@ -74,17 +74,27 @@ const schemaGraph = [
       </p>
     </section>
 
-    <!-- Section 1: Local Storage -->
+    <!-- Section 1: Local Storage and Cookies -->
     <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
       <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
-        Local storage and cookies
+        Local storage and browser cookies
       </h2>
       <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
-        We do not use tracking cookies. The sole data value saved to your browser client is a single entry inside `localStorage` under the identifier `theme`, which remembers your choice between dark and light appearance modes. This preference key stores either `dark` or `light`. Your browser maintains this single record strictly on device and never attaches it to outbound HTTP requests to our network hosts. Clearing browser cache immediately erases the theme flag from client memory.
+        Your web browser stores a single client preference key in localStorage under the label theme to preserve your visual choice between dark and light modes. This value stays on your device. When you navigate across the site, third-party analytics scripts place performance cookies into your browser memory to monitor technical errors and aggregate usage patterns across all 16 tools. Google Analytics writes cookies including _ga with a 730-day retention lifespan, while Microsoft Clarity writes session identifiers to separate distinct visits. You can purge these cookies through browser privacy settings or block them via content blocking extensions.
       </p>
     </section>
 
-    <!-- Section 2: Hosting & Edge Delivery -->
+    <!-- Section 2: Microsoft Clarity -->
+    <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
+        Analytics and Microsoft Clarity
+      </h2>
+      <p class="text-xs sm:text-sm text-ink-secondary leading-relaxed">
+        We partner with Microsoft Corporation to analyze site traffic and user behavior through Microsoft Clarity using project identifier z5zv3s9k7o. Clarity captures browser interactions. These recorded metrics include mouse clicks, page scrolling patterns, screen resolutions, session durations, and anonymized diagnostic logs that reveal navigation errors on our 16 calculator pages. Microsoft Clarity sets two cookies named _clck and _clsk to preserve session state across browser refreshes, with _clck expiring after 365 days and _clsk expiring after 24 hours. You can review data governance standards in the <a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:underline">Microsoft Privacy Statement</a>.
+      </p>
+    </section>
+
+    <!-- Section 3: Hosting & Edge Delivery -->
     <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
       <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
         Infrastructure logs and network delivery
@@ -94,7 +104,7 @@ const schemaGraph = [
       </p>
     </section>
 
-    <!-- Section 3: Statutory Rights -->
+    <!-- Section 4: Statutory Rights -->
     <section class="bg-white dark:bg-canvas-card rounded-2xl border border-hairline p-5 sm:p-7 shadow-xs space-y-4">
       <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">
         Statutory rights under GDPR and CCPA
